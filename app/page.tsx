@@ -490,8 +490,8 @@ export default function Home() {
 
             {/* Head Office Address with Map */}
             <div className="relative bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border border-cyan-500/20 rounded-xl overflow-hidden">
-              {/* Map */}
-              <div className="w-full h-48 md:h-64">
+              {/* Google Map */}
+              <div className="w-full h-48 md:h-56">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2884.5!2d-79.3445!3d43.7074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cd1e9a7b5555%3A0x5555555555555555!2s75%20Thorncliffe%20Park%20Dr%2C%20East%20York%2C%20ON%20M4H%201L4%2C%20Canada!5e0!3m2!1sen!2sca!4v1705849200000!5m2!1sen!2sca"
                   width="100%"
@@ -500,7 +500,7 @@ export default function Home() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Toronto Gadgets Head Office Location"
+                  title="Toronto Gadgets Head Office"
                 />
               </div>
               {/* Address Info */}
@@ -518,7 +518,7 @@ export default function Home() {
                   href="https://www.google.com/maps/dir//75+Thorncliffe+Park+Dr,+East+York,+ON+M4H+1L4,+Canada"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-cyan-500/20 border border-cyan-500/30 rounded-lg text-cyan-400 text-sm font-medium hover:bg-cyan-500/30 transition-all"
+                  className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-cyan-500/20 border border-cyan-500/30 rounded-lg text-cyan-400 text-sm font-medium hover:bg-cyan-500/30 transition-all"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
