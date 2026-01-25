@@ -17,105 +17,90 @@ export default function Home() {
     { id: "network", name: "Network Equipment", icon: "network" },
     { id: "peripherals", name: "Peripherals", icon: "peripheral" },
     { id: "storage", name: "Storage Solutions", icon: "storage" },
-    { id: "software", name: "Software & Licenses", icon: "software" },
   ];
 
-  const products: Record<string, Array<{ name: string; specs: string; price: string; features: string[] }>> = {
+  const products: Record<string, Array<{ name: string; specs: string; features: string[] }>> = {
     servers: [
-      { name: "Dell PowerEdge R760", specs: "2x Intel Xeon Gold 6430 | 256GB DDR5 | 4x 1.92TB NVMe SSD", price: "From $12,500", features: ["Hot-swap", "iDRAC9", "5yr warranty"] },
-      { name: "Dell PowerEdge R750xs", specs: "2x Intel Xeon Silver 4410T | 128GB DDR5 | 8x 2.4TB SAS", price: "From $8,900", features: ["2U Rack", "PERC H755", "Redundant PSU"] },
-      { name: "Dell PowerEdge R660", specs: "2x Intel Xeon Gold 5415+ | 192GB DDR5 | 8x 1.92TB NVMe", price: "From $11,200", features: ["1U Dense", "GPU Ready", "PCIe Gen5"] },
-      { name: "HPE ProLiant DL380 Gen11", specs: "2x Intel Xeon Silver 4410Y | 128GB DDR5 | 8x 2.4TB SAS", price: "From $9,800", features: ["Smart Array", "iLO Advanced", "Tool-free"] },
-      { name: "HPE ProLiant DL360 Gen11", specs: "2x Intel Xeon Gold 5415+ | 256GB DDR5 | 4x 1.92TB NVMe", price: "From $10,500", features: ["1U Form", "iLO Adv", "PCIe Gen5"] },
-      { name: "HPE ProLiant ML350 Gen11", specs: "2x Intel Xeon Silver 4314 | 128GB DDR4 | 8x 2TB SATA", price: "From $7,200", features: ["Tower/Rack", "Quiet", "Tool-less"] },
-      { name: "Lenovo ThinkSystem SR650 V3", specs: "2x Intel Xeon Gold 5415+ | 256GB DDR5 | 6x 1.92TB SSD", price: "From $11,200", features: ["AnyBay flex", "GPU-ready", "XClarity"] },
-      { name: "Lenovo ThinkSystem SR630 V3", specs: "2x Intel Xeon Silver 4410Y | 128GB DDR5 | 4x 1.92TB NVMe", price: "From $9,400", features: ["1U Dense", "XClarity", "NVMe Ready"] },
-      { name: "Cisco UCS C240 M7", specs: "2x Intel Xeon Gold 6430 | 512GB DDR5 | 24x NVMe Bays", price: "From $15,500", features: ["24 NVMe", "Cisco UCS", "High Density"] },
-      { name: "Supermicro SYS-620P-TRT", specs: "2x Intel Xeon Gold 5318Y | 256GB DDR4 | 8x 3.5\" Bays", price: "From $7,800", features: ["Cost Effective", "IPMI", "Dual 10GbE"] },
+      { name: "Dell PowerEdge R760", specs: "2x Intel Xeon Gold 6430 | 256GB DDR5 | 4x 1.92TB NVMe SSD", features: ["Hot-swap", "iDRAC9", "5yr warranty"] },
+      { name: "Dell PowerEdge R750xs", specs: "2x Intel Xeon Silver 4410T | 128GB DDR5 | 8x 2.4TB SAS", features: ["2U Rack", "PERC H755", "Redundant PSU"] },
+      { name: "Dell PowerEdge R660", specs: "2x Intel Xeon Gold 5415+ | 192GB DDR5 | 8x 1.92TB NVMe", features: ["1U Dense", "GPU Ready", "PCIe Gen5"] },
+      { name: "HPE ProLiant DL380 Gen11", specs: "2x Intel Xeon Silver 4410Y | 128GB DDR5 | 8x 2.4TB SAS", features: ["Smart Array", "iLO Advanced", "Tool-free"] },
+      { name: "HPE ProLiant DL360 Gen11", specs: "2x Intel Xeon Gold 5415+ | 256GB DDR5 | 4x 1.92TB NVMe", features: ["1U Form", "iLO Adv", "PCIe Gen5"] },
+      { name: "HPE ProLiant ML350 Gen11", specs: "2x Intel Xeon Silver 4314 | 128GB DDR4 | 8x 2TB SATA", features: ["Tower/Rack", "Quiet", "Tool-less"] },
+      { name: "Lenovo ThinkSystem SR650 V3", specs: "2x Intel Xeon Gold 5415+ | 256GB DDR5 | 6x 1.92TB SSD", features: ["AnyBay flex", "GPU-ready", "XClarity"] },
+      { name: "Lenovo ThinkSystem SR630 V3", specs: "2x Intel Xeon Silver 4410Y | 128GB DDR5 | 4x 1.92TB NVMe", features: ["1U Dense", "XClarity", "NVMe Ready"] },
+      { name: "Cisco UCS C240 M7", specs: "2x Intel Xeon Gold 6430 | 512GB DDR5 | 24x NVMe Bays", features: ["24 NVMe", "Cisco UCS", "High Density"] },
+      { name: "Supermicro SYS-620P-TRT", specs: "2x Intel Xeon Gold 5318Y | 256GB DDR4 | 8x 3.5\" Bays", features: ["Value", "IPMI", "Dual 10GbE"] },
     ],
     laptops: [
-      { name: "MacBook Pro 16\" M3 Max", specs: "Apple M3 Max | 48GB Unified | 1TB SSD | Liquid Retina XDR", price: "From $3,499", features: ["22hr battery", "MagSafe 3", "ProRes"] },
-      { name: "MacBook Pro 14\" M3 Pro", specs: "Apple M3 Pro | 36GB Unified | 512GB SSD | Liquid Retina XDR", price: "From $2,499", features: ["17hr battery", "ProMotion", "TB4"] },
-      { name: "MacBook Air 15\" M3", specs: "Apple M3 | 24GB Unified | 512GB SSD | 15.3\" Liquid Retina", price: "From $1,499", features: ["18hr battery", "Fanless", "MagSafe"] },
-      { name: "Dell XPS 15 9530", specs: "Intel i9-13900H | 64GB DDR5 | 2TB NVMe | RTX 4070 | OLED", price: "From $2,899", features: ["3.5K OLED", "TB4", "CNC aluminum"] },
-      { name: "Dell XPS 17 9730", specs: "Intel i9-13900H | 64GB DDR5 | 2TB NVMe | RTX 4080 | UHD+", price: "From $3,299", features: ["17\" 4K", "RTX 4080", "100Wh"] },
-      { name: "Dell Latitude 7440", specs: "Intel i7-1365U | 32GB DDR5 | 512GB SSD | 14\" FHD+ | vPro", price: "From $1,699", features: ["vPro", "Smart Card", "4G LTE"] },
-      { name: "Lenovo ThinkPad X1 Carbon Gen 11", specs: "Intel i7-1365U | 32GB | 1TB SSD | 14\" 2.8K OLED | 5G", price: "From $2,199", features: ["5G LTE", "IR cam", "MIL-STD"] },
-      { name: "Lenovo ThinkPad P16 Gen 2", specs: "Intel i9-13980HX | 64GB DDR5 | 2TB SSD | RTX 5000 Ada", price: "From $4,299", features: ["Workstation", "ISV Cert", "4K"] },
-      { name: "HP EliteBook 860 G10", specs: "Intel i7-1365U | 32GB DDR5 | 512GB SSD | 16\" WUXGA", price: "From $1,899", features: ["Sure View", "Smart Sense", "Wolf Sec"] },
-      { name: "HP ZBook Fury 16 G10", specs: "Intel i9-13950HX | 64GB DDR5 | 2TB SSD | RTX 4000 Ada", price: "From $4,499", features: ["DreamColor", "Z Turbo", "ISV Cert"] },
+      { name: "MacBook Pro 16\" M3 Max", specs: "Apple M3 Max | 48GB Unified | 1TB SSD | Liquid Retina XDR", features: ["22hr battery", "MagSafe 3", "ProRes"] },
+      { name: "MacBook Pro 14\" M3 Pro", specs: "Apple M3 Pro | 36GB Unified | 512GB SSD | Liquid Retina XDR", features: ["17hr battery", "ProMotion", "TB4"] },
+      { name: "MacBook Air 15\" M3", specs: "Apple M3 | 24GB Unified | 512GB SSD | 15.3\" Liquid Retina", features: ["18hr battery", "Fanless", "MagSafe"] },
+      { name: "Dell XPS 15 9530", specs: "Intel i9-13900H | 64GB DDR5 | 2TB NVMe | RTX 4070 | OLED", features: ["3.5K OLED", "TB4", "CNC aluminum"] },
+      { name: "Dell XPS 17 9730", specs: "Intel i9-13900H | 64GB DDR5 | 2TB NVMe | RTX 4080 | UHD+", features: ["17\" 4K", "RTX 4080", "100Wh"] },
+      { name: "Dell Latitude 7440", specs: "Intel i7-1365U | 32GB DDR5 | 512GB SSD | 14\" FHD+ | vPro", features: ["vPro", "Smart Card", "4G LTE"] },
+      { name: "Lenovo ThinkPad X1 Carbon Gen 11", specs: "Intel i7-1365U | 32GB | 1TB SSD | 14\" 2.8K OLED | 5G", features: ["5G LTE", "IR cam", "MIL-STD"] },
+      { name: "Lenovo ThinkPad P16 Gen 2", specs: "Intel i9-13980HX | 64GB DDR5 | 2TB SSD | RTX 5000 Ada", features: ["Workstation", "ISV Cert", "4K"] },
+      { name: "HP EliteBook 860 G10", specs: "Intel i7-1365U | 32GB DDR5 | 512GB SSD | 16\" WUXGA", features: ["Sure View", "Smart Sense", "Wolf Sec"] },
+      { name: "HP ZBook Fury 16 G10", specs: "Intel i9-13950HX | 64GB DDR5 | 2TB SSD | RTX 4000 Ada", features: ["DreamColor", "Z Turbo", "ISV Cert"] },
     ],
     mobile: [
-      { name: "iPhone 15 Pro Max", specs: "256GB | A17 Pro | Titanium | 5G | eSIM Enterprise Ready", price: "From $1,199", features: ["Titanium", "Action btn", "USB-C"] },
-      { name: "iPhone 15 Pro", specs: "256GB | A17 Pro | Titanium | 5G | MDM Compatible", price: "From $999", features: ["ProMotion", "Always-On", "Crash Det"] },
-      { name: "iPhone 15 Plus", specs: "128GB | A16 Bionic | 5G | 6.7\" Display | USB-C", price: "From $899", features: ["Large Display", "All-day", "USB-C"] },
-      { name: "iPhone 15", specs: "128GB | A16 Bionic | 5G | Dynamic Island | USB-C", price: "From $799", features: ["Dynamic Island", "48MP", "USB-C"] },
-      { name: "Samsung Galaxy S24 Ultra", specs: "512GB | Snapdragon 8 Gen 3 | S Pen | Knox Security", price: "From $1,299", features: ["S Pen", "200MP", "Titanium"] },
-      { name: "Samsung Galaxy S24+", specs: "256GB | Snapdragon 8 Gen 3 | Knox Enterprise | 5G", price: "From $999", features: ["QHD+ AMOLED", "Knox", "Galaxy AI"] },
-      { name: "Samsung Galaxy Z Fold5", specs: "512GB | 7.6\" Foldable | Knox Enterprise | 5G", price: "From $1,799", features: ["Flex Mode", "IPX8", "DeX"] },
-      { name: "iPad Pro 12.9\" M2", specs: "256GB | M2 Chip | Wi-Fi + Cellular | Face ID", price: "From $1,199", features: ["Mini-LED", "120Hz", "TB"] },
-      { name: "iPad Pro 11\" M2", specs: "256GB | M2 Chip | Wi-Fi + Cellular | Face ID | USB-C", price: "From $899", features: ["ProMotion", "Face ID", "Pencil"] },
-      { name: "Samsung Tab S9 Ultra", specs: "512GB | Snapdragon 8 Gen 2 | S Pen | 14.6\" AMOLED", price: "From $1,199", features: ["14.6\"", "S Pen", "DeX Mode"] },
+      { name: "iPhone 15 Pro Max", specs: "256GB | A17 Pro | Titanium | 5G | eSIM Enterprise Ready", features: ["Titanium", "Action btn", "USB-C"] },
+      { name: "iPhone 15 Pro", specs: "256GB | A17 Pro | Titanium | 5G | MDM Compatible", features: ["ProMotion", "Always-On", "Crash Det"] },
+      { name: "iPhone 15 Plus", specs: "128GB | A16 Bionic | 5G | 6.7\" Display | USB-C", features: ["Large Display", "All-day", "USB-C"] },
+      { name: "iPhone 15", specs: "128GB | A16 Bionic | 5G | Dynamic Island | USB-C", features: ["Dynamic Island", "48MP", "USB-C"] },
+      { name: "Samsung Galaxy S24 Ultra", specs: "512GB | Snapdragon 8 Gen 3 | S Pen | Knox Security", features: ["S Pen", "200MP", "Titanium"] },
+      { name: "Samsung Galaxy S24+", specs: "256GB | Snapdragon 8 Gen 3 | Knox Enterprise | 5G", features: ["QHD+ AMOLED", "Knox", "Galaxy AI"] },
+      { name: "Samsung Galaxy Z Fold5", specs: "512GB | 7.6\" Foldable | Knox Enterprise | 5G", features: ["Flex Mode", "IPX8", "DeX"] },
+      { name: "iPad Pro 12.9\" M2", specs: "256GB | M2 Chip | Wi-Fi + Cellular | Face ID", features: ["Mini-LED", "120Hz", "TB"] },
+      { name: "iPad Pro 11\" M2", specs: "256GB | M2 Chip | Wi-Fi + Cellular | Face ID | USB-C", features: ["ProMotion", "Face ID", "Pencil"] },
+      { name: "Samsung Tab S9 Ultra", specs: "512GB | Snapdragon 8 Gen 2 | S Pen | 14.6\" AMOLED", features: ["14.6\"", "S Pen", "DeX Mode"] },
     ],
     workstations: [
-      { name: "Dell Precision 7875 Tower", specs: "AMD Threadripper PRO 5975WX | 128GB ECC | RTX A6000", price: "From $8,500", features: ["32 cores", "PCIe Gen 5", "Tool-less"] },
-      { name: "Dell Precision 7875 Rack", specs: "AMD Threadripper PRO 5995WX | 256GB ECC | RTX 6000 Ada", price: "From $14,500", features: ["64 cores", "Rack Mount", "Dual PSU"] },
-      { name: "Dell Precision 5860 Tower", specs: "Intel Xeon W5-3435X | 128GB DDR5 ECC | RTX A5000", price: "From $6,800", features: ["16 cores", "Compact", "ISV Cert"] },
-      { name: "HP Z8 G5 Fury", specs: "Intel Xeon w9-3495X | 256GB DDR5 | RTX 6000 Ada | 4TB", price: "From $15,900", features: ["56 cores", "Z Turbo", "1700W PSU"] },
-      { name: "HP Z6 G5", specs: "Intel Xeon W5-3435X | 128GB DDR5 ECC | RTX A5000 | 2TB", price: "From $7,200", features: ["Dual CPU", "Z Turbo", "ISV Cert"] },
-      { name: "HP Z4 G5", specs: "Intel Xeon W3-2435 | 64GB DDR5 ECC | RTX A4000 | 1TB", price: "From $3,800", features: ["Entry WS", "Quiet", "ISV Cert"] },
-      { name: "Lenovo ThinkStation P620", specs: "AMD Threadripper PRO 5965WX | 256GB ECC | RTX A5000", price: "From $7,200", features: ["24 cores", "FlexBay", "Dust filter"] },
-      { name: "Lenovo ThinkStation P8", specs: "Intel Xeon W9-3495X | 512GB DDR5 | RTX 6000 Ada | 8TB", price: "From $18,500", features: ["Flagship", "56 cores", "Multi-GPU"] },
-      { name: "Apple Mac Studio M2 Ultra", specs: "Apple M2 Ultra | 192GB Unified | 8TB SSD | ProRes", price: "From $6,999", features: ["24-core", "76-core GPU", "Compact"] },
-      { name: "Apple Mac Pro", specs: "Apple M2 Ultra | 192GB Unified | 8TB SSD | 7 PCIe Slots", price: "From $9,999", features: ["Expandable", "Tower", "Pro"] },
+      { name: "Dell Precision 7875 Tower", specs: "AMD Threadripper PRO 5975WX | 128GB ECC | RTX A6000", features: ["32 cores", "PCIe Gen 5", "Tool-less"] },
+      { name: "Dell Precision 7875 Rack", specs: "AMD Threadripper PRO 5995WX | 256GB ECC | RTX 6000 Ada", features: ["64 cores", "Rack Mount", "Dual PSU"] },
+      { name: "Dell Precision 5860 Tower", specs: "Intel Xeon W5-3435X | 128GB DDR5 ECC | RTX A5000", features: ["16 cores", "Compact", "ISV Cert"] },
+      { name: "HP Z8 G5 Fury", specs: "Intel Xeon w9-3495X | 256GB DDR5 | RTX 6000 Ada | 4TB", features: ["56 cores", "Z Turbo", "1700W PSU"] },
+      { name: "HP Z6 G5", specs: "Intel Xeon W5-3435X | 128GB DDR5 ECC | RTX A5000 | 2TB", features: ["Dual CPU", "Z Turbo", "ISV Cert"] },
+      { name: "HP Z4 G5", specs: "Intel Xeon W3-2435 | 64GB DDR5 ECC | RTX A4000 | 1TB", features: ["Entry WS", "Quiet", "ISV Cert"] },
+      { name: "Lenovo ThinkStation P620", specs: "AMD Threadripper PRO 5965WX | 256GB ECC | RTX A5000", features: ["24 cores", "FlexBay", "Dust filter"] },
+      { name: "Lenovo ThinkStation P8", specs: "Intel Xeon W9-3495X | 512GB DDR5 | RTX 6000 Ada | 8TB", features: ["Flagship", "56 cores", "Multi-GPU"] },
+      { name: "Apple Mac Studio M2 Ultra", specs: "Apple M2 Ultra | 192GB Unified | 8TB SSD | ProRes", features: ["24-core", "76-core GPU", "Compact"] },
+      { name: "Apple Mac Pro", specs: "Apple M2 Ultra | 192GB Unified | 8TB SSD | 7 PCIe Slots", features: ["Expandable", "Tower", "Pro"] },
     ],
     network: [
-      { name: "Cisco Catalyst 9300-48P", specs: "48x 1GbE PoE+ | 4x 10G SFP+ | UADP 2.0 | DNA Ready", price: "From $4,800", features: ["StackWise", "USB-C", "Encrypted"] },
-      { name: "Cisco Catalyst 9300-48UXM", specs: "48x mGig PoE+ | 4x 25G SFP28 | UADP 3.0 | DNA Adv", price: "From $8,200", features: ["Multi-Gig", "Wi-Fi 6E", "StackWise"] },
-      { name: "Cisco Catalyst 9500-48Y4C", specs: "48x 25G SFP28 | 4x 100G QSFP | Stackable Core", price: "From $18,500", features: ["100G Up", "SD-Access", "High Den"] },
-      { name: "Cisco Meraki MS250-48FP", specs: "48x 1GbE PoE+ | 4x 10G SFP+ | Cloud Managed | 740W", price: "From $6,200", features: ["Zero-touch", "Auto FW", "Lifetime"] },
-      { name: "Aruba 6300M 48-Port", specs: "48x 1GbE | 4x 50G SFP56 | VSX | Dynamic Segmentation", price: "From $5,100", features: ["AOS-CX", "Analytics", "VSX"] },
-      { name: "Aruba 6400 Switch Series", specs: "Modular Chassis | Up to 400G | ClearPass Ready", price: "From $12,000", features: ["Modular", "High Den", "Zero Trust"] },
-      { name: "Juniper EX4400-48T", specs: "48x 1GbE | 4x 25G SFP28 | Virtual Chassis | Mist AI", price: "From $5,800", features: ["Mist AI", "VC", "PoE++"] },
-      { name: "Ubiquiti Dream Machine Pro", specs: "10G SFP+ | 8-Port Switch | UniFi Controller | IDS/IPS", price: "From $499", features: ["NVR", "Threat mgmt", "Easy"] },
-      { name: "Ubiquiti UniFi Pro Max 48", specs: "48x 2.5GbE PoE+ | 4x 25G SFP28 | Layer 3 | UniFi", price: "From $1,299", features: ["2.5GbE", "Layer 3", "UniFi"] },
-      { name: "Fortinet FortiSwitch 448E", specs: "48x 1GbE PoE+ | 4x 10G SFP+ | FortiLink | Security", price: "From $4,200", features: ["Security", "FortiLink", "NAC"] },
+      { name: "Cisco Catalyst 9300-48P", specs: "48x 1GbE PoE+ | 4x 10G SFP+ | UADP 2.0 | DNA Ready", features: ["StackWise", "USB-C", "Encrypted"] },
+      { name: "Cisco Catalyst 9300-48UXM", specs: "48x mGig PoE+ | 4x 25G SFP28 | UADP 3.0 | DNA Adv", features: ["Multi-Gig", "Wi-Fi 6E", "StackWise"] },
+      { name: "Cisco Catalyst 9500-48Y4C", specs: "48x 25G SFP28 | 4x 100G QSFP | Stackable Core", features: ["100G Up", "SD-Access", "High Den"] },
+      { name: "Cisco Meraki MS250-48FP", specs: "48x 1GbE PoE+ | 4x 10G SFP+ | Cloud Managed | 740W", features: ["Zero-touch", "Auto FW", "Lifetime"] },
+      { name: "Aruba 6300M 48-Port", specs: "48x 1GbE | 4x 50G SFP56 | VSX | Dynamic Segmentation", features: ["AOS-CX", "Analytics", "VSX"] },
+      { name: "Aruba 6400 Switch Series", specs: "Modular Chassis | Up to 400G | ClearPass Ready", features: ["Modular", "High Den", "Zero Trust"] },
+      { name: "Juniper EX4400-48T", specs: "48x 1GbE | 4x 25G SFP28 | Virtual Chassis | Mist AI", features: ["Mist AI", "VC", "PoE++"] },
+      { name: "Ubiquiti Dream Machine Pro", specs: "10G SFP+ | 8-Port Switch | UniFi Controller | IDS/IPS", features: ["NVR", "Threat mgmt", "Easy"] },
+      { name: "Ubiquiti UniFi Pro Max 48", specs: "48x 2.5GbE PoE+ | 4x 25G SFP28 | Layer 3 | UniFi", features: ["2.5GbE", "Layer 3", "UniFi"] },
+      { name: "Fortinet FortiSwitch 448E", specs: "48x 1GbE PoE+ | 4x 10G SFP+ | FortiLink | Security", features: ["Security", "FortiLink", "NAC"] },
     ],
     peripherals: [
-      { name: "Dell UltraSharp U3223QE", specs: "32\" 4K IPS | USB-C Hub | 90W PD | KVM | HDR 400", price: "From $899", features: ["IPS Black", "KVM", "RJ45"] },
-      { name: "Dell UltraSharp U2723QE", specs: "27\" 4K IPS | USB-C Hub | 90W PD | KVM | HDR 400", price: "From $699", features: ["IPS Black", "Daisy Chain", "RJ45"] },
-      { name: "Dell UltraSharp U4924DW", specs: "49\" Dual QHD Curved | USB-C Hub | 90W PD | KVM", price: "From $1,699", features: ["Dual 27\"", "5120x1440", "TB"] },
-      { name: "LG UltraFine 32UN880-B", specs: "32\" 4K IPS | Ergo Stand | USB-C 96W | DCI-P3 95%", price: "From $799", features: ["Ergo Clamp", "96W PD", "HDR10"] },
-      { name: "Samsung ViewFinity S9", specs: "27\" 5K IPS | Matte Display | Thunderbolt 4 | Smart", price: "From $1,299", features: ["5K Res", "Matte", "Smart TV"] },
-      { name: "HP LaserJet Enterprise M611dn", specs: "65 ppm | Duplex | Gigabit | 550-Sheet | Sure Start", price: "From $699", features: ["5.7s first", "250K duty", "Fleet"] },
-      { name: "HP Color LaserJet M555dn", specs: "40 ppm Color | Duplex | Gigabit | 550-Sheet", price: "From $899", features: ["Color", "Secure Boot", "Fleet"] },
-      { name: "Poly Studio X70", specs: "4K Dual Camera | Dolby Vision | NoPC Video Bar", price: "From $5,999", features: ["Director AI", "NoiseBlock", "4K"] },
-      { name: "Poly Studio X52", specs: "4K Camera | Stereo Mics | NoPC Video Bar | Teams/Zoom", price: "From $3,499", features: ["Med Rooms", "AI Frame", "Touch"] },
-      { name: "CalDigit TS4 Dock", specs: "18 Ports | 98W PD | 2.5GbE | SD 4.0 | DisplayPort 1.4", price: "From $449", features: ["18 ports", "Daisy-chain", "Mac/PC"] },
+      { name: "Dell UltraSharp U3223QE", specs: "32\" 4K IPS | USB-C Hub | 90W PD | KVM | HDR 400", features: ["IPS Black", "KVM", "RJ45"] },
+      { name: "Dell UltraSharp U2723QE", specs: "27\" 4K IPS | USB-C Hub | 90W PD | KVM | HDR 400", features: ["IPS Black", "Daisy Chain", "RJ45"] },
+      { name: "Dell UltraSharp U4924DW", specs: "49\" Dual QHD Curved | USB-C Hub | 90W PD | KVM", features: ["Dual 27\"", "5120x1440", "TB"] },
+      { name: "LG UltraFine 32UN880-B", specs: "32\" 4K IPS | Ergo Stand | USB-C 96W | DCI-P3 95%", features: ["Ergo Clamp", "96W PD", "HDR10"] },
+      { name: "Samsung ViewFinity S9", specs: "27\" 5K IPS | Matte Display | Thunderbolt 4 | Smart", features: ["5K Res", "Matte", "Smart TV"] },
+      { name: "HP LaserJet Enterprise M611dn", specs: "65 ppm | Duplex | Gigabit | 550-Sheet | Sure Start", features: ["5.7s first", "250K duty", "Fleet"] },
+      { name: "HP Color LaserJet M555dn", specs: "40 ppm Color | Duplex | Gigabit | 550-Sheet", features: ["Color", "Secure Boot", "Fleet"] },
+      { name: "Poly Studio X70", specs: "4K Dual Camera | Dolby Vision | NoPC Video Bar", features: ["Director AI", "NoiseBlock", "4K"] },
+      { name: "Poly Studio X52", specs: "4K Camera | Stereo Mics | NoPC Video Bar | Teams/Zoom", features: ["Med Rooms", "AI Frame", "Touch"] },
+      { name: "CalDigit TS4 Dock", specs: "18 Ports | 98W PD | 2.5GbE | SD 4.0 | DisplayPort 1.4", features: ["18 ports", "Daisy-chain", "Mac/PC"] },
     ],
     storage: [
-      { name: "Synology RS3621xs+", specs: "12-Bay Rackmount | Intel Xeon D-1541 | 8GB ECC | 10GbE", price: "From $3,999", features: ["Enterprise", "SAS", "180TB"] },
-      { name: "Synology DS1823xs+", specs: "8-Bay Desktop | AMD Ryzen V1780B | 8GB ECC | 10GbE", price: "From $1,999", features: ["Desktop", "NVMe Cache", "Surveil"] },
-      { name: "QNAP TS-h2490FU", specs: "24-Bay U.2 NVMe | AMD EPYC | 64GB ECC | 25GbE x2", price: "From $18,999", features: ["All-Flash", "ZFS", "IOPS"] },
-      { name: "QNAP TS-873A", specs: "8-Bay Desktop | AMD Ryzen V1500B | 8GB | 2.5GbE x2", price: "From $899", features: ["QuTS hero", "SSD Cache", "VM Ready"] },
-      { name: "Dell PowerVault ME5024", specs: "24x SFF Bays | Dual Controllers | 25Gb iSCSI | 96TB", price: "From $12,500", features: ["Block", "iSCSI/FC", "Expand"] },
-      { name: "Dell PowerStore 500T", specs: "25x NVMe Bays | AppsON | Anytime Upgrade | 150TB", price: "From $35,000", features: ["NVMe", "Dedupe", "AI"] },
-      { name: "HPE MSA 2062", specs: "24x SFF Bays | Dual Controllers | 16Gb FC | 460TB Max", price: "From $9,500", features: ["Hybrid", "Entry SAN", "Simple"] },
-      { name: "NetApp AFF A250", specs: "24x NVMe Bays | ONTAP | 150TB Effective | Dual Ctrl", price: "From $45,000", features: ["All-Flash", "ONTAP", "Cloud"] },
-      { name: "Pure FlashArray//X20", specs: "20x NVMe Bays | Purity OS | Evergreen | 150TB", price: "From $50,000", features: ["6 Nines", "Evergreen", "AI"] },
-      { name: "Seagate Exos X24", specs: "24TB Enterprise HDD | 7200RPM | SATA/SAS | 5yr Warranty", price: "From $450", features: ["24TB", "Enterprise", "Helium"] },
-    ],
-    software: [
-      { name: "Microsoft 365 E5", specs: "Per User/Year | All Apps | Teams | Security | Compliance", price: "From $57/user/mo", features: ["Complete", "Defender", "eDiscovery"] },
-      { name: "Microsoft 365 E3", specs: "Per User/Year | All Apps | Teams | Intune | Azure AD P1", price: "From $36/user/mo", features: ["Core Apps", "Intune", "Exchange"] },
-      { name: "Microsoft 365 Business Premium", specs: "Per User/Year | Apps | Teams | Security | 300 Users", price: "From $22/user/mo", features: ["SMB", "Defender", "Intune"] },
-      { name: "VMware vSphere Enterprise Plus", specs: "Per CPU License | vMotion | DRS | vSAN Ready | NSX", price: "From $4,500/CPU", features: ["vMotion", "HA/DRS", "Enterprise"] },
-      { name: "VMware vSAN Enterprise", specs: "Per CPU License | Dedupe | Compression | Encryption", price: "From $2,500/CPU", features: ["HCI", "Dedupe", "Encrypt"] },
-      { name: "Veeam Backup & Replication", specs: "Per VM License | Backup | Replication | CDP | Recovery", price: "From $300/VM", features: ["Instant", "CDP", "Immutable"] },
-      { name: "Adobe Creative Cloud Business", specs: "Per User/Year | All Adobe Apps | 100GB | Admin", price: "From $85/user/mo", features: ["All Apps", "Fonts", "Libraries"] },
-      { name: "AutoCAD LT 2024", specs: "Annual Subscription | 2D Drafting | Web/Mobile | Cloud", price: "From $470/year", features: ["2D Draft", "Cloud", "Web"] },
-      { name: "Windows Server 2022 Datacenter", specs: "Per Core (16 min) | Unlimited VMs | Azure Hybrid", price: "From $6,155", features: ["Unlimited VM", "Azure Arc", "Secured"] },
-      { name: "Red Hat Enterprise Linux", specs: "Per Server/Year | Support | Updates | Insights", price: "From $799/year", features: ["Support", "Insights", "Certified"] },
+      { name: "Synology RS3621xs+", specs: "12-Bay Rackmount | Intel Xeon D-1541 | 8GB ECC | 10GbE", features: ["Enterprise", "SAS", "180TB"] },
+      { name: "Synology DS1823xs+", specs: "8-Bay Desktop | AMD Ryzen V1780B | 8GB ECC | 10GbE", features: ["Desktop", "NVMe Cache", "Surveil"] },
+      { name: "QNAP TS-h2490FU", specs: "24-Bay U.2 NVMe | AMD EPYC | 64GB ECC | 25GbE x2", features: ["All-Flash", "ZFS", "IOPS"] },
+      { name: "QNAP TS-873A", specs: "8-Bay Desktop | AMD Ryzen V1500B | 8GB | 2.5GbE x2", features: ["QuTS hero", "SSD Cache", "VM Ready"] },
+      { name: "Dell PowerVault ME5024", specs: "24x SFF Bays | Dual Controllers | 25Gb iSCSI | 96TB", features: ["Block", "iSCSI/FC", "Expand"] },
+      { name: "HPE MSA 2062", specs: "24x SFF Bays | Dual Controllers | 16Gb FC | 460TB Max", features: ["Hybrid", "Entry SAN", "Simple"] },
+      { name: "Western Digital Ultrastar DC HC580", specs: "24TB Enterprise HDD | 7200RPM | SATA/SAS | CMR", features: ["24TB", "Enterprise", "Helium"] },
+      { name: "Seagate Exos X24", specs: "24TB Enterprise HDD | 7200RPM | SATA/SAS | 5yr Warranty", features: ["24TB", "Enterprise", "Helium"] },
     ],
   };
 
@@ -127,7 +112,6 @@ export default function Home() {
     network: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />,
     peripheral: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />,
     storage: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />,
-    software: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />,
   };
 
   return (
@@ -220,11 +204,11 @@ export default function Home() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-4 sm:mb-6 tracking-tight">
             <span className="block bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">ENTERPRISE</span>
             <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">TECHNOLOGY</span>
-            <span className="block text-white/80 text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">DIRECT SUPPLY</span>
+            <span className="block text-white/80 text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">SOURCING & SUPPLY</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
-            Premium servers, workstations, laptops & mobile devices.
-            <span className="text-cyan-400 font-medium"> Competitive pricing. Full warranty. Global delivery.</span>
+            We source enterprise servers, workstations, laptops & mobile devices from authorized channels.
+            <span className="text-cyan-400 font-medium"> Competitive quotes. Genuine products. Global delivery.</span>
           </p>
           <div className="flex gap-3 sm:gap-4 justify-center flex-wrap px-4">
             <a href="#products" className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold overflow-hidden transition-all hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 text-sm sm:text-base">
@@ -233,7 +217,7 @@ export default function Home() {
             <a href="#contact" className="px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-cyan-500/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-all text-sm sm:text-base">Request Quote</a>
           </div>
           <div className="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto px-4">
-            {[{ value: "80+", label: "SKUs" }, { value: "50+", label: "Countries" }, { value: "24/7", label: "Support" }].map((stat, i) => (
+            {[{ value: "70+", label: "Products" }, { value: "50+", label: "Countries" }, { value: "24/7", label: "Support" }].map((stat, i) => (
               <div key={i} className="text-center">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">{stat.value}</div>
                 <div className="text-xs sm:text-sm text-slate-500 uppercase tracking-wider">{stat.label}</div>
@@ -249,7 +233,7 @@ export default function Home() {
           <div className="text-center mb-8 sm:mb-12">
             <div className="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-xs font-medium tracking-wider uppercase mb-4">Product Catalog</div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"><span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Enterprise Solutions</span></h2>
-            <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-base px-4">Click a category to explore our enterprise-grade technology</p>
+            <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-base px-4">Browse available products — contact us for current pricing and availability</p>
           </div>
           {/* Category Tabs - Horizontal Scroll on Mobile */}
           <div className="mb-8 sm:mb-12 -mx-4 sm:mx-0">
@@ -277,8 +261,8 @@ export default function Home() {
                     {product.features.map((feature, j) => (<span key={j} className="px-2 py-1 bg-white/5 border border-white/10 text-[10px] sm:text-xs text-slate-400 rounded-md group-hover:border-cyan-500/30 group-hover:text-cyan-400/80 transition-all">{feature}</span>))}
                   </div>
                   <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-white/10">
-                    <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">{product.price}</span>
-                    <a href="#contact" className="flex items-center gap-1 text-xs sm:text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors">Get Quote<svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></a>
+                    <span className="text-sm font-medium text-slate-500">Contact for pricing</span>
+                    <a href="#contact" className="flex items-center gap-1 text-xs sm:text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors">Get Quote<svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></a>
                   </div>
                 </div>
               </div>
@@ -322,14 +306,14 @@ export default function Home() {
               <div className="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-xs font-medium tracking-wider uppercase mb-4">About Us</div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Why Toronto Gadgets</h2>
               <div className="space-y-3 sm:space-y-4 text-slate-400 leading-relaxed text-sm sm:text-base">
-                <p><span className="text-cyan-400 font-semibold">Head Office in Toronto, Ontario, Canada</span> — operating as a trade name of East Yorker Corp, with distribution capabilities extending globally.</p>
-                <p>We bridge leading technology manufacturers with enterprise buyers across North America, Middle East, and beyond.</p>
-                <p>Direct relationships with authorized distributors mean competitive pricing without compromising on authenticity or warranty.</p>
+                <p><span className="text-cyan-400 font-semibold">Head Office in Toronto, Ontario, Canada</span> — operating as a trade name of East Yorker Corp, with sourcing capabilities extending globally.</p>
+                <p>We connect enterprise buyers with authorized distribution channels across North America, Middle East, and beyond.</p>
+                <p>As a sourcing partner, we help you find competitive pricing on genuine products from authorized distributors — ensuring authenticity and full manufacturer warranty.</p>
               </div>
             </div>
             <div className="bg-[#12151f] border border-white/10 rounded-2xl p-6 sm:p-8">
               <div className="space-y-4 sm:space-y-5">
-                {[{ title: "Authorized Products", desc: "Genuine with full manufacturer warranty" }, { title: "Competitive Pricing", desc: "Direct sourcing, no middleman markups" }, { title: "Global Delivery", desc: "Fast shipping worldwide" }, { title: "Dedicated Support", desc: "Single point of contact for orders" }].map((item, i) => (
+                {[{ title: "Genuine Products", desc: "Sourced from authorized distribution channels" }, { title: "Competitive Pricing", desc: "We find the best available quotes" }, { title: "Global Delivery", desc: "Shipping coordination worldwide" }, { title: "Dedicated Support", desc: "Single point of contact for your orders" }].map((item, i) => (
                   <div key={i} className="flex items-start gap-3 sm:gap-4">
                     <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                       <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
@@ -378,7 +362,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Contact Us</h2>
                 <p className="text-slate-500 text-sm sm:text-base">We respond within 24 hours</p>
               </div>
-              {/* Contact Grid - Fixed Mobile Layout */}
+              {/* Contact Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8 sm:mb-10">
                 <a href="mailto:east_yorker@outlook.com" className="group bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-center hover:border-cyan-500/50 transition-all">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
@@ -437,7 +421,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6 sm:mb-8">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center"><span className="text-white font-bold text-sm">TG</span></div>
-              <div><span className="text-white font-semibold text-sm sm:text-base">Toronto Gadgets</span><p className="text-slate-500 text-xs">Enterprise Technology Distribution</p></div>
+              <div><span className="text-white font-semibold text-sm sm:text-base">Toronto Gadgets</span><p className="text-slate-500 text-xs">Enterprise Technology Sourcing</p></div>
             </div>
             <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-400 overflow-x-auto scrollbar-hide w-full md:w-auto justify-center md:justify-end">
               <a href="#products" className="hover:text-cyan-400 transition-colors whitespace-nowrap">Products</a>
@@ -453,6 +437,12 @@ export default function Home() {
                 <span className="hidden sm:inline">Facebook</span>
               </a>
             </div>
+          </div>
+          {/* Disclaimer */}
+          <div className="bg-slate-900/50 border border-white/5 rounded-xl p-4 mb-6 sm:mb-8">
+            <p className="text-slate-500 text-[10px] sm:text-xs leading-relaxed text-center">
+              <span className="text-slate-400 font-medium">Disclaimer:</span> Toronto Gadgets operates as an independent sourcing and procurement partner. All product names, logos, and brands mentioned are property of their respective owners. We are not an authorized dealer or reseller for any manufacturer. Products are sourced through authorized distribution channels to ensure authenticity. Pricing and availability subject to confirmation at time of quote.
+            </p>
           </div>
           <div className="border-t border-white/5 pt-6 sm:pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
