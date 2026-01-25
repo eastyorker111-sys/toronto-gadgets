@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -59,13 +60,6 @@ export const metadata: Metadata = {
     creator: "@torontogadgets",
   },
 
-  // Verification (add your codes after registering)
-  verification: {
-    google: "YOUR_GOOGLE_SEARCH_CONSOLE_CODE", // Get from Google Search Console
-    // yandex: "YOUR_YANDEX_CODE",
-    // bing: "YOUR_BING_CODE",
-  },
-
   // Icons
   icons: {
     icon: "/favicon.ico",
@@ -113,18 +107,9 @@ const jsonLd = {
     "https://www.facebook.com/profile.php?id=61587119518549",
   ],
   areaServed: [
-    {
-      "@type": "Country",
-      name: "Canada",
-    },
-    {
-      "@type": "Country",
-      name: "United States",
-    },
-    {
-      "@type": "Place",
-      name: "GCC Countries",
-    },
+    { "@type": "Country", name: "Canada" },
+    { "@type": "Country", name: "United States" },
+    { "@type": "Place", name: "GCC Countries" },
   ],
   priceRange: "$$$$",
   currenciesAccepted: "CAD, USD",
@@ -227,6 +212,47 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
+
+      {/* Google Analytics */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-VPG7C4F0RB"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VPG7C4F0RB');
+        `}
+      </Script>
+
+      {/* Microsoft Clarity */}
+      <Script id="microsoft-clarity" strategy="afterInteractive">
+        {`
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "v6xsfx4qka");
+        `}
+      </Script>
+
+      {/* Tawk.to Live Chat */}
+      <Script id="tawk-to" strategy="afterInteractive">
+        {`
+          var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+          (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6975f84a9602761980a88780/1jfqd3pfm';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+          })();
+        `}
+      </Script>
+
       <body className={inter.className}>{children}</body>
     </html>
   );
