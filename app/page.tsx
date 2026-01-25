@@ -500,7 +500,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h3 className="font-bold text-white mb-1 text-sm">Email</h3>
-                <p className="text-cyan-400 text-xs">east_yorker@outlook.com</p>
+                <p className="text-cyan-400 text-xs break-all">east_yorker@outlook.com</p>
               </a>
 
               <a href="https://wa.me/14372376895" className="group bg-white/5 border border-white/10 rounded-2xl p-5 text-center hover:border-green-500/50 transition-all">
