@@ -3,11 +3,17 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("servers");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Close mobile menu when clicking a link
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+  };
 
   const categories = [
     { id: "servers", name: "Enterprise Servers", icon: "server" },
@@ -114,6 +120,18 @@ export default function Home() {
     storage: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />,
   };
 
+  // Brand logos data
+  const brands = [
+    { name: "Dell", color: "#007DB8" },
+    { name: "HP", color: "#0096D6" },
+    { name: "Lenovo", color: "#E2231A" },
+    { name: "Cisco", color: "#049FD9" },
+    { name: "Apple", color: "#A3AAAE" },
+    { name: "Samsung", color: "#1428A0" },
+    { name: "HPE", color: "#01A982" },
+    { name: "Aruba", color: "#FF8300" },
+  ];
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white overflow-x-hidden">
       {/* Global Styles */}
@@ -156,6 +174,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-cyan-500/20 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+          {/* Logo */}
           <div className="flex items-center gap-3 sm:gap-4">
             <div className="relative w-10 h-10 sm:w-12 sm:h-12 animate-border-glow">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl blur-sm opacity-50" />
@@ -175,17 +194,47 @@ export default function Home() {
               <div className="text-[9px] sm:text-[10px] tracking-[0.2em] text-cyan-400/70 uppercase">Enterprise Technology</div>
             </div>
           </div>
+
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
             <a href="#products" className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors">Products</a>
             <a href="#services" className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors">Services</a>
             <a href="#about" className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors">About</a>
-            <a href="#reviews" className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors">Reviews</a>
             <a href="#contact" className="relative px-5 lg:px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg overflow-hidden group">
               <span className="relative z-10">Contact Us</span>
             </a>
           </div>
-          <a href="#contact" className="md:hidden px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg">Contact</a>
+
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-slate-400 hover:text-cyan-400 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#0a0a0f]/95 backdrop-blur-xl border-t border-cyan-500/20">
+            <div className="px-4 py-4 space-y-3">
+              <a href="#products" onClick={handleNavClick} className="block py-2 text-slate-400 hover:text-cyan-400 transition-colors">Products</a>
+              <a href="#services" onClick={handleNavClick} className="block py-2 text-slate-400 hover:text-cyan-400 transition-colors">Services</a>
+              <a href="#about" onClick={handleNavClick} className="block py-2 text-slate-400 hover:text-cyan-400 transition-colors">About</a>
+              <a href="#reviews" onClick={handleNavClick} className="block py-2 text-slate-400 hover:text-cyan-400 transition-colors">Reviews</a>
+              <a href="#contact" onClick={handleNavClick} className="block w-full text-center py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg mt-4">Contact Us</a>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
@@ -227,6 +276,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Brands We Source Section */}
+      <section className="relative py-12 sm:py-16 px-4 sm:px-6 z-10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <p className="text-slate-500 text-sm uppercase tracking-wider">Brands We Source</p>
+          </div>
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-12">
+            {brands.map((brand, i) => (
+              <div 
+                key={i} 
+                className="group flex items-center justify-center px-4 py-3 opacity-50 hover:opacity-100 transition-all duration-300"
+              >
+                <span 
+                  className="text-xl sm:text-2xl font-bold tracking-tight transition-colors duration-300"
+                  style={{ color: brand.color }}
+                >
+                  {brand.name}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-slate-600 text-xs mt-6">
+            All trademarks are property of their respective owners. We are an independent sourcing partner.
+          </p>
+        </div>
+      </section>
+
       {/* Products Section */}
       <section id="products" className="relative py-16 sm:py-20 px-4 sm:px-6 z-10">
         <div className="max-w-7xl mx-auto">
@@ -235,7 +311,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"><span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Enterprise Solutions</span></h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-base px-4">Browse available products — contact us for current pricing and availability</p>
           </div>
-          {/* Category Tabs - Horizontal Scroll on Mobile */}
+          {/* Category Tabs */}
           <div className="mb-8 sm:mb-12 -mx-4 sm:mx-0">
             <div className="flex sm:flex-wrap sm:justify-center gap-2 sm:gap-3 overflow-x-auto scrollbar-hide px-4 sm:px-0 pb-2 sm:pb-0">
               {categories.map((cat) => (
@@ -359,9 +435,132 @@ export default function Home() {
             <div className="relative">
               <div className="text-center mb-8 sm:mb-10">
                 <div className="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-xs font-medium tracking-wider uppercase mb-4">Get In Touch</div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Contact Us</h2>
-                <p className="text-slate-500 text-sm sm:text-base">We respond within 24 hours</p>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Request a Quote</h2>
+                <p className="text-slate-500 text-sm sm:text-base">Fill the form below and we'll respond within 24 hours</p>
               </div>
+
+              {/* Quote Request Form */}
+              <form 
+                action="https://formspree.io/f/mdaeqapz" 
+                method="POST"
+                className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 mb-8 sm:mb-10"
+              >
+                <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Quote Request Form
+                </h3>
+                
+                <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-400 mb-2">Name *</label>
+                    <input 
+                      type="text" 
+                      id="name"
+                      name="name" 
+                      required 
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-400 mb-2">Email *</label>
+                    <input 
+                      type="email" 
+                      id="email"
+                      name="email" 
+                      required 
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label htmlFor="company" className="block text-sm font-medium text-slate-400 mb-2">Company</label>
+                    <input 
+                      type="text" 
+                      id="company"
+                      name="company" 
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                      placeholder="Company name (optional)"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="category" className="block text-sm font-medium text-slate-400 mb-2">Product Category *</label>
+                    <select 
+                      id="category"
+                      name="category" 
+                      required
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all appearance-none cursor-pointer"
+                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center', backgroundSize: '20px' }}
+                    >
+                      <option value="" className="bg-slate-900">Select a category</option>
+                      <option value="Enterprise Servers" className="bg-slate-900">Enterprise Servers</option>
+                      <option value="Business Laptops" className="bg-slate-900">Business Laptops</option>
+                      <option value="Mobile Devices" className="bg-slate-900">Mobile Devices</option>
+                      <option value="Workstations" className="bg-slate-900">Workstations</option>
+                      <option value="Network Equipment" className="bg-slate-900">Network Equipment</option>
+                      <option value="Peripherals" className="bg-slate-900">Peripherals</option>
+                      <option value="Storage Solutions" className="bg-slate-900">Storage Solutions</option>
+                      <option value="Other" className="bg-slate-900">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label htmlFor="quantity" className="block text-sm font-medium text-slate-400 mb-2">Quantity</label>
+                    <input 
+                      type="text" 
+                      id="quantity"
+                      name="quantity" 
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                      placeholder="e.g., 10 units (optional)"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="country" className="block text-sm font-medium text-slate-400 mb-2">Delivery Country</label>
+                    <input 
+                      type="text" 
+                      id="country"
+                      name="country" 
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                      placeholder="e.g., Canada, UAE (optional)"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-2">Message *</label>
+                  <textarea 
+                    id="message"
+                    name="message" 
+                    required
+                    rows={4}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all resize-none"
+                    placeholder="Tell us what you're looking for — specific models, configurations, delivery timeline, etc."
+                  />
+                </div>
+
+                <button 
+                  type="submit"
+                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                  Submit Quote Request
+                </button>
+              </form>
+
+              {/* Or Contact Directly */}
+              <div className="text-center mb-6">
+                <p className="text-slate-500 text-sm">Or contact us directly</p>
+              </div>
+
               {/* Contact Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8 sm:mb-10">
                 <a href="mailto:east_yorker@outlook.com" className="group bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-center hover:border-cyan-500/50 transition-all">
@@ -400,6 +599,7 @@ export default function Home() {
                   <p className="text-blue-400 text-[10px] sm:text-xs">Follow Us</p>
                 </a>
               </div>
+
               {/* Head Office */}
               <div className="relative text-center bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border border-cyan-500/20 rounded-xl p-5 sm:p-6">
                 <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
