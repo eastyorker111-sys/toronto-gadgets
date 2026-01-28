@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-// JSON-LD Structured Data for Organization
+// JSON-LD Structured Data for Organization (NO Product schema - quote-based business)
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -114,30 +114,20 @@ const jsonLd = {
   priceRange: "$$$$",
   currenciesAccepted: "CAD, USD",
   paymentAccepted: "Credit Card, Bank Transfer, Wire Transfer",
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Enterprise Technology Products",
-    itemListElement: [
-      {
-        "@type": "OfferCatalog",
-        name: "Enterprise Servers",
-        itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Product", name: "Dell PowerEdge Servers" } },
-          { "@type": "Offer", itemOffered: { "@type": "Product", name: "HPE ProLiant Servers" } },
-          { "@type": "Offer", itemOffered: { "@type": "Product", name: "Lenovo ThinkSystem Servers" } },
-        ],
-      },
-      {
-        "@type": "OfferCatalog",
-        name: "Business Laptops",
-        itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Product", name: "MacBook Pro" } },
-          { "@type": "Offer", itemOffered: { "@type": "Product", name: "Dell XPS" } },
-          { "@type": "Offer", itemOffered: { "@type": "Product", name: "Lenovo ThinkPad" } },
-        ],
-      },
-    ],
-  },
+  knowsAbout: [
+    "Enterprise Servers",
+    "Dell PowerEdge",
+    "HPE ProLiant",
+    "Lenovo ThinkSystem",
+    "Business Laptops",
+    "MacBook Pro",
+    "Dell XPS",
+    "Lenovo ThinkPad",
+    "Network Equipment",
+    "Cisco",
+    "Workstations",
+    "Mobile Devices",
+  ],
 };
 
 // JSON-LD for Local Business
