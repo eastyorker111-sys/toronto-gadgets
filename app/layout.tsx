@@ -133,13 +133,15 @@ const jsonLd = {
 // JSON-LD for Local Business
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
-  "@type": "ComputerStore",
+  "@type": "LocalBusiness",
+  "@id": "https://torontogadgets.com/#localbusiness",
   name: "Toronto Gadgets",
-  image: "https://torontogadgets.com/logo.png",
-  "@id": "https://torontogadgets.com",
   url: "https://torontogadgets.com",
+  image: "https://torontogadgets.com/og-image.png",
   telephone: "+1-437-237-6895",
   email: "east_yorker@outlook.com",
+  description:
+    "B2B technology sourcing and procurement partner for enterprise hardware: servers, workstations, laptops, mobile devices, and network equipment. Quotes on request.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "75 Thorncliffe Park Drive",
@@ -153,12 +155,11 @@ const localBusinessJsonLd = {
     latitude: 43.7066,
     longitude: -79.3407,
   },
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "09:00",
-    closes: "18:00",
-  },
+  areaServed: [
+    { "@type": "Country", name: "Canada" },
+    { "@type": "Country", name: "United States" },
+    { "@type": "AdministrativeArea", name: "GCC" },
+  ],
   sameAs: [
     "https://www.linkedin.com/company/toronto-gadgets",
     "https://www.facebook.com/profile.php?id=61587119518549",
