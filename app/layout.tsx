@@ -78,7 +78,7 @@ const jsonLd = {
   name: "Toronto Gadgets",
   legalName: "East Yorker Corp",
   url: "https://torontogadgets.com",
-  logo: "https://torontogadgets.com/logo.png",
+  logo: "https://torontogadgets.com/og-image.png",
   description: "B2B enterprise technology solutions provider serving Canadian businesses with servers, workstations, laptops, and network equipment.",
   foundingDate: "2021",
   founders: [
