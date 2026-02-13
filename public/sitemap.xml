@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://torontogadgets.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://torontogadgets.com/servers</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://torontogadgets.com/laptops</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://torontogadgets.com/mobile</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://torontogadgets.com/workstations</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://torontogadgets.com/network</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://torontogadgets.com/peripherals</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://torontogadgets.com/storage</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://torontogadgets.com/contact</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://torontogadgets.com/</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://torontogadgets.com/servers</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://torontogadgets.com/laptops</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://torontogadgets.com/mobile</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://torontogadgets.com/workstations</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://torontogadgets.com/network</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://torontogadgets.com/peripherals</loc><lastmod>2026-02-13</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://torontogadgets.com/storage</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://torontogadgets.com/contact</loc><lastmod>2026-02-13</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://torontogadgets.com/about</loc><lastmod>2026-02-13</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://torontogadgets.com/services</loc><lastmod>2026-02-13</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://torontogadgets.com/blog</loc><lastmod>2026-02-13</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://torontogadgets.com/blog/dell-vs-hpe-servers</loc><lastmod>2026-02-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://torontogadgets.com/blog/it-hardware-procurement-guide</loc><lastmod>2026-02-05</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
