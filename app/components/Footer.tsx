@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-slate-500">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-slate-300">
           <p>&copy; {new Date().getFullYear()} Toronto Gadgets &mdash; Trade name of East Yorker Corp</p>
           <p>BIN: 1001483714 &middot; GST/HST: 766421804RT0001</p>
         </div>
