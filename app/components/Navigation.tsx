@@ -31,7 +31,7 @@ export default function Navigation() {
               <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">TORONTO</span>
               <span className="text-white ml-1">GADGETS</span>
             </div>
-            <div className="text-[9px] sm:text-[10px] tracking-[0.2em] text-cyan-400/70 uppercase">
+            <div className="text-[9px] sm:text-[10px] tracking-[0.2em] text-cyan-400 uppercase">
               Enterprise Technology
             </div>
           </div>

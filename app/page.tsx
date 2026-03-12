@@ -79,7 +79,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-600/0 group-hover:from-cyan-500/10 group-hover:to-blue-600/5 transition-all rounded-2xl" />
                 <div className="relative">
                   <h2 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">{c.title}</h2>
-                  <p className="text-slate-500 mt-2 text-sm leading-relaxed">{c.desc}</p>
+                  <p className="text-slate-400 mt-2 text-sm leading-relaxed">{c.desc}</p>
                   <div className="mt-5 inline-flex items-center gap-2 text-cyan-400 text-sm font-semibold">Browse <span aria-hidden="true">→</span></div>
                 </div>
               </a>
@@ -108,7 +108,7 @@ export default function Home() {
               <div key={s.step} className="bg-[#12151f] border border-white/10 rounded-2xl p-6 text-center">
                 <div className="text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-3">{s.step}</div>
                 <h3 className="text-white font-bold mb-2">{s.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
+                <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>

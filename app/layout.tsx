@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     images: ["https://torontogadgets.com/og-image.png"],
   },
   icons: { icon: "/favicon.svg" },
+  verification: { google: "googleea6943a147d163fe" },
   category: "technology",
 };
 

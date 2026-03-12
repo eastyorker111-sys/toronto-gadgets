@@ -27,7 +27,7 @@ export default function Footer() {
                 <span className="text-white font-bold ml-1">GADGETS</span>
               </div>
             </div>
-            <p className="text-slate-500 text-xs leading-relaxed">
+            <p className="text-slate-400 text-xs leading-relaxed">
               B2B enterprise technology sourcing partner. Servers, workstations, laptops & network equipment.
             </p>
           </div>
@@ -37,7 +37,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Products</h3>
             <div className="flex flex-col gap-2">
               {footerLinks.slice(0, 5).map((l) => (
-                <a key={l.href} href={l.href} className="text-xs text-slate-500 hover:text-cyan-400 transition-colors">{l.label}</a>
+                <a key={l.href} href={l.href} className="text-xs text-slate-400 hover:text-cyan-400 transition-colors">{l.label}</a>
               ))}
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Company</h3>
             <div className="flex flex-col gap-2">
               {footerLinks.slice(5).map((l) => (
-                <a key={l.href} href={l.href} className="text-xs text-slate-500 hover:text-cyan-400 transition-colors">{l.label}</a>
+                <a key={l.href} href={l.href} className="text-xs text-slate-400 hover:text-cyan-400 transition-colors">{l.label}</a>
               ))}
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Contact</h3>
-            <div className="flex flex-col gap-2 text-xs text-slate-500">
+            <div className="flex flex-col gap-2 text-xs text-slate-400">
               <a href="tel:+14372376895" className="hover:text-cyan-400 transition-colors">+1 (437) 237-6895</a>
               <a href="mailto:east_yorker@outlook.com" className="hover:text-cyan-400 transition-colors">east_yorker@outlook.com</a>
               <p>75 Thorncliffe Park Drive<br />Toronto, ON M4H 1L4, Canada</p>
@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-slate-600">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-slate-500">
           <p>&copy; {new Date().getFullYear()} Toronto Gadgets &mdash; Trade name of East Yorker Corp</p>
           <p>BIN: 1001483714 &middot; GST/HST: 766421804RT0001</p>
         </div>
