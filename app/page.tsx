@@ -5,7 +5,7 @@ const faqJsonLd = {
     {
       "@type": "Question",
       name: "What brands does Toronto Gadgets source?",
-      acceptedAnswer: { "@type": "Answer", text: "We source from Dell, HPE, Lenovo, Cisco, Apple, Samsung, Aruba, Juniper, Ubiquiti, Fortinet, Supermicro, and other leading enterprise brands through authorized channels." },
+      acceptedAnswer: { "@type": "Answer", text: "We source from Dell, HPE, Lenovo, Cisco, Apple, Samsung, Aruba, Juniper, Ubiquiti, Fortinet, Supermicro, and other leading business technology brands through reputable supplier and distributor networks." },
     },
     {
       "@type": "Question",
@@ -55,7 +55,7 @@ export default function Home() {
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-            We source enterprise servers, workstations, laptops &amp; mobile devices from authorized channels.
+            We source enterprise servers, workstations, laptops &amp; mobile devices through reputable supplier and distributor networks.
             <span className="text-cyan-400 font-medium"> Competitive quotes. Genuine products. Global delivery.</span>
           </p>
 
@@ -102,8 +102,8 @@ export default function Home() {
           <div className="grid sm:grid-cols-3 gap-6">
             {[
               { step: "01", title: "Tell Us What You Need", desc: "Submit a quote request with your hardware requirements and quantities." },
-              { step: "02", title: "We Source & Quote", desc: "We check authorized channels and send you competitive pricing within 24 hours." },
-              { step: "03", title: "We Deliver", desc: "Genuine enterprise hardware shipped to Canada, US, or GCC with full warranty." },
+              { step: "02", title: "We Source & Quote", desc: "We check supplier availability and send you competitive pricing, typically within 24 hours." },
+              { step: "03", title: "We Deliver", desc: "Genuine enterprise hardware shipped to Canada, US, or GCC with manufacturer warranty where applicable." },
             ].map((s) => (
               <div key={s.step} className="bg-[#12151f] border border-white/10 rounded-2xl p-6 text-center">
                 <div className="text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-3">{s.step}</div>
@@ -111,6 +111,25 @@ export default function Home() {
                 <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Vision */}
+      <section className="relative py-14 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-black text-center mb-10">
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Our Mission &amp; Vision</span>
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-6">
+            <div className="bg-[#12151f] border border-white/10 rounded-2xl p-6">
+              <h3 className="text-white font-bold mb-3">Mission</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Toronto Gadgets is a quote-based B2B technology sourcing business. We help organizations obtain genuine, business-grade hardware — servers, workstations, laptops, mobile devices, networking, and storage — through reputable supplier and distributor networks, with transparent quote-based pricing and coordinated delivery across Canada, the United States, and the GCC, whether they need a single workstation or a fleet of hundreds.</p>
+            </div>
+            <div className="bg-[#12151f] border border-white/10 rounded-2xl p-6">
+              <h3 className="text-white font-bold mb-3">Vision</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">To be the sourcing partner that businesses across Canada, the United States, and the GCC trust for genuine business-grade technology — recognized for integrity, competitive value, and dependable delivery.</p>
+            </div>
           </div>
         </div>
       </section>

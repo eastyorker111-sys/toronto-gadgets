@@ -26,7 +26,7 @@ export default function AboutPage() {
 
           <div className="space-y-6 text-slate-400 text-sm leading-relaxed">
             <p>
-              Toronto Gadgets is a B2B enterprise technology sourcing partner headquartered in Toronto, Canada. We source servers, workstations, laptops, mobile devices, network equipment, storage solutions, and peripherals from authorized channels — delivering competitive quotes and genuine products to businesses across Canada, the United States, and the GCC region.
+              Toronto Gadgets is a B2B enterprise technology sourcing partner headquartered in Toronto, Canada. We source servers, workstations, laptops, mobile devices, network equipment, storage solutions, and peripherals through reputable supplier and distributor networks — delivering competitive quotes and genuine products to businesses across Canada, the United States, and the GCC region.
             </p>
             <p>
               Founded under East Yorker Corp, a federally incorporated Canadian corporation, Toronto Gadgets bridges the gap between enterprise buyers and global hardware supply chains. Whether you need a single workstation or a fleet of 500 servers, we provide the sourcing expertise, pricing transparency, and logistics coordination that enterprise procurement demands.
@@ -52,9 +52,9 @@ export default function AboutPage() {
           <h2 className="text-xl font-bold text-white mt-12 mb-6">Why Businesses Choose Us</h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {[
-              { title: "Authorized Sourcing", desc: "We procure from authorized distributors and OEM channels — no grey market, no refurbished unless requested." },
+              { title: "Trusted Sourcing", desc: "We procure through reputable supplier and distributor networks — genuine, business-grade technology, no grey market, and no refurbished units unless you request them." },
               { title: "Competitive Pricing", desc: "Our network of suppliers across North America enables volume pricing even for smaller orders." },
-              { title: "Global Delivery", desc: "We ship across Canada, USA, and the GCC region with full customs documentation and tracking." },
+              { title: "Global Delivery", desc: "We ship across Canada, USA, and the GCC region with support for the standard shipping documentation and end-to-end tracking." },
             ].map((item) => (
               <div key={item.title} className="bg-[#12151f] border border-white/10 rounded-xl p-5">
                 <h3 className="text-white font-semibold text-sm mb-2">{item.title}</h3>
@@ -62,6 +62,24 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+
+          {/* Team & Responsibilities */}
+          <h2 className="text-xl font-bold text-white mt-12 mb-6">Our Team &amp; Responsibilities</h2>
+          <p className="text-slate-400 text-sm leading-relaxed mb-6">Toronto Gadgets operates as a coordinated sourcing team rather than a storefront, organized around the core functions that business technology procurement depends on:</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { title: "Sourcing & Procurement", desc: "Identifies and procures genuine, business-grade hardware through reputable supplier and distributor networks, sourcing competitive pricing across North America." },
+              { title: "Vendor Coordination", desc: "Acts as a single point of contact across multiple suppliers, assisting with manufacturer warranty support where applicable and coordinating returns and support escalations." },
+              { title: "Quote Support", desc: "Prepares competitive, multi-supplier quotes with side-by-side comparisons, typically within 24 hours." },
+              { title: "Logistics / Delivery Coordination", desc: "Coordinates cross-border shipping and end-to-end delivery tracking across Canada, the United States, and the GCC, with support for the standard documentation that accompanies international shipments." },
+            ].map((item) => (
+              <div key={item.title} className="bg-[#12151f] border border-white/10 rounded-xl p-5">
+                <h3 className="text-white font-semibold text-sm mb-2">{item.title}</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-slate-400 text-sm leading-relaxed mt-6">Across each function, our aim is procurement that is transparent, straightforward, and compliance-conscious.</p>
 
           {/* CTA */}
           <div className="mt-12 text-center">

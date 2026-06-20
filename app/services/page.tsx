@@ -17,23 +17,23 @@ const breadcrumbJsonLd = {
 const services = [
   {
     title: "Hardware Sourcing",
-    desc: "We source enterprise hardware from authorized distributors and OEM partners. Servers, workstations, laptops, networking, storage — any brand, any configuration.",
-    points: ["Dell, HPE, Lenovo, Cisco, Apple, Samsung", "Authorized channel sourcing only", "Custom configurations available"],
+    desc: "We source enterprise hardware through reputable supplier and distributor networks. Servers, workstations, laptops, networking, storage — any brand, any configuration.",
+    points: ["Dell, HPE, Lenovo, Cisco, Apple, Samsung", "Reputable supplier and distributor networks", "Custom configurations available"],
   },
   {
     title: "Bulk Procurement",
-    desc: "Volume pricing for fleet deployments, data center builds, and office rollouts. We negotiate directly with distributors to secure the best rates.",
+    desc: "Volume pricing for fleet deployments, data center builds, and office rollouts. We work across supplier and distributor networks to source competitive rates.",
     points: ["Fleet pricing for 10–10,000+ units", "Consolidated invoicing", "Scheduled delivery windows"],
   },
   {
     title: "Global Logistics",
-    desc: "We coordinate shipping across Canada, the United States, and GCC countries with full customs documentation, tracking, and insurance.",
-    points: ["Canada, USA, UAE, Saudi Arabia, Oman", "Customs clearance support", "Door-to-door tracking"],
+    desc: "We coordinate shipping across Canada, the United States, and GCC countries with support for the standard shipping documentation, tracking, and insurance.",
+    points: ["Canada, USA, UAE, Saudi Arabia, Oman", "Cross-border shipping documentation support", "Door-to-door tracking"],
   },
   {
     title: "Vendor Coordination",
-    desc: "Single point of contact for multi-vendor environments. We manage supplier relationships, warranty registrations, and support escalations.",
-    points: ["Multi-vendor management", "Warranty registration", "RMA & support coordination"],
+    desc: "Single point of contact for multi-vendor environments. We manage supplier relationships, assist with manufacturer warranty support where applicable, and coordinate support escalations.",
+    points: ["Multi-vendor management", "Manufacturer warranty support where applicable", "RMA & support coordination"],
   },
   {
     title: "Quote Comparison",
