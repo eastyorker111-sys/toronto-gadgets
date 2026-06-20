@@ -57,16 +57,24 @@ export default function DellVsHpePage() {
             <p>HPE counters with their Persistent Memory support and Silicon Root of Trust security architecture, which provides firmware-level protection that&apos;s embedded in the hardware itself.</p>
 
             <h2 className="text-lg font-bold text-white mt-8 mb-3">Management Tools</h2>
-            <p>This is where the two platforms diverge most significantly. Dell&apos;s iDRAC (Integrated Dell Remote Access Controller) is included at no additional cost and provides comprehensive remote management, monitoring, and lifecycle management. OpenManage Enterprise offers fleet-level management across hundreds of servers.</p>
+            <p>This is where the two platforms diverge most significantly. Dell&apos;s iDRAC (Integrated Dell Remote Access Controller) includes base remote management and monitoring at no additional cost, while remote-presence features such as virtual console and virtual media require the paid iDRAC Enterprise license. OpenManage Enterprise offers fleet-level management across hundreds of servers.</p>
             <p>HPE&apos;s iLO (Integrated Lights-Out) comes in Standard (free) and Advanced (paid license) tiers. The Advanced tier adds features like remote console, virtual media, and federation management. HPE OneView provides the fleet management layer, with a more visual, workflow-oriented approach than Dell&apos;s OpenManage.</p>
 
             <h2 className="text-lg font-bold text-white mt-8 mb-3">Pricing & Availability</h2>
-            <p>Dell typically offers more aggressive pricing on standard configurations and has a broader direct-sales channel in Canada. HPE tends to price slightly higher but includes longer standard warranties and more comprehensive support packages. Both vendors offer competitive pricing through authorized channel partners.</p>
+            <p>Dell typically offers more aggressive pricing on standard configurations and has a broader direct-sales channel in Canada. HPE tends to price slightly higher but includes longer standard warranties and more comprehensive support packages. Both vendors distribute through their channel partner networks, where pricing is competitive.</p>
 
             <h2 className="text-lg font-bold text-white mt-8 mb-3">Which Should You Choose?</h2>
             <p>Choose <strong className="text-white">Dell PowerEdge</strong> if you prioritize NVMe density, GPU compute, aggressive pricing, and prefer a single management interface at no extra cost.</p>
             <p>Choose <strong className="text-white">HPE ProLiant</strong> if you value silicon-level security, prefer HPE&apos;s visual management approach, and need tight integration with HPE storage and networking.</p>
             <p>Either way, both platforms are proven in Canadian enterprise environments. The best choice depends on your existing infrastructure, management preferences, and workload requirements.</p>
+
+            <h2 className="text-lg font-bold text-white mt-8 mb-3">Sources &amp; References</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li><a href="https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-r760-spec-sheet.pdf" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 transition-colors">Dell PowerEdge R760 Spec Sheet — Dell Technologies</a></li>
+              <li><a href="https://www.hpe.com/us/en/collaterals/collateral.a50004307enw.html" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 transition-colors">HPE ProLiant DL380 Gen11 QuickSpecs — HPE</a></li>
+              <li><a href="https://www.delltechnologies.com/asset/en-us/products/servers/industry-market/openmanage-portfolio-software-licensing-guide.pdf" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 transition-colors">Dell OpenManage &amp; iDRAC Licensing Guide — Dell Technologies</a></li>
+              <li><a href="https://www.hpe.com/us/en/hpe-integrated-lights-out-ilo.html" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 transition-colors">HPE Integrated Lights-Out (iLO) — Hewlett Packard Enterprise</a></li>
+            </ul>
 
             {/* CTA */}
             <div className="mt-10 p-6 bg-[#12151f] border border-cyan-500/30 rounded-2xl text-center">
