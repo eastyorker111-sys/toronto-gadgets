@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Dell PowerEdge vs HPE ProLiant: Enterprise Server Comparison | Toronto Gadgets",
@@ -35,8 +36,8 @@ export default function DellVsHpePage() {
       <article className="pt-10 pb-16 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
           <nav className="text-xs text-slate-500 mb-6">
-            <a href="/" className="hover:text-cyan-400 transition-colors">Home</a><span className="mx-2">/</span>
-            <a href="/blog" className="hover:text-cyan-400 transition-colors">Blog</a><span className="mx-2">/</span>
+            <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link><span className="mx-2">/</span>
+            <Link href="/blog" className="hover:text-cyan-400 transition-colors">Blog</Link><span className="mx-2">/</span>
             <span className="text-slate-300">Dell vs HPE Servers</span>
           </nav>
 
@@ -80,9 +81,9 @@ export default function DellVsHpePage() {
             <div className="mt-10 p-6 bg-[#12151f] border border-cyan-500/30 rounded-2xl text-center">
               <p className="text-white font-semibold mb-2">Need help choosing?</p>
               <p className="text-slate-500 text-xs mb-4">We can provide competitive quotes for both Dell PowerEdge and HPE ProLiant servers — same hardware, better pricing.</p>
-              <a href="/contact" className="inline-block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
+              <Link href="/contact" className="inline-block px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
                 Get a Quote for Both →
-              </a>
+              </Link>
             </div>
           </div>
         </div>

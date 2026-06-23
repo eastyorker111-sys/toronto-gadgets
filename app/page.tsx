@@ -1,3 +1,4 @@
+import Link from "next/link";
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -60,12 +61,12 @@ export default function Home() {
           </p>
 
           <div className="flex gap-3 sm:gap-4 justify-center flex-wrap px-4">
-            <a href="/servers" className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold overflow-hidden transition-all hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 text-sm sm:text-base">
+            <Link href="/servers" className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold overflow-hidden transition-all hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 text-sm sm:text-base">
               View Categories
-            </a>
-            <a href="/contact" className="px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-cyan-500/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-all text-sm sm:text-base">
+            </Link>
+            <Link href="/contact" className="px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-cyan-500/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-all text-sm sm:text-base">
               Request Quote
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -75,20 +76,20 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {cards.map((c) => (
-              <a key={c.href} href={c.href} className="group relative bg-[#12151f] border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-all overflow-hidden">
+              <Link key={c.href} href={c.href} className="group relative bg-[#12151f] border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-all overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-600/0 group-hover:from-cyan-500/10 group-hover:to-blue-600/5 transition-all rounded-2xl" />
                 <div className="relative">
                   <h2 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">{c.title}</h2>
                   <p className="text-slate-400 mt-2 text-sm leading-relaxed">{c.desc}</p>
                   <div className="mt-5 inline-flex items-center gap-2 text-cyan-400 text-sm font-semibold">Browse <span aria-hidden="true">→</span></div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
           <div className="mt-10 text-center">
-            <a href="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all text-sm sm:text-base">
+            <Link href="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all text-sm sm:text-base">
               Request a Quote
-            </a>
+            </Link>
           </div>
         </div>
       </section>

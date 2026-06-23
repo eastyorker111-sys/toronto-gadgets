@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About Us | Toronto Gadgets — Enterprise Hardware Sourcing Partner",
@@ -20,7 +21,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <section className="pt-10 pb-16 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <nav className="text-xs text-slate-500 mb-6"><a href="/" className="hover:text-cyan-400 transition-colors">Home</a><span className="mx-2">/</span><span className="text-slate-300">About</span></nav>
+          <nav className="text-xs text-slate-500 mb-6"><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link><span className="mx-2">/</span><span className="text-slate-300">About</span></nav>
 
           <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent mb-6">About Toronto Gadgets</h1>
 
@@ -83,9 +84,9 @@ export default function AboutPage() {
 
           {/* CTA */}
           <div className="mt-12 text-center">
-            <a href="/contact" className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
+            <Link href="/contact" className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
               Request a Quote
-            </a>
+            </Link>
           </div>
         </div>
       </section>

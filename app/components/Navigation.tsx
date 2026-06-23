@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const navLinks = [
   { href: "/servers", label: "Servers" },
@@ -14,12 +15,13 @@ const navLinks = [
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   return (
     <nav className="sticky top-0 w-full bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-cyan-500/20 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3 sm:gap-4">
+        <Link href="/" onClick={close} className="flex items-center gap-3 sm:gap-4">
           <div className="relative w-10 h-10 sm:w-12 sm:h-12">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl blur-sm opacity-50" />
             <div className="relative w-full h-full bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-xl flex items-center justify-center border border-cyan-400/50">
@@ -35,28 +37,30 @@ export default function Navigation() {
               Enterprise Technology
             </div>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-5 lg:gap-7">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors">
+            <Link key={l.href} href={l.href} className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors">
               {l.label}
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/contact"
             className="px-5 lg:px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
           >
             Get Quote
-          </a>
+          </Link>
         </div>
 
         {/* Hamburger Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+          className="md:hidden relative w-11 h-11 flex flex-col items-center justify-center gap-1.5"
           aria-label="Toggle menu"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           <span className={`hamburger-line block w-6 h-0.5 bg-white rounded-full ${open ? "translate-y-2 rotate-45" : ""}`} />
           <span className={`hamburger-line block w-6 h-0.5 bg-white rounded-full ${open ? "opacity-0" : ""}`} />
@@ -66,23 +70,25 @@ export default function Navigation() {
 
       {/* Mobile Drawer */}
       {open && (
-        <div className="md:hidden border-t border-white/10 bg-[#0a0a0f]/95 backdrop-blur-xl">
+        <div id="mobile-menu" className="md:hidden border-t border-white/10 bg-[#0a0a0f]/95 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
             {navLinks.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
+                onClick={close}
                 className="py-3 px-4 text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-white/5 rounded-lg transition-colors"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a
+            <Link
               href="/contact"
+              onClick={close}
               className="mt-2 py-3 px-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg text-center"
             >
               Get Quote
-            </a>
+            </Link>
           </div>
         </div>
       )}

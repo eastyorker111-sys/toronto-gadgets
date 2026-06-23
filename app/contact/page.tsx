@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Request a Quote | Contact Toronto Gadgets",
@@ -20,7 +21,7 @@ export default function ContactPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <section className="pt-10 pb-16 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <nav className="text-xs text-slate-500 mb-6"><a href="/" className="hover:text-cyan-400 transition-colors">Home</a><span className="mx-2">/</span><span className="text-slate-300">Contact</span></nav>
+          <nav className="text-xs text-slate-500 mb-6"><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link><span className="mx-2">/</span><span className="text-slate-300">Contact</span></nav>
 
           <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent mb-2">Request a Quote</h1>
           <p className="text-slate-400 text-sm mb-8">Fill in the form and we&apos;ll respond within 24 hours with competitive pricing.</p>

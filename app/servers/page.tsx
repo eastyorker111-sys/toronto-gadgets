@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Enterprise Servers | Dell, HPE, Lenovo, Cisco | Toronto Gadgets",
@@ -46,16 +47,16 @@ export default function ServersPage() {
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb */}
           <nav className="text-xs text-slate-500 mb-6">
-            <a href="/" className="hover:text-cyan-400 transition-colors">Home</a>
+            <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
             <span className="mx-2">/</span>
             <span className="text-slate-300">Enterprise Servers</span>
           </nav>
 
           <div className="flex items-center justify-between gap-4 flex-wrap mb-2">
             <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Enterprise Servers</h1>
-            <a href="/contact" className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg text-sm font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
+            <Link href="/contact" className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg text-sm font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
               Request Quote
-            </a>
+            </Link>
           </div>
           <p className="text-slate-400 text-sm mb-8 max-w-3xl">
             Browse enterprise rack and tower servers from Dell, HPE, Lenovo, Cisco, and Supermicro. All pricing on request — submit a quote for current availability and competitive rates.
@@ -72,7 +73,7 @@ export default function ServersPage() {
                     <span key={t} className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] text-slate-400">{t}</span>
                   ))}
                 </div>
-                <a href="/contact" className="inline-block mt-4 text-cyan-400 text-xs font-semibold hover:text-cyan-300 transition-colors">Get Quote →</a>
+                <Link href="/contact" className="inline-block mt-4 text-cyan-400 text-xs font-semibold hover:text-cyan-300 transition-colors">Get Quote →</Link>
               </div>
             ))}
           </div>
@@ -82,9 +83,9 @@ export default function ServersPage() {
             <h3 className="text-sm font-semibold text-slate-400 mb-4">Browse Other Categories</h3>
             <div className="flex flex-wrap gap-2">
               {categories.map((c) => (
-                <a key={c.href} href={c.href} className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-all">
+                <Link key={c.href} href={c.href} className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-all">
                   {c.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

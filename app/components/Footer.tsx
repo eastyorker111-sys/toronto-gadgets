@@ -1,3 +1,4 @@
+import Link from "next/link";
 const footerLinks = [
   { href: "/servers", label: "Servers" },
   { href: "/laptops", label: "Laptops" },
@@ -37,7 +38,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Products</h3>
             <div className="flex flex-col gap-2">
               {footerLinks.slice(0, 5).map((l) => (
-                <a key={l.href} href={l.href} className="text-xs text-slate-400 hover:text-cyan-400 transition-colors">{l.label}</a>
+                <Link key={l.href} href={l.href} className="text-xs text-slate-400 hover:text-cyan-400 transition-colors">{l.label}</Link>
               ))}
             </div>
           </div>
@@ -47,7 +48,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Company</h3>
             <div className="flex flex-col gap-2">
               {footerLinks.slice(5).map((l) => (
-                <a key={l.href} href={l.href} className="text-xs text-slate-400 hover:text-cyan-400 transition-colors">{l.label}</a>
+                <Link key={l.href} href={l.href} className="text-xs text-slate-400 hover:text-cyan-400 transition-colors">{l.label}</Link>
               ))}
             </div>
           </div>

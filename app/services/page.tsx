@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Services | IT Hardware Sourcing & Procurement | Toronto Gadgets",
@@ -53,7 +54,7 @@ export default function ServicesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <section className="pt-10 pb-16 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <nav className="text-xs text-slate-500 mb-6"><a href="/" className="hover:text-cyan-400 transition-colors">Home</a><span className="mx-2">/</span><span className="text-slate-300">Services</span></nav>
+          <nav className="text-xs text-slate-500 mb-6"><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link><span className="mx-2">/</span><span className="text-slate-300">Services</span></nav>
 
           <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent mb-4">Our Services</h1>
           <p className="text-slate-400 text-sm mb-10 max-w-3xl">End-to-end enterprise hardware sourcing and procurement services for businesses that need reliable technology supply chains.</p>
@@ -76,9 +77,9 @@ export default function ServicesPage() {
           </div>
 
           <div className="mt-12 text-center">
-            <a href="/contact" className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
+            <Link href="/contact" className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
               Request a Quote
-            </a>
+            </Link>
           </div>
         </div>
       </section>
