@@ -58,7 +58,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Contact</h3>
             <div className="flex flex-col gap-2 text-xs text-slate-400">
               <a href="tel:+14372376895" className="hover:text-cyan-400 transition-colors">+1 (437) 237-6895</a>
-              <a href="mailto:east_yorker@outlook.com" className="hover:text-cyan-400 transition-colors">east_yorker@outlook.com</a>
+              <a href="mailto:torontogadgets1001@gmail.com" className="hover:text-cyan-400 transition-colors">torontogadgets1001@gmail.com</a>
               <p>75 Thorncliffe Park Drive<br />Toronto, ON M4H 1L4, Canada</p>
             </div>
             {/* Social */}

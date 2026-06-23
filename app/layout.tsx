@@ -58,7 +58,7 @@ const organizationJsonLd = {
   description: "B2B technology sourcing and procurement partner for enterprise hardware.",
   foundingDate: "2021",
   address: { "@type": "PostalAddress", streetAddress: "75 Thorncliffe Park Drive", addressLocality: "Toronto", addressRegion: "ON", postalCode: "M4H 1L4", addressCountry: "CA" },
-  contactPoint: { "@type": "ContactPoint", telephone: "+1-437-237-6895", contactType: "sales", email: "east_yorker@outlook.com", availableLanguage: ["English", "Urdu", "Arabic"] },
+  contactPoint: { "@type": "ContactPoint", telephone: "+1-437-237-6895", contactType: "sales", email: "torontogadgets1001@gmail.com", availableLanguage: ["English", "Urdu", "Arabic"] },
   sameAs: ["https://www.linkedin.com/company/toronto-gadgets", "https://www.facebook.com/profile.php?id=61587119518549"],
 };
 
@@ -70,7 +70,7 @@ const localBusinessJsonLd = {
   url: "https://torontogadgets.com",
   image: "https://torontogadgets.com/og-image.png",
   telephone: "+1-437-237-6895",
-  email: "east_yorker@outlook.com",
+  email: "torontogadgets1001@gmail.com",
   description: "B2B enterprise technology sourcing partner providing servers, workstations, laptops, and network equipment.",
   address: { "@type": "PostalAddress", streetAddress: "75 Thorncliffe Park Drive", addressLocality: "Toronto", addressRegion: "ON", postalCode: "M4H 1L4", addressCountry: "CA" },
   geo: { "@type": "GeoCoordinates", latitude: 43.7066, longitude: -79.3407 },
