@@ -1,0 +1,163 @@
+[
+  {
+    "slug": "servers",
+    "title": "Enterprise Servers",
+    "description": "Rack and tower servers for infrastructure projects.",
+    "brands": "Dell PowerEdge, HPE ProLiant, Lenovo ThinkSystem, Cisco UCS and Supermicro.",
+    "requirements": [
+      "Processor and core count",
+      "Memory and storage",
+      "Rack size, power and support"
+    ],
+    "image": "/categories/servers.png",
+    "products": [
+      "Dell PowerEdge R760",
+      "Dell PowerEdge R750xs",
+      "Dell PowerEdge R660",
+      "HPE ProLiant DL380 Gen11",
+      "HPE ProLiant DL360 Gen11",
+      "HPE ProLiant ML350 Gen11",
+      "Lenovo ThinkSystem SR650 V3",
+      "Lenovo ThinkSystem SR630 V3",
+      "Cisco UCS C240 M7",
+      "Supermicro SYS-620P-TRT"
+    ]
+  },
+  {
+    "slug": "laptops",
+    "title": "Business Laptops",
+    "description": "The right devices for office, hybrid and mobile teams.",
+    "brands": "Apple MacBook, Dell Latitude and XPS, Lenovo ThinkPad, HP EliteBook and ZBook.",
+    "requirements": [
+      "Processor, RAM and storage",
+      "Screen size and operating system",
+      "Quantity, accessories and support"
+    ],
+    "image": "/categories/laptops.png",
+    "products": [
+      "MacBook Pro 16″ M3 Pro",
+      "MacBook Pro 14″ M3",
+      "MacBook Air 15″ M3",
+      "Dell Latitude 5550",
+      "Dell XPS 15 9530",
+      "Lenovo ThinkPad T14s Gen 5",
+      "Lenovo ThinkPad X1 Carbon Gen 12",
+      "HP EliteBook 860 G11",
+      "HP ZBook Firefly 16 G11"
+    ]
+  },
+  {
+    "slug": "workstations",
+    "title": "Workstations",
+    "description": "Professional hardware for design, engineering and demanding workflows.",
+    "brands": "Dell Precision, HP Z, Lenovo ThinkStation, Apple Mac Studio and Mac Pro.",
+    "requirements": [
+      "Applications and workload",
+      "CPU, RAM, GPU and storage",
+      "Tower or mobile form factor"
+    ],
+    "image": "/categories/workstations.png",
+    "products": [
+      "Dell Precision 7875 Tower",
+      "Dell Precision 5860 Tower",
+      "Dell Precision 5690 Mobile",
+      "HP Z8 G5 Fury",
+      "HP Z6 G5",
+      "Lenovo ThinkStation P8",
+      "Lenovo ThinkStation P5",
+      "Apple Mac Studio M2 Ultra",
+      "Apple Mac Pro M2 Ultra"
+    ]
+  },
+  {
+    "slug": "network",
+    "title": "Network Equipment",
+    "description": "Switches, access points and security equipment for connected businesses.",
+    "brands": "Cisco, Aruba, Juniper, Fortinet and Ubiquiti.",
+    "requirements": [
+      "Port count, speed and PoE needs",
+      "Licensing and support requirements",
+      "Existing network compatibility"
+    ],
+    "image": "/categories/network.png",
+    "products": [
+      "Cisco Catalyst 9300-48P",
+      "Cisco Catalyst 9200-24T",
+      "Cisco Meraki MS250-48FP",
+      "Aruba CX 6300M-48G",
+      "Aruba AP-635 Wi-Fi 6E",
+      "Juniper EX4400-48T",
+      "Fortinet FortiGate 100F",
+      "Fortinet FortiGate 60F",
+      "Ubiquiti UniFi USW-Pro-48-PoE"
+    ]
+  },
+  {
+    "slug": "storage",
+    "title": "Storage Solutions",
+    "description": "NAS, SAN and enterprise drives for your data requirements.",
+    "brands": "Synology, QNAP, Dell PowerVault, HPE MSA, NetApp, Seagate and Samsung.",
+    "requirements": [
+      "Usable capacity and drive type",
+      "Interface and network connections",
+      "Redundancy, backup and support"
+    ],
+    "image": "/categories/storage.png",
+    "products": [
+      "Synology RS3621xs+",
+      "Synology DS3622xs+",
+      "QNAP TS-h1290FX",
+      "QNAP TS-873A-8G",
+      "Dell PowerVault ME5024",
+      "HPE MSA 2062",
+      "NetApp AFF A250",
+      "Seagate Exos X24 24TB",
+      "Samsung PM9A3 3.84TB"
+    ]
+  },
+  {
+    "slug": "mobile",
+    "title": "Mobile Devices",
+    "description": "Phones and tablets for business teams and mobile workflows.",
+    "brands": "Apple iPhone and iPad, Samsung Galaxy and Galaxy Tab.",
+    "requirements": [
+      "Model, storage and connectivity",
+      "Quantity and preferred condition",
+      "Carrier, region and accessories"
+    ],
+    "image": "/categories/mobile.png",
+    "products": [
+      "iPhone 16 Pro Max",
+      "iPhone 16 Pro",
+      "iPhone 16",
+      "Samsung Galaxy S25 Ultra",
+      "Samsung Galaxy S25",
+      "iPad Pro 13″ M4",
+      "iPad Air 13″ M2",
+      "Samsung Galaxy Tab S10 Ultra"
+    ]
+  },
+  {
+    "slug": "peripherals",
+    "title": "Peripherals",
+    "description": "Monitors, docks, printers and meeting-room equipment to complete your setup.",
+    "brands": "Dell, HP, Lenovo, CalDigit, Poly and Logitech.",
+    "requirements": [
+      "Required ports and compatibility",
+      "Display, print or meeting-room needs",
+      "Quantity and accessories"
+    ],
+    "image": "/categories/peripherals.png",
+    "products": [
+      "Dell UltraSharp U2724D",
+      "Dell UltraSharp U3423WE",
+      "HP Z27k G3 4K",
+      "Lenovo ThinkVision P32p-30",
+      "CalDigit TS4 Dock",
+      "Dell WD22TB4 Dock",
+      "HP LaserJet Enterprise M612dn",
+      "Poly Studio X52",
+      "Logitech Rally Bar"
+    ]
+  }
+]

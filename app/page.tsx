@@ -1,155 +1,237 @@
 import Link from "next/link";
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "What brands does Toronto Gadgets source?",
-      acceptedAnswer: { "@type": "Answer", text: "We source from Dell, HPE, Lenovo, Cisco, Apple, Samsung, Aruba, Juniper, Ubiquiti, Fortinet, Supermicro, and other leading business technology brands through reputable supplier and distributor networks." },
-    },
-    {
-      "@type": "Question",
-      name: "Do you offer international delivery?",
-      acceptedAnswer: { "@type": "Answer", text: "Yes. We deliver enterprise hardware across Canada, the United States, and GCC countries including UAE, Saudi Arabia, and Oman." },
-    },
-    {
-      "@type": "Question",
-      name: "How do I get a quote?",
-      acceptedAnswer: { "@type": "Answer", text: "Visit our Contact page, fill in the form with your requirements, and we'll respond with a competitive quote within 24 hours." },
-    },
-    {
-      "@type": "Question",
-      name: "Is Toronto Gadgets a registered Canadian business?",
-      acceptedAnswer: { "@type": "Answer", text: "Yes. Toronto Gadgets is the registered trade name of East Yorker Corp, a federally incorporated Canadian company (BIN: 1001483714, GST/HST: 766421804RT0001)." },
-    },
+import Image from "next/image";
+import catalog from "./data/catalog.json";
+const faqs = [
+  [
+    "Can I request an item that is not listed?",
+    "Yes. Enter your own model, part number or product link in the quote form. You can also describe your requirements and ask us to suggest options.",
   ],
-};
-
-const cards = [
-  { href: "/servers", title: "Enterprise Servers", desc: "Dell PowerEdge, HPE ProLiant, Lenovo ThinkSystem, Cisco UCS" },
-  { href: "/laptops", title: "Business Laptops", desc: "MacBook Pro/Air, Dell XPS/Latitude, ThinkPad, HP EliteBook/ZBook" },
-  { href: "/mobile", title: "Mobile Devices", desc: "iPhone, Galaxy, iPad, Galaxy Tab — enterprise-ready sourcing" },
-  { href: "/workstations", title: "Workstations", desc: "Precision, Z series, ThinkStation, Mac Studio/Pro — pro configs" },
-  { href: "/network", title: "Network Equipment", desc: "Cisco, Aruba, Juniper, Ubiquiti, Fortinet — switching & security" },
-  { href: "/peripherals", title: "Peripherals", desc: "Displays, printers, docks, video bars — enterprise add-ons" },
-  { href: "/storage", title: "Storage Solutions", desc: "Synology, QNAP, PowerVault, MSA — NAS/SAN & enterprise drives" },
+  [
+    "Can I request several different items?",
+    "Yes. Add laptops, servers, accessories or other items to the same request. Include quantities and specifications for each item.",
+  ],
+  [
+    "What brands do you source?",
+    "Our sourcing categories include Dell, HPE, HP, Lenovo, Cisco, Apple, Samsung, Aruba, Juniper, Ubiquiti, Fortinet, Supermicro and other business technology brands. Availability is checked for each request through reputable supplier and distributor networks.",
+  ],
+  [
+    "Are the listed models in stock?",
+    "The models are examples for your sourcing request, not a live inventory. Exact specifications, availability, pricing, delivery and manufacturer warranty where applicable are confirmed in the quote.",
+  ],
+  [
+    "Where are you based, and where can I request delivery?",
+    "Toronto Gadgets is based in Toronto, Ontario, Canada and operates under East Yorker Corp. Tell us your delivery requirements in Canada, the United States or the GCC so we can confirm options for your request.",
+  ],
+  [
+    "How do I get a quote?",
+    "Use our quote form or contact us by phone, email or WhatsApp. Share the items, quantities, specifications and destination. We review your requirements and follow up; submitting a request does not place an order.",
+  ],
 ];
-
 export default function Home() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-
-      {/* Hero */}
-      <section className="relative pt-14 sm:pt-20 pb-10 sm:pb-14 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="text-cyan-400 text-xs sm:text-sm font-medium tracking-wide">HEAD OFFICE: TORONTO, CANADA</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-4 sm:mb-6 tracking-tight">
-            <span className="block bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">ENTERPRISE</span>
-            <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">TECHNOLOGY</span>
-            <span className="block text-white/80 text-2xl sm:text-3xl md:text-4xl mt-2">SOURCING &amp; SUPPLY</span>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map(([name, text]) => ({
+              "@type": "Question",
+              name,
+              acceptedAnswer: { "@type": "Answer", text },
+            })),
+          }),
+        }}
+      />
+      <section className="shell hero">
+        <div>
+          <p className="eyebrow">B2B TECHNOLOGY SOURCING · TORONTO, CANADA</p>
+          <h1>
+            The right technology.
+            <br />
+            <em>The right fit.</em>
           </h1>
-
-          <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-            We source enterprise servers, workstations, laptops &amp; mobile devices through reputable supplier and distributor networks.
-            <span className="text-cyan-400 font-medium"> Competitive quotes. Genuine products. Global delivery.</span>
+          <p className="intro">
+            Your Toronto-based B2B technology sourcing provider. Business-grade
+            hardware, sourced around your requirements—from a team upgrade to
+            your next infrastructure project.
           </p>
-
-          <div className="flex gap-3 sm:gap-4 justify-center flex-wrap px-4">
-            <Link href="/servers" className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold overflow-hidden transition-all hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30 text-sm sm:text-base">
-              View Categories
+          <div className="hero-actions">
+            <Link className="button" href="/contact?mode=custom">
+              I know what I need ↗
             </Link>
-            <Link href="/contact" className="px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-cyan-500/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-all text-sm sm:text-base">
-              Request Quote
+            <Link className="text-link" href="/contact?mode=help">
+              Help me choose ↗
             </Link>
           </div>
+          <p className="hero-note">
+            Your own items welcome. All pricing by quotation.
+          </p>
+        </div>
+        <figure className="hero-visual">
+          <Image
+            src="/technology-studio.png"
+            alt="Illustrative business laptop, workstation and server for Toronto Gadgets technology sourcing"
+            width={1536}
+            height={1024}
+            priority
+            sizes="(max-width: 760px) 100vw, 55vw"
+          />
+          <figcaption>
+            <span>YOUR REQUIREMENTS. OUR STARTING POINT.</span>
+            <span>01 / SOURCING</span>
+          </figcaption>
+        </figure>
+      </section>
+      <div className="principles">
+        <div className="shell">
+          <span>+ B2B sourcing provider</span>
+          <span>+ Quote-based pricing</span>
+          <span>+ Your own items welcome</span>
+          <span>+ Based in Toronto</span>
+        </div>
+      </div>
+      <section className="shell technology-section" id="technology">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">TECHNOLOGY THAT FITS YOUR BUSINESS</p>
+            <h2>What are you sourcing?</h2>
+          </div>
+          <p>
+            Explore examples or bring your own list.
+            <br />
+            Every request starts with your requirements.
+          </p>
+        </div>
+        <div className="category-grid">
+          {catalog.map((c, i) => (
+            <Link className="category-card" href={`/${c.slug}`} key={c.slug}>
+              <div className="card-top">
+                <span>0{i + 1}</span>
+                <span aria-hidden="true">↗</span>
+              </div>
+              <Image
+                src={c.image}
+                width={600}
+                height={400}
+                sizes="(max-width:760px) 50vw, 25vw"
+                alt={`${c.title} category illustration`}
+              />
+              <h3>{c.title}</h3>
+              <p>{c.description}</p>
+              <span className="category-link">
+                Explore sourcing options <span aria-hidden="true">→</span>
+              </span>
+            </Link>
+          ))}
+          <Link
+            href="/contact?mode=custom"
+            className="category-card custom-category"
+          >
+            <p className="eyebrow">YOUR REQUIREMENTS COME FIRST</p>
+            <h3>Have your own list?</h3>
+            <p>
+              Send a model, product link, or custom specification. Add several
+              items to one quote request.
+            </p>
+            <span className="category-link">
+              Build your request <span aria-hidden="true">→</span>
+            </span>
+          </Link>
         </div>
       </section>
-
-      {/* Category Grid */}
-      <section className="relative pb-12 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {cards.map((c) => (
-              <Link key={c.href} href={c.href} className="group relative bg-[#12151f] border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-all overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-600/0 group-hover:from-cyan-500/10 group-hover:to-blue-600/5 transition-all rounded-2xl" />
-                <div className="relative">
-                  <h2 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">{c.title}</h2>
-                  <p className="text-slate-400 mt-2 text-sm leading-relaxed">{c.desc}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-cyan-400 text-sm font-semibold">Browse <span aria-hidden="true">→</span></div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Link href="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all text-sm sm:text-base">
-              Request a Quote
+      <section className="process-section">
+        <div className="shell process-layout">
+          <div>
+            <p className="eyebrow">HOW IT WORKS</p>
+            <h2>
+              You know your business.
+              <br />
+              Let’s find the right fit.
+            </h2>
+            <Link href="/contact" className="text-link">
+              Start a sourcing request ↗
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="relative py-14 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-black text-center mb-10">
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">How It Works</span>
-          </h2>
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="steps">
             {[
-              { step: "01", title: "Tell Us What You Need", desc: "Submit a quote request with your hardware requirements and quantities." },
-              { step: "02", title: "We Source & Quote", desc: "We check supplier availability and send you competitive pricing, typically within 24 hours." },
-              { step: "03", title: "We Deliver", desc: "Genuine enterprise hardware shipped to Canada, US, or GCC with manufacturer warranty where applicable." },
-            ].map((s) => (
-              <div key={s.step} className="bg-[#12151f] border border-white/10 rounded-2xl p-6 text-center">
-                <div className="text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-3">{s.step}</div>
-                <h3 className="text-white font-bold mb-2">{s.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
+              [
+                "01",
+                "Tell us what you need",
+                "Choose an example model or add your own items, specifications, quantities and destination.",
+              ],
+              [
+                "02",
+                "We source and quote",
+                "We check sourcing options through reputable supplier and distributor networks and prepare your quote.",
+              ],
+              [
+                "03",
+                "Confirm and coordinate",
+                "Review the details before ordering. Delivery and manufacturer warranty where applicable are confirmed for your request.",
+              ],
+            ].map(([n, t, p]) => (
+              <div className="step" key={n}>
+                <span>{n}</span>
+                <div>
+                  <h3>{t}</h3>
+                  <p>{p}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Mission & Vision */}
-      <section className="relative py-14 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-black text-center mb-10">
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Our Mission &amp; Vision</span>
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-6">
-            <div className="bg-[#12151f] border border-white/10 rounded-2xl p-6">
-              <h3 className="text-white font-bold mb-3">Mission</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Toronto Gadgets is a quote-based B2B technology sourcing business. We help organizations obtain genuine, business-grade hardware — servers, workstations, laptops, mobile devices, networking, and storage — through reputable supplier and distributor networks, with transparent quote-based pricing and coordinated delivery across Canada, the United States, and the GCC, whether they need a single workstation or a fleet of hundreds.</p>
-            </div>
-            <div className="bg-[#12151f] border border-white/10 rounded-2xl p-6">
-              <h3 className="text-white font-bold mb-3">Vision</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">To be the sourcing partner that businesses across Canada, the United States, and the GCC trust for genuine business-grade technology — recognized for integrity, competitive value, and dependable delivery.</p>
-            </div>
+      <section className="shell mission-section">
+        <p className="eyebrow">OUR MISSION & VISION</p>
+        <div className="mission-grid">
+          <div>
+            <h2>Sourcing with a purpose.</h2>
+            <p>
+              Toronto Gadgets helps organizations obtain genuine, business-grade
+              servers, workstations, laptops, mobile devices, networking,
+              peripherals and storage through reputable supplier and distributor
+              networks. Our mission is transparent quote-based pricing and
+              coordinated delivery, whether you need a single workstation or a
+              larger deployment.
+            </p>
+          </div>
+          <div>
+            <h2>A partner for the long term.</h2>
+            <p>
+              Our vision is to be the sourcing partner businesses across Canada,
+              the United States and the GCC trust for genuine business-grade
+              technology—recognized for integrity, competitive value and
+              dependable delivery.
+            </p>
+            <Link href="/about" className="text-link">
+              About Toronto Gadgets ↗
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* FAQ */}
-      <section className="relative py-14 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-black text-center mb-10">
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">FAQ</span>
-          </h2>
-          <div className="space-y-4">
-            {(faqJsonLd.mainEntity as Array<{ name: string; acceptedAnswer: { text: string } }>).map((q) => (
-              <div key={q.name} className="bg-[#12151f] border border-white/10 rounded-xl p-5">
-                <h3 className="text-white font-semibold text-sm mb-2">{q.name}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{q.acceptedAnswer.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="shell faq-section">
+        <p className="eyebrow">BEFORE YOU REQUEST A QUOTE</p>
+        <h2>Your questions, answered.</h2>
+        {faqs.map(([q, a]) => (
+          <details key={q}>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))}
+      </section>
+      <section className="shell closing">
+        <p className="eyebrow">LET’S TALK TECHNOLOGY</p>
+        <h2>
+          Your next project starts
+          <br />
+          with a conversation.
+        </h2>
+        <Link href="/contact" className="button">
+          Request a quote ↗
+        </Link>
+        <p>Toronto-based sourcing. A quote built around your requirements.</p>
       </section>
     </>
   );
