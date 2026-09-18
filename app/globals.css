@@ -1150,11 +1150,17 @@ button:disabled {
 .site-footer .brand strong {
   font-size: 20px;
 }
+.site-footer .brand {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 14px 16px;
+  border-radius: 5px;
+}
 .site-footer .brand small {
   font-size: 8px;
 }
 .site-footer .brand path {
-  fill: var(--paper);
+  fill: var(--red);
 }
 .site-footer a:focus-visible {
   outline-color: var(--paper);
