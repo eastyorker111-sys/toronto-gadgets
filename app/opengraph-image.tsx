@@ -1,3 +1,4 @@
+import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 export const alt =
@@ -5,9 +6,29 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default async function Image() {
-  // Uses the same fixed symbol and outlined IBM Plex Sans as the channel assets.
-  const artwork = await readFile(join(process.cwd(), "public", "og-image.png"));
-  return new Response(new Uint8Array(artwork), {
-    headers: { "Content-Type": contentType },
-  });
+  const [logo, photo, font] = await Promise.all([
+    readFile(join(process.cwd(), "public/brand/tg-symbol.png")),
+    readFile(join(process.cwd(), "public/brand/technology-hero.png")),
+    readFile(join(process.cwd(), "app/fonts/IBMPlexSans-Regular.ttf")),
+  ]);
+  return new ImageResponse(
+    <div style={{ display: "flex", width: "100%", height: "100%", background: "#f7f2e8", color: "#292e2e", padding: 54, fontFamily: "Plex" }}>
+      <div style={{ display: "flex", flexDirection: "column", width: 620, paddingRight: 40 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <img src={`data:image/png;base64,${logo.toString("base64")}`} width={76} height={60} />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontSize: 32 }}>Toronto Gadgets</span>
+            <span style={{ fontSize: 15, color: "#59635f" }}>B2B Technology Sourcing</span>
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", marginTop: 66, fontSize: 60, lineHeight: 1.08, letterSpacing: -2 }}>
+          <span>Technology that</span><span style={{ color: "#3d6666" }}>fits your business.</span>
+        </div>
+        <span style={{ marginTop: 30, fontSize: 24, lineHeight: 1.4 }}>Business-grade hardware, sourced around your requirements.</span>
+        <span style={{ marginTop: "auto", color: "#3d6666", fontSize: 18 }}>TORONTO-BASED · PRICING BY QUOTE</span>
+      </div>
+      <img src={`data:image/png;base64,${photo.toString("base64")}`} width={472} height={522} style={{ objectFit: "cover", borderRadius: 3 }} />
+    </div>,
+    { ...size, fonts: [{ name: "Plex", data: font, weight: 400, style: "normal" }] },
+  );
 }

@@ -1,15 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import Analytics from "./components/Analytics";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import { contactLinks } from "./data/contact";
 import "./globals.css";
+import "./brand.css";
 
-const plex = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
+const plex = localFont({ src: "./fonts/IBMPlexSans.ttf", weight: "100 700", display: "swap" });
 
 /* ─── METADATA ─── */
 export const metadata: Metadata = {
@@ -34,10 +32,10 @@ export const metadata: Metadata = {
       "Toronto-based B2B technology sourcing. Business-grade hardware, custom requests and quote-based pricing.",
     images: [
       {
-        url: "https://torontogadgets.com/opengraph-image",
+        url: "https://torontogadgets.com/opengraph-image?v=20260918-adobe",
         width: 1200,
         height: 630,
-        alt: "Toronto Gadgets - Enterprise Technology Solutions",
+        alt: "Toronto Gadgets — B2B technology sourcing in Toronto",
       },
     ],
   },
@@ -46,16 +44,12 @@ export const metadata: Metadata = {
     title: "Toronto Gadgets | Enterprise Technology Sourcing",
     description:
       "Toronto-based B2B technology sourcing. Business-grade hardware, custom requests and quote-based pricing.",
-    images: ["https://torontogadgets.com/opengraph-image"],
+    images: ["https://torontogadgets.com/opengraph-image?v=20260918-adobe"],
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico?v=20260918-curved", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
-      { url: "/favicon-96.png?v=20260918-curved", sizes: "96x96", type: "image/png" },
-      { url: "/favicon.svg?v=20260918-curved", sizes: "any", type: "image/svg+xml" },
-    ],
-    shortcut: "/favicon.ico?v=20260918-curved",
-    apple: { url: "/apple-touch-icon.png?v=20260918-curved", sizes: "180x180", type: "image/png" },
+    icon: [{ url: "/favicon-96.png?v=20260918-adobe", sizes: "96x96", type: "image/png" }],
+    shortcut: "/favicon.ico?v=20260918-adobe",
+    apple: { url: "/apple-touch-icon.png?v=20260918-adobe", sizes: "180x180", type: "image/png" },
   },
   verification: { google: "googleea6943a147d163fe" },
   category: "technology",
@@ -64,7 +58,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#a64037",
+  themeColor: "#3d6666",
 };
 
 /* ─── STRUCTURED DATA ─── */
@@ -75,7 +69,7 @@ const organizationJsonLd = {
   name: "Toronto Gadgets",
   legalName: "East Yorker Corp",
   url: "https://torontogadgets.com",
-  logo: "https://torontogadgets.com/favicon.svg",
+  logo: "https://torontogadgets.com/brand/tg-symbol.png",
   description:
     "Toronto-based B2B technology sourcing provider. All pricing by quotation; customers can request listed models or their own items.",
   foundingDate: "2021",

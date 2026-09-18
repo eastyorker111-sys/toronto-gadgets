@@ -1,0 +1,95 @@
+/* Approved Adobe direction. Shared across every page. */
+:root {
+  --paper: #f7f2e8;
+  --ink: #292e2e;
+  --red: #3d6666;
+  --muted: #59635f;
+  --line: #dcded4;
+  --surface: #f0ede3;
+  --champagne: #eddbb9;
+  --teal: #3d6666;
+}
+body { -webkit-font-smoothing: antialiased; }
+.site-header { background: #f7f2e8f5; }
+.nav-row { min-height: 103px; }
+.brand { gap: 14px; }
+.brand .brand-symbol { width: 66px; height: 54px; object-fit: contain; flex-shrink: 0; }
+.brand strong { font-weight: 500; font-size: 24px; letter-spacing: -.9px; }
+.brand small { color: var(--muted); font-size: 10px; letter-spacing: .055em; margin-top: 4px; }
+.desktop-nav { font-size: 14px; gap: 29px; }
+.button { background: var(--teal); border-color: var(--teal); color: #fff; border-radius: 3px; }
+.button:hover { background: #2b4d4d; border-color: #2b4d4d; }
+.secondary-button:hover, .technology-menu > div > a:hover { background: #e6ece6; }
+.hero { position: relative; gap: 48px; padding-top: 56px; padding-bottom: 56px; grid-template-columns: 1fr 1fr; }
+.hero h1 { font-size: clamp(44px,4.45vw,65px); font-weight: 400; line-height: 1.09; letter-spacing: -2.6px; margin-bottom: 25px; }
+.hero h1 em { color: var(--teal); font-weight: 500; }
+.hero .eyebrow { margin-bottom: 27px; }
+.eyebrow { font-size: 11px; letter-spacing: .16em; color: var(--teal); }
+.hero .intro { font-size: 19px; line-height: 1.65; max-width: 420px; }
+.hero-visual { padding: 0; border-radius: 3px; overflow: hidden; background: #9caeaa; }
+.hero-visual img { aspect-ratio: 1.03; object-fit: cover; mix-blend-mode: normal; }
+.hero-visual figcaption { background: #e9e9df; padding: 12px 18px; font-size: 10px; letter-spacing: .065em; border: 0; color: #42504b; }
+.hero-actions { margin-top: 29px; gap: 24px; }
+.hero-actions .text-link { text-decoration: underline; }
+.hero-note { font-size: 12px; margin-top: 21px; }
+.principles { background: #eddbb9; border-color: #dcccae; }
+.principles > .shell { font-size: 12px; padding-top: 19px; padding-bottom: 19px; font-weight: 500; letter-spacing: .025em; }
+h2 { font-weight: 500; letter-spacing: -1px; }
+.technology-section { padding-top: 64px; padding-bottom: 64px; }
+.section-heading { display: flex; align-items: end; margin-bottom: 30px; }
+.section-heading > p { max-width: 290px; margin-bottom: 3px; }
+.category-grid { gap: 18px; }
+.category-card { border-color: #dde0d7; border-radius: 3px; padding: 20px; }
+.category-card h3 { font-weight: 500; font-size: 19px; }
+.category-card p { font-size: 14px; }
+.category-card img { margin-bottom: 20px; }
+.category-link { font-size: 12px; padding-top: 14px; }
+.custom-category { background: #3d6666; border-color: #3d6666; }
+.custom-category h3 { font-size: 28px; }
+.custom-category p, .custom-category .category-link { color: #f7f2e8; }
+.process-section { background: #293b3b; padding: 56px 0; }
+.process-layout h2 { font-weight: 400; }
+.step > span { background: #587d79; color: #fff; }
+.step h3 { font-weight: 500; }
+.step p { color: #d4ded7; }
+.mission-section { padding-top: 64px; }
+.mission-grid h2 { font-weight: 400; }
+.faq-section details { background: transparent; padding: 0; }
+.faq-section summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; list-style: none; padding: 23px 0; }
+.faq-section summary::-webkit-details-marker { display: none; }
+.faq-section summary::after { content: '+'; flex-shrink: 0; color: var(--teal); font-size: 26px; font-weight: 400; line-height: 1; }
+.faq-section details[open] summary::after { content: '−'; }
+.faq-section details p { margin: 0; padding: 0 48px 24px 0; }
+.faq-section summary:hover { color: var(--teal); }
+.closing { margin-top: 40px; margin-bottom: 0; background: transparent; border-top: 1px solid var(--line); padding-top: 52px; padding-bottom: 64px; }
+.closing h2 { font-weight: 400; }
+.site-footer { background: #293b3b; }
+.site-footer .brand { position: relative; background: transparent; color: var(--paper); border-radius: 0; padding: 0; }
+.site-footer .brand::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 51px; height: 44px; background: var(--champagne); mask: url('/brand/tg-symbol.png') center / contain no-repeat; }
+.site-footer .brand strong { font-size: 19px; }
+.site-footer .brand .brand-symbol { width: 51px; height: 44px; opacity: 0; }
+.site-footer .brand small { font-size: 8px; color: #d4ded7; }
+.quote-form input:not([type="hidden"]), .quote-form select, .quote-form textarea { background: var(--paper); }
+.custom-request, .quote-aside, .quote-success, .company-details { background: #e8ece4; }
+.model-card, .service-card, .feature-card, .quote-item { border-radius: 3px; }
+.category-hero h1, .quote-page h1, .page-intro h1, .article-page h1 { font-weight: 500; }
+@media (max-width:1100px) { .desktop-nav { gap: 18px; font-size: 13px; } .brand strong { font-size: 21px; } .hero { gap: 28px; } }
+@media (max-width:760px) {
+  .nav-row { min-height: 86px; }
+  .brand .brand-symbol { width: 49px; height: 43px; }
+  .brand strong { font-size: 21px; }
+  .brand small { font-size: 8px; }
+  .hero { grid-template-columns: 1fr; gap: 34px; padding-top: 35px; padding-bottom: 34px; }
+  .hero h1 { font-size: clamp(39px,9vw,56px); letter-spacing: -1.6px; }
+  .hero .intro { font-size: 17px; }
+  .hero .eyebrow { font-size: 9px; margin-bottom: 22px; }
+  .hero-visual { max-width: none; }
+  .hero-visual img { aspect-ratio: 1.12; }
+  .section-heading { display: block; }
+  .section-heading > p { max-width: none; margin-top: 12px; }
+  .technology-section { padding-top: 40px; padding-bottom: 40px; }
+  .principles > .shell { font-size: 11px; gap: 12px; }
+  .closing { margin: 24px 24px 0; padding-left: 0; padding-right: 0; }
+  .process-section { padding: 40px 0; }
+  .mission-section { padding-top: 40px; }
+}
