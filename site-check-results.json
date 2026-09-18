@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-18T17:05:46.888Z",
+  "checkedAt": "2026-09-18T19:45:22.407Z",
   "pages": [
     "/",
     "/servers",
@@ -16,8 +16,8 @@
     "/blog/dell-vs-hpe-servers",
     "/blog/it-hardware-procurement-guide"
   ],
-  "internalLinkTargets": 109,
-  "images": 8,
+  "internalLinkTargets": 108,
+  "images": 10,
   "failures": [],
   "external": [
     {
@@ -29,6 +29,11 @@
       "url": "https://api.whatsapp.com/send?phone=14372376895&text=Hi%2C%20I%27m%20interested%20in%20getting%20a%20quote%20from%20Toronto%20Gadgets.",
       "status": 200,
       "final": "https://api.whatsapp.com/send?phone=14372376895&text=Hi%2C%20I%27m%20interested%20in%20getting%20a%20quote%20from%20Toronto%20Gadgets."
+    },
+    {
+      "url": "https://maps.app.goo.gl/nBbhQTYnBrhTutQc9",
+      "status": 200,
+      "final": "https://www.google.com/maps/place/Toronto+Gadgets/@43.6683995,-79.4622035,11z/data=!3m1!4b1!4m6!3m5!1s0x80be31c4eed2471f:0x7cb79561fb0cee7c!8m2!3d43.6683995!4d-79.4622035!16s%2Fg%2F11n3yyf248?entry=tts&g_ep=EgoyMDI2MDkxNS4wIPu8ASoASAFQAw%3D%3D&skid=4cd7c6f1-eab8-4e23-8d9f-708aac37f294"
     },
     {
       "url": "https://www.facebook.com/profile.php?id=61587119518549",

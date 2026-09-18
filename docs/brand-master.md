@@ -1,13 +1,17 @@
-# Toronto Gadgets — approved website identity
+# Toronto Gadgets — user-confirmed brand master
 
-On 18 September 2026 the user approved deployment of the refined Adobe website concept. This supersedes the previous brick-red website treatment.
+Visual authority: D:/Toronto Gadgets/Brand Kit/05-Source/APPROVED-MASTER.png, explicitly confirmed by the user on 18 September 2026. Pale cream and a sans-serif company name were rejected.
 
-Use the existing Adobe TG master at `public/brand/tg-symbol.png`; do not redraw or regenerate its geometry. Website typography is IBM Plex Sans, supplied locally with its license. The palette is cream #F7F2E8, graphite #292E2E, muted teal #3D6666, dark teal #293B3B and champagne #EDDBB9. `app/brand.css` supplies the shared treatment; `app/data/brand.json` records the identity.
+- Background: champagne #ECD8A8, sampled from the confirmed screenshot.
+- Symbol: public/brand/tg-symbol.png, original Adobe artwork, with identical geometry and colouring across platforms.
+- Company name: public/brand/tg-wordmark.png, the actual serif lettering extracted from the approved Adobe master. Never replace with a guessed font.
+- Interface and descriptive copy only: IBM Plex Sans.
+- Functional text/accent colours: graphite #292E2E, muted teal #3D6666 and dark teal #293B3B. These support contrast; they are not claimed to be exact sampled reference colours.
+- Latest user correction: replace the grey backdrop and rejected floating cutouts with grounded champagne studio photography; remove the pale caption strip. public/brand/technology-studio.png shows the three devices in a pale champagne studio with natural contact shadows, edited in Adobe. Place on champagne. It is illustrative artwork, not evidence of inventory or premises.
 
-FAQ rows blend into the page background. The footer places the identical symbol silhouette in champagne directly on dark teal, with light lettering and no pale rectangle. Cards use warm neutral surfaces. Preserve readable contrast, desktop/mobile spacing, full symbol geometry, and platform-safe margins.
+app/data/brand.json supplies the shared palette. Header, footer, favicons, sharing image and platform exports must follow these masters. Keep the complete equipment, logo and company name visible within each format.
 
-The Adobe hero is illustrative product artwork, not evidence of actual stock or premises. The business remains Toronto-based B2B sourcing and delivery, with quote-based pricing and customer-supplied item lists.
+User authorized production deployment on 18 September 2026 after folder and platform-asset checks. Previous production commit for rollback: 9ab84844868183eefebf2673092656cf12312de5. Generating local files does not update social accounts.
 
-Browser icons and the shared-link image match this website. `node scripts/build-icons.mjs` exports browser formats from the Adobe master. Previous social-platform files in the local Brand Kit are preserved; deployment does not imply that those external profiles have been updated.
+Preserve catalogue pages, custom-item quote forms, contact links, SEO integrations, hosting and billing. Business remains Toronto-based B2B sourcing and delivery; all pricing by quote.
 
-Previous website version for rollback: d6e4ebf4c7a9210476f851fa620632b60789b251.

@@ -71,14 +71,13 @@ export default function Home() {
         </div>
         <figure className="hero-visual">
           <Image
-            src="/brand/technology-hero.png"
+            src="/brand/technology-studio.png"
             alt="Illustrative business laptop, workstation and server for Toronto Gadgets technology sourcing"
             width={1585}
             height={1552}
             priority
             sizes="(max-width: 760px) 100vw, (max-width: 1240px) 50vw, 584px"
           />
-          <figcaption><span>BUSINESS-GRADE TECHNOLOGY</span><span>SOURCED FOR YOUR REQUIREMENTS</span></figcaption>
         </figure>
       </section>
       <div className="principles">

@@ -2,8 +2,9 @@
   "name": "Toronto Gadgets",
   "descriptor": "B2B Technology Sourcing",
   "symbol": "/brand/tg-symbol.png",
-  "hero": "/brand/technology-hero.png",
-  "font": "IBM Plex Sans",
-  "colours": { "teal": "#3D6666", "ink": "#292E2E", "cream": "#F7F2E8", "champagne": "#EDDBB9", "dark": "#293B3B" },
-  "approved": "2026-09-18: user requested deployment of the refined Adobe concept"
+  "hero": "/brand/technology-studio.png",
+  "wordmark": "/brand/tg-wordmark.png",
+  "font": "IBM Plex Sans for interface copy only; exact serif company-name artwork extracted from the approved Adobe master",
+  "colours": { "teal": "#3D6666", "ink": "#292E2E", "cream": "#ECD8A8", "champagne": "#ECD8A8", "dark": "#293B3B" },
+  "approved": "User-confirmed screenshot codex-clipboard-6f8109ba-4827-4672-b612-29c6afbfc577.png. Champagne sampled from that screenshot. This supersedes the pale-cream / sans-serif-name interpretation. Corrections prepared locally for review."
 }

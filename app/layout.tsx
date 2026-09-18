@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Toronto-based B2B technology sourcing. Business-grade hardware, custom requests and quote-based pricing.",
     images: [
       {
-        url: "https://torontogadgets.com/opengraph-image?v=20260918-adobe",
+        url: "https://torontogadgets.com/opengraph-image?v=20260918-approved-master",
         width: 1200,
         height: 630,
         alt: "Toronto Gadgets — B2B technology sourcing in Toronto",
@@ -44,12 +44,12 @@ export const metadata: Metadata = {
     title: "Toronto Gadgets | Enterprise Technology Sourcing",
     description:
       "Toronto-based B2B technology sourcing. Business-grade hardware, custom requests and quote-based pricing.",
-    images: ["https://torontogadgets.com/opengraph-image?v=20260918-adobe"],
+    images: ["https://torontogadgets.com/opengraph-image?v=20260918-approved-master"],
   },
   icons: {
-    icon: [{ url: "/favicon-96.png?v=20260918-adobe", sizes: "96x96", type: "image/png" }],
-    shortcut: "/favicon.ico?v=20260918-adobe",
-    apple: { url: "/apple-touch-icon.png?v=20260918-adobe", sizes: "180x180", type: "image/png" },
+    icon: [{ url: "/favicon-96.png?v=20260918-approved-master", sizes: "96x96", type: "image/png" }],
+    shortcut: "/favicon.ico?v=20260918-approved-master",
+    apple: { url: "/apple-touch-icon.png?v=20260918-approved-master", sizes: "180x180", type: "image/png" },
   },
   verification: { google: "googleea6943a147d163fe" },
   category: "technology",
