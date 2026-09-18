@@ -59,6 +59,10 @@ export default async function ContactPage(
             Toronto Gadgets on LinkedIn ↗
           </a>
           <h3>Based in Toronto</h3>
+          <a href={contactLinks.googleMaps} target="_blank" rel="noopener noreferrer">
+            View our Google Maps profile ↗
+          </a>
+          <p>Sourcing and delivery service. Please contact us online for a quote.</p>
           <p>
             75 Thorncliffe Park Drive
             <br />

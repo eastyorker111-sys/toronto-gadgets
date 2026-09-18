@@ -95,6 +95,7 @@ const organizationJsonLd = {
     availableLanguage: ["English", "Urdu", "Arabic"],
   },
   sameAs: [
+    contactLinks.googleMaps,
     contactLinks.linkedIn,
     "https://www.facebook.com/profile.php?id=61587119518549",
   ],
@@ -104,6 +105,7 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": "https://torontogadgets.com/#localbusiness",
+  hasMap: contactLinks.googleMaps,
   name: "Toronto Gadgets",
   url: "https://torontogadgets.com",
   image: "https://torontogadgets.com/opengraph-image",

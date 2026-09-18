@@ -54,6 +54,9 @@ export default function Footer() {
             <a href={contactLinks.whatsApp} target="_blank" rel="noopener noreferrer">
               WhatsApp ↗
             </a>
+            <a href={contactLinks.googleMaps} target="_blank" rel="noopener noreferrer">
+              Google Maps profile ↗
+            </a>
             <a
               href="https://www.facebook.com/profile.php?id=61587119518549"
               target="_blank"
