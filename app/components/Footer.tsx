@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Brand from "./Brand";
 import catalog from "../data/catalog.json";
+import { contactLinks } from "../data/contact";
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -44,11 +45,14 @@ export default function Footer() {
               Toronto, Ontario M4H 1L4, Canada
             </p>
             <a
-              href="https://www.linkedin.com/company/toronto-gadgets"
+              href={contactLinks.linkedIn}
               target="_blank"
               rel="noopener noreferrer"
             >
               LinkedIn ↗
+            </a>
+            <a href={contactLinks.whatsApp} target="_blank" rel="noopener noreferrer">
+              WhatsApp ↗
             </a>
             <a
               href="https://www.facebook.com/profile.php?id=61587119518549"

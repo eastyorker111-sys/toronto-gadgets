@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-export const runtime = "edge";
 export const alt =
   "Toronto Gadgets — B2B technology sourcing in Toronto. Your requirements. Your quote.";
 export const size = { width: 1200, height: 630 };

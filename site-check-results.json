@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-18T16:55:05.076Z",
+  "checkedAt": "2026-09-18T17:05:46.888Z",
   "pages": [
     "/",
     "/servers",
@@ -26,14 +26,14 @@
       "final": "https://www.linkedin.com/company/toronto-gadgets"
     },
     {
-      "url": "https://www.facebook.com/profile.php?id=61587119518549",
-      "status": 200,
-      "final": "https://www.facebook.com/profile.php?id=61587119518549"
-    },
-    {
       "url": "https://api.whatsapp.com/send?phone=14372376895&text=Hi%2C%20I%27m%20interested%20in%20getting%20a%20quote%20from%20Toronto%20Gadgets.",
       "status": 200,
       "final": "https://api.whatsapp.com/send?phone=14372376895&text=Hi%2C%20I%27m%20interested%20in%20getting%20a%20quote%20from%20Toronto%20Gadgets."
+    },
+    {
+      "url": "https://www.facebook.com/profile.php?id=61587119518549",
+      "status": 200,
+      "final": "https://www.facebook.com/profile.php?id=61587119518549"
     },
     {
       "url": "https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-r760-spec-sheet.pdf",

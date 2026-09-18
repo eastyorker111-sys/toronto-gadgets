@@ -3,6 +3,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import Analytics from "./components/Analytics";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import { contactLinks } from "./data/contact";
 import "./globals.css";
 
 const plex = IBM_Plex_Sans({
@@ -86,7 +87,7 @@ const organizationJsonLd = {
     availableLanguage: ["English", "Urdu", "Arabic"],
   },
   sameAs: [
-    "https://www.linkedin.com/company/toronto-gadgets",
+    contactLinks.linkedIn,
     "https://www.facebook.com/profile.php?id=61587119518549",
   ],
 };
@@ -133,7 +134,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <head>
         <script
           type="application/ld+json"
@@ -166,7 +167,7 @@ export default function RootLayout({
 
         {/* WhatsApp FAB — Global */}
         <a
-          href="https://api.whatsapp.com/send?phone=14372376895&text=Hi%2C%20I%27m%20interested%20in%20getting%20a%20quote%20from%20Toronto%20Gadgets."
+          href={contactLinks.whatsApp}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"

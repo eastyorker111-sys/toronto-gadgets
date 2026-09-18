@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import QuoteForm from "../components/QuoteForm";
+import { contactLinks } from "../data/contact";
 export const metadata: Metadata = {
   title: "Request a B2B Sourcing Quote in Toronto | Toronto Gadgets",
   description:
     "Request business technology from a Toronto-based sourcing provider. Choose an example model, add your own items, or ask for options. All pricing by quotation.",
   alternates: { canonical: "https://torontogadgets.com/contact" },
 };
-export default function ContactPage({
-  searchParams,
-}: {
-  searchParams: { category?: string; item?: string; mode?: string };
-}) {
+export default async function ContactPage(
+  props: {
+    searchParams: Promise<{ category?: string; item?: string; mode?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const category =
     typeof searchParams.category === "string" ? searchParams.category : "";
   const item =
@@ -49,6 +51,12 @@ export default function ContactPage({
           <a href="tel:+14372376895">+1 (437) 237-6895</a>
           <a href="mailto:torontogadgets1001@gmail.com">
             torontogadgets1001@gmail.com
+          </a>
+          <a href={contactLinks.whatsApp} target="_blank" rel="noopener noreferrer">
+            Chat on WhatsApp ↗
+          </a>
+          <a href={contactLinks.linkedIn} target="_blank" rel="noopener noreferrer">
+            Toronto Gadgets on LinkedIn ↗
           </a>
           <h3>Based in Toronto</h3>
           <p>

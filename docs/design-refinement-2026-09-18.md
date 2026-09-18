@@ -2,6 +2,21 @@
 
 Status: REVIEWED local website preview; visual direction remains DRAFT for user review.
 
+## Release update — 2026-09-18
+
+The user subsequently authorized production deployment and confirmed using the existing Vercel setup: "you do your thing leave rest on vercel lets see". The earlier preview-only scope below is a historical record.
+
+- Added explicit LinkedIn and WhatsApp links to the contact page and footer; retained the global WhatsApp button. All use shared destinations in `app/data/contact.ts`.
+- Verified the LinkedIn page identifies Toronto Gadgets, Toronto, and torontogadgets.com. WhatsApp uses the existing published business number +1 437 237 6895. No message was sent.
+- Upgraded Next.js 14.2.35 through the async-request migration to 16.3.5, with React 19.3.0, matching React types, and PostCSS 8.5.28. Full npm audit reports zero known vulnerabilities at release preparation.
+- Migrated contact search parameters to the asynchronous API. Removed the deprecated Edge runtime from the sharing image, which now builds statically. Replaced the removed, previously unconfigured `next lint` command with an explicit TypeScript check.
+- Next.js 16 production build and type checking pass. Rechecked all 14 pages, 109 internal link targets, eight distinct image URLs, sitemap, robots, favicon, sharing image, and model-prefilled quote links. No crawler failures; all 12 external HTTP destinations returned 200.
+- Chrome confirmed the guided Workstations/help request, adding a custom docking-station item with quantity five, and correct review details. Mobile quote layout checked at 390px; viewport reset. No real enquiry was submitted, so inbox delivery remains unverified.
+- Existing Vercel Hobby plan restriction to non-commercial use was disclosed. The user instructed continuing with the existing setup. No billing, plan, add-on, DNS, or other-project changes are authorized by this release.
+- Production before this release: commit `991046932102bdd77fb2c1edbab01313610c8593`, Vercel deployment `2A8nyLTDPdrr6AeDwWNWqCyPKTiP`. Preserve this target for rollback if live checks fail.
+
+Deployment status at this commit: READY to publish; production verification must be recorded after the deployment completes. Bing/IndexNow changes remain separate.
+
 Saved in `C:/Users/east_/Projects/toronto-gadgets-design` on branch `codex/website-design-refinement`, based on brand preview commit `3c5bf46`. This is business website work, outside the GBC course mirror. The original checkout and its untracked brand studies are preserved.
 
 ## Scope
