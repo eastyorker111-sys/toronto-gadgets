@@ -15,7 +15,7 @@ const plex = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: "Toronto Gadgets | B2B Technology Sourcing in Toronto",
   description:
-    "Toronto-based B2B technology sourcing for servers, workstations, laptops, networking and more. Request a quote for listed models, custom configurations or your own items.",
+    "Toronto-based B2B technology sourcing for servers, laptops, workstations and networking. Request a quote for listed models or your own item list.",
   keywords:
     "B2B technology sourcing Toronto, IT hardware sourcing Toronto, business technology procurement, quote-based hardware sourcing, servers, workstations, laptops, Ontario, Canada",
   authors: [{ name: "Toronto Gadgets", url: "https://torontogadgets.com" }],
