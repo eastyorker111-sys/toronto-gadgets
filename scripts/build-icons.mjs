@@ -2,7 +2,9 @@
 import sharp from "sharp";
 import { readFile, writeFile } from "node:fs/promises";
 
-const source = await readFile(new URL("../public/favicon.svg", import.meta.url));
+const brand = JSON.parse(await readFile(new URL("../app/data/brand.json", import.meta.url), "utf8"));
+const source = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 880"><rect width="880" height="880" rx="96" fill="${brand.colours.ivory}"/><g transform="translate(68 142)" fill="${brand.colours.red}">${brand.paths.map(d => `<path d="${d}"/>`).join("")}</g></svg>`);
+await writeFile(new URL("../public/favicon.svg", import.meta.url), source);
 const png = (size) => sharp(source, { density: 384 })
   .resize(size, size, { fit: "contain", background: "#f7f4ef" })
   .flatten({ background: "#f7f4ef" })

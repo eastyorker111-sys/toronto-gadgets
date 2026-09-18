@@ -146,8 +146,9 @@ h3 {
   gap: 13px;
 }
 .brand svg {
-  width: 44px;
-  height: 43px;
+  width: 54px;
+  height: 44px;
+  color: var(--red);
   flex-shrink: 0;
 }
 .brand strong {
@@ -159,9 +160,9 @@ h3 {
 }
 .brand small {
   display: block;
-  font-size: 9px;
-  letter-spacing: 1.2px;
-  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 0;
+  margin-top: 2px;
 }
 .desktop-nav {
   display: flex;
@@ -212,11 +213,11 @@ h3 {
 /* Homepage */
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.88fr 1.12fr;
   align-items: center;
-  gap: 30px;
-  padding-top: 76px;
-  padding-bottom: 68px;
+  gap: 20px;
+  padding-top: 48px;
+  padding-bottom: 38px;
 }
 .hero h1 {
   font-size: clamp(42px, 4.25vw, 64px);
@@ -247,7 +248,7 @@ h3 {
   padding-top: 14px;
 }
 .hero-visual:before {
-  content: "";
+  content: none;
   position: absolute;
   right: 0;
   top: 0;
@@ -280,8 +281,8 @@ h3 {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 18px;
-  padding-top: 22px;
-  padding-bottom: 22px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   font-size: 14px;
 }
 .sourcing-start {
@@ -338,15 +339,15 @@ h3 {
   color: var(--muted);
 }
 .technology-section {
-  padding-top: 24px;
-  padding-bottom: 80px;
+  padding-top: 34px;
+  padding-bottom: 40px;
 }
 .section-heading {
-  display: flex;
+  display: block;
   justify-content: space-between;
   gap: 35px;
   align-items: flex-end;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 .section-heading .eyebrow {
   margin-bottom: 12px;
@@ -360,13 +361,14 @@ h3 {
 .category-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
+  gap: 14px;
 }
 .category-card {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--line);
-  padding: 22px;
+  padding: 18px;
+  border-radius: 5px;
   background: var(--surface);
   transition:
     transform 0.2s,
@@ -391,38 +393,38 @@ h3 {
   width: 100%;
   aspect-ratio: 1.5;
   object-fit: contain;
-  margin: 14px 0 22px;
+  margin: 0 0 14px;
 }
 .category-card h3 {
-  font-size: 21px;
+  font-size: 19px;
   letter-spacing: -0.5px;
 }
 .category-card p {
   font-size: 15px;
   line-height: 1.65;
   color: var(--muted);
-  margin: 12px 0 28px;
+  margin: 7px 0 16px;
 }
 .category-link {
   display: flex;
   justify-content: space-between;
   gap: 12px;
   margin-top: auto;
-  padding-top: 17px;
-  border-top: 1px solid var(--line);
+  padding-top: 8px;
+  color: var(--red);
   font-size: 13px;
   font-weight: 500;
 }
 .custom-category {
-  background: var(--ink);
+  background: var(--red);
   color: var(--paper);
   justify-content: center;
 }
 .custom-category p {
-  color: #d8d3cb;
+  color: var(--paper);
 }
 .custom-category h3 {
-  font-size: 32px;
+  font-size: 27px;
   line-height: 1.15;
 }
 .custom-category .eyebrow {
@@ -432,22 +434,21 @@ h3 {
 .custom-category .category-link {
   margin-top: 30px;
   border-color: #ffffff40;
+  color: var(--paper);
 }
 .process-section {
   background: var(--ink);
   color: var(--paper);
-  padding: 76px 0;
+  padding: 40px 0;
 }
 .process-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  display: block;
 }
 .process-layout .eyebrow {
   color: #d9b6ac;
 }
 .process-layout h2 {
-  font-size: 40px;
+  font-size: 36px;
   margin-bottom: 26px;
 }
 .process-layout .text-link {
@@ -459,37 +460,47 @@ h3 {
 .process-layout a:focus-visible {
   outline-color: var(--paper);
 }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
 .step {
   display: flex;
-  gap: 25px;
-  padding: 24px 0;
-  border-bottom: 1px solid #ffffff30;
+  gap: 16px;
+  padding: 0;
 }
 .step:first-child {
   padding-top: 0;
 }
 .step > span {
-  font-size: 13px;
-  color: #d9b6ac;
-  padding-top: 4px;
+  font-size: 25px;
+  color: var(--paper);
+  background: var(--red);
+  border-radius: 4px;
+  min-width: 52px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .step h3 {
-  font-size: 22px;
+  font-size: 18px;
 }
 .step p {
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 14px;
+  line-height: 1.6;
   color: #d3d5d8;
   margin-top: 10px;
 }
 .mission-section {
-  padding-top: 80px;
-  padding-bottom: 72px;
+  padding-top: 36px;
+  padding-bottom: 36px;
 }
 .mission-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 44px;
 }
 .mission-grid h2 {
   font-size: 30px;
@@ -498,7 +509,7 @@ h3 {
   font-size: 17px;
   line-height: 1.8;
   color: var(--muted);
-  margin: 20px 0;
+  margin: 0 0 8px;
 }
 .faq-section {
   max-width: 940px;
@@ -1293,6 +1304,10 @@ button:disabled {
   }
 }
 @media (max-width: 760px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
   .shell {
     padding-left: 24px;
     padding-right: 24px;
@@ -1518,8 +1533,8 @@ button:disabled {
     font-size: 20px;
   }
   .brand small {
-    font-size: 7px;
-    letter-spacing: 1px;
+    font-size: 9px;
+    letter-spacing: 0;
   }
   .brand svg {
     width: 36px;

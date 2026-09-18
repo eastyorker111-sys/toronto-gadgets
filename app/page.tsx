@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import catalog from "./data/catalog.json";
-import SourcingStart from "./components/SourcingStart";
+const homepageCategories = ["servers", "laptops", "workstations", "network", "storage", "mobile", "peripherals"]
+  .flatMap((slug) => catalog.filter((category) => category.slug === slug));
 const faqs = [
   [
     "Can I request an item that is not listed?",
@@ -47,23 +48,21 @@ export default function Home() {
       />
       <section className="shell hero">
         <div>
-          <p className="eyebrow">B2B TECHNOLOGY SOURCING · TORONTO, CANADA</p>
+          <p className="eyebrow">B2B TECHNOLOGY SOURCING · TORONTO</p>
           <h1>
-            Technology that fits
+            Technology that
             <br />
-            <em>your business.</em>
+            <em>fits your<br />business.</em>
           </h1>
           <p className="intro">
-            From a single workstation to your team’s next upgrade. Tell us what
-            you need, and we’ll help source the equipment and prepare your
-            quote.
+            Business-grade hardware, sourced around your requirements.
           </p>
           <div className="hero-actions">
-            <Link className="button" href="#start-request">
-              Start your request ↗
+            <Link className="button" href="/contact?mode=custom">
+              I know what I need
             </Link>
-            <Link className="text-link" href="#technology">
-              Explore technology ↓
+            <Link className="text-link" href="/contact?mode=help">
+              Help me choose
             </Link>
           </div>
           <p className="hero-note">
@@ -79,40 +78,28 @@ export default function Home() {
             priority
             sizes="(max-width: 760px) 100vw, (max-width: 1240px) 50vw, 584px"
           />
-          <figcaption>
-            <span>YOUR REQUIREMENTS. OUR STARTING POINT.</span>
-            <span>ILLUSTRATIVE EQUIPMENT</span>
-          </figcaption>
         </figure>
       </section>
       <div className="principles">
         <div className="shell">
-          <span>+ B2B sourcing provider</span>
-          <span>+ Quote-based pricing</span>
-          <span>+ Your own items welcome</span>
-          <span>+ Based in Toronto</span>
+          <span>Toronto-based</span>
+          <span>B2B sourcing</span>
+          <span>Quote-based pricing</span>
+          <span>Your own items welcome</span>
         </div>
       </div>
-      <SourcingStart />
       <section className="shell technology-section" id="technology">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">TECHNOLOGY THAT FITS YOUR BUSINESS</p>
             <h2>What are you sourcing?</h2>
           </div>
           <p>
             Explore examples or bring your own list.
-            <br />
-            Every request starts with your requirements.
           </p>
         </div>
         <div className="category-grid">
-          {catalog.map((c, i) => (
+          {homepageCategories.map((c) => (
             <Link className="category-card" href={`/${c.slug}`} key={c.slug}>
-              <div className="card-top">
-                <span>0{i + 1}</span>
-                <span aria-hidden="true">↗</span>
-              </div>
               <Image
                 src={c.image}
                 width={600}
@@ -123,7 +110,7 @@ export default function Home() {
               <h3>{c.title}</h3>
               <p>{c.description}</p>
               <span className="category-link">
-                Explore sourcing options <span aria-hidden="true">→</span>
+                Explore options <span aria-hidden="true">→</span>
               </span>
             </Link>
           ))}
@@ -131,11 +118,9 @@ export default function Home() {
             href="/contact?mode=custom"
             className="category-card custom-category"
           >
-            <p className="eyebrow">YOUR REQUIREMENTS COME FIRST</p>
             <h3>Have your own list?</h3>
             <p>
-              Send a model, product link, or custom specification. Add several
-              items to one quote request.
+              Send models, links or specifications.
             </p>
             <span className="category-link">
               Build your request <span aria-hidden="true">→</span>
@@ -146,15 +131,7 @@ export default function Home() {
       <section className="process-section">
         <div className="shell process-layout">
           <div>
-            <p className="eyebrow">HOW IT WORKS</p>
-            <h2>
-              You know your business.
-              <br />
-              Let’s find the right fit.
-            </h2>
-            <Link href="/contact" className="text-link">
-              Start a sourcing request ↗
-            </Link>
+            <h2>A clear path from request to quote.</h2>
           </div>
           <div className="steps">
             {[
@@ -186,26 +163,14 @@ export default function Home() {
         </div>
       </section>
       <section className="shell mission-section">
-        <p className="eyebrow">OUR MISSION & VISION</p>
         <div className="mission-grid">
           <div>
             <h2>Sourcing with a purpose.</h2>
-            <p>
-              Toronto Gadgets helps organizations obtain genuine, business-grade
-              servers, workstations, laptops, mobile devices, networking,
-              peripherals and storage through reputable supplier and distributor
-              networks. Our mission is transparent quote-based pricing and
-              coordinated delivery, whether you need a single workstation or a
-              larger deployment.
-            </p>
           </div>
           <div>
-            <h2>A partner for the long term.</h2>
             <p>
-              Our vision is to be the sourcing partner businesses across Canada,
-              the United States and the GCC trust for genuine business-grade
-              technology—recognized for integrity, competitive value and
-              dependable delivery.
+              We help businesses find technology that fits their work.
+              Bring your requirements. We will help you explore the options.
             </p>
             <Link href="/about" className="text-link">
               About Toronto Gadgets ↗
@@ -214,8 +179,7 @@ export default function Home() {
         </div>
       </section>
       <section className="shell faq-section">
-        <p className="eyebrow">BEFORE YOU REQUEST A QUOTE</p>
-        <h2>Your questions, answered.</h2>
+        <h2>Before you request a quote.</h2>
         {faqs.map(([q, a]) => (
           <details key={q}>
             <summary>{q}</summary>
