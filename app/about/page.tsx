@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "../components/PageHeader";
 
 export const metadata: Metadata = {
   title: "About Us | Toronto Gadgets — Enterprise Hardware Sourcing Partner",
@@ -29,156 +30,142 @@ const breadcrumbJsonLd = {
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="shell content-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <section className="pt-10 pb-16 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <nav className="text-xs text-[#676660] mb-6">
-            <Link href="/" className="hover:text-[#a64037] transition-colors">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-[#555550]">About</span>
-          </nav>
-
-          <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-[#25282d] to-[#676660] bg-clip-text text-transparent mb-6">
-            About Toronto Gadgets
-          </h1>
-
-          <div className="space-y-6 text-[#676660] text-sm leading-relaxed">
-            <p>
-              Toronto Gadgets is a B2B enterprise technology sourcing partner
-              headquartered in Toronto, Canada. We source servers, workstations,
-              laptops, mobile devices, network equipment, storage solutions, and
-              peripherals through reputable supplier and distributor networks —
-              delivering competitive quotes and genuine products to businesses
-              across Canada, the United States, and the GCC region.
-            </p>
-            <p>
-              Founded under East Yorker Corp, a federally incorporated Canadian
-              corporation, Toronto Gadgets bridges the gap between enterprise
-              buyers and global hardware supply chains. Whether you need a
-              single workstation or a fleet of 500 servers, we provide the
-              sourcing expertise, pricing transparency, and logistics
-              coordination that enterprise procurement demands.
-            </p>
-          </div>
-
-          {/* Trust Signals */}
-          <div className="grid sm:grid-cols-2 gap-4 mt-10">
-            {[
-              { label: "Federal Corporation", value: "No. 1349551-5" },
-              { label: "Ontario Corporation", value: "No. 1001482504" },
-              { label: "Business Identification", value: "BIN 1001483714" },
-              { label: "GST/HST Registration", value: "766421804RT0001" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="bg-[#fbf9f5] border border-[#dedbd4] rounded-xl p-4"
-              >
-                <div className="text-[10px] text-[#676660] uppercase tracking-wider mb-1">
-                  {item.label}
-                </div>
-                <div className="text-sm text-[#25282d] font-mono">
-                  {item.value}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* What We Offer */}
-          <h2 className="text-xl font-bold text-[#25282d] mt-12 mb-6">
-            Why Businesses Choose Us
-          </h2>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {[
-              {
-                title: "Trusted Sourcing",
-                desc: "We procure through reputable supplier and distributor networks — genuine, business-grade technology, no grey market, and no refurbished units unless you request them.",
-              },
-              {
-                title: "Competitive Pricing",
-                desc: "Our network of suppliers across North America enables volume pricing even for smaller orders.",
-              },
-              {
-                title: "Global Delivery",
-                desc: "We ship across Canada, USA, and the GCC region with support for the standard shipping documentation and end-to-end tracking.",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="bg-[#fbf9f5] border border-[#dedbd4] rounded-xl p-5"
-              >
-                <h3 className="text-[#25282d] font-semibold text-sm mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-[#676660] text-xs leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Team & Responsibilities */}
-          <h2 className="text-xl font-bold text-[#25282d] mt-12 mb-6">
-            Our Team &amp; Responsibilities
-          </h2>
-          <p className="text-[#676660] text-sm leading-relaxed mb-6">
-            Toronto Gadgets operates as a coordinated sourcing team rather than
-            a storefront, organized around the core functions that business
-            technology procurement depends on:
+      <PageHeader
+        label="About us"
+        eyebrow="TORONTO ROOTS. YOUR BUSINESS IN MIND."
+        title="A sourcing partner, built around you."
+        description="Toronto Gadgets helps businesses find technology for the way they work. We start with your requirements and bring the sourcing options together."
+      />
+      <section className="story-grid">
+        <h2>
+          Technology is the product.
+          <br />
+          Understanding your needs comes first.
+        </h2>
+        <div className="body-copy">
+          <p>
+            Based in Toronto and operating under East Yorker Corp, we source
+            servers, workstations, laptops, mobile devices, networking, storage
+            and peripherals through reputable supplier and distributor networks.
           </p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {[
-              {
-                title: "Sourcing & Procurement",
-                desc: "Identifies and procures genuine, business-grade hardware through reputable supplier and distributor networks, sourcing competitive pricing across North America.",
-              },
-              {
-                title: "Vendor Coordination",
-                desc: "Acts as a single point of contact across multiple suppliers, assisting with manufacturer warranty support where applicable and coordinating returns and support escalations.",
-              },
-              {
-                title: "Quote Support",
-                desc: "Prepares competitive, multi-supplier quotes with side-by-side comparisons, after reviewing your requirements.",
-              },
-              {
-                title: "Logistics / Delivery Coordination",
-                desc: "Coordinates cross-border shipping and end-to-end delivery tracking across Canada, the United States, and the GCC, with support for the standard documentation that accompanies international shipments.",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="bg-[#fbf9f5] border border-[#dedbd4] rounded-xl p-5"
-              >
-                <h3 className="text-[#25282d] font-semibold text-sm mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-[#676660] text-xs leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="text-[#676660] text-sm leading-relaxed mt-6">
-            Across each function, our aim is procurement that is transparent,
-            straightforward, and compliance-conscious.
+          <p>
+            You can bring a specific model, a mixed equipment list or a project
+            that still needs defining. We review the specifications, quantities
+            and delivery requirements, then prepare a quote for you to consider.
           </p>
-
-          {/* CTA */}
-          <div className="mt-12 text-center">
-            <Link
-              href="/contact"
-              className="inline-block px-8 py-4 bg-gradient-to-r from-[#a64037] to-[#a64037] text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-[#a64037]/30 transition-all"
-            >
-              Request a Quote
-            </Link>
-          </div>
+          <p>
+            Tell us your delivery destination in Canada, the United States or
+            the GCC. Availability, delivery options and manufacturer warranty
+            where applicable are confirmed for each request.
+          </p>
         </div>
       </section>
-    </>
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">HOW WE WORK</p>
+            <h2>One request. A clear next step.</h2>
+          </div>
+        </div>
+        <div className="feature-grid">
+          {[
+            [
+              "01",
+              "Your requirements lead",
+              "We work from your specifications, intended use and budget. The examples on our website are starting points; your own items are welcome.",
+            ],
+            [
+              "02",
+              "A quote you can review",
+              "Product details, quantities, availability and pricing are brought together before you decide how to proceed.",
+            ],
+            [
+              "03",
+              "A point of contact",
+              "Bring sourcing questions, supplier clarifications and delivery requirements into one conversation with our team.",
+            ],
+          ].map(([number, title, text]) => (
+            <article className="feature-card" key={number}>
+              <span className="feature-number">{number}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">BEHIND YOUR REQUEST</p>
+            <h2>Our team & responsibilities</h2>
+          </div>
+        </div>
+        <div className="responsibility-grid">
+          {[
+            [
+              "Sourcing & procurement",
+              "Reviewing requirements and finding suitable business-grade equipment through supplier and distributor networks.",
+            ],
+            [
+              "Vendor coordination",
+              "Clarifying supplier details and assisting with manufacturer warranty and support enquiries where applicable.",
+            ],
+            [
+              "Quote support",
+              "Preparing quotes and comparing available configurations, pricing and lead times.",
+            ],
+            [
+              "Delivery coordination",
+              "Reviewing destinations, shipment details and the delivery arrangements available for your request.",
+            ],
+          ].map(([title, text]) => (
+            <article key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="company-details content-section">
+        <div>
+          <p className="eyebrow">COMPANY INFORMATION</p>
+          <h2>
+            Toronto Gadgets
+            <br />
+            <span>East Yorker Corp</span>
+          </h2>
+        </div>
+        <dl>
+          {[
+            ["Federal Corporation", "No. 1349551-5"],
+            ["Ontario Corporation", "No. 1001482504"],
+            ["Business Identification", "BIN 1001483714"],
+            ["GST/HST Registration", "766421804RT0001"],
+          ].map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+      <section className="custom-request">
+        <div>
+          <h2>Tell us about your next project.</h2>
+          <p>
+            A model number, equipment list or a conversation is enough to get
+            started.
+          </p>
+        </div>
+        <Link href="/contact" className="button">
+          Request a quote ↗
+        </Link>
+      </section>
+    </div>
   );
 }

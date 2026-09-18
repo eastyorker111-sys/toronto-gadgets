@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import PageHeader from "../components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Blog | Enterprise IT Insights | Toronto Gadgets",
@@ -50,61 +52,65 @@ const posts = [
 
 export default function BlogPage() {
   return (
-    <>
+    <div className="shell content-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <section className="pt-10 pb-16 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <nav className="text-xs text-[#676660] mb-6">
-            <Link href="/" className="hover:text-[#a64037] transition-colors">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-[#555550]">Blog</span>
-          </nav>
-
-          <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-[#25282d] to-[#676660] bg-clip-text text-transparent mb-4">
-            Blog
-          </h1>
-          <p className="text-[#676660] text-sm mb-10">
-            Expert insights on enterprise hardware sourcing, procurement, and
-            technology trends.
+      <PageHeader
+        label="Insights"
+        eyebrow="A LITTLE CLARITY BEFORE YOUR NEXT PURCHASE"
+        title="Make a more informed request."
+        description="Explore our hardware comparison and procurement guide to help frame your next sourcing conversation."
+      />
+      <div className="insight-grid">
+        {posts.map((post, index) => (
+          <Link href={post.href} key={post.href} className="insight-card">
+            <Image
+              src={
+                index === 0
+                  ? "/categories/servers.png"
+                  : "/categories/workstations.png"
+              }
+              alt=""
+              width={900}
+              height={450}
+              sizes="(max-width: 760px) 100vw, 50vw"
+            />
+            <div className="insight-copy">
+              <div className="insight-meta">
+                <time dateTime={post.date}>
+                  {new Date(post.date).toLocaleDateString("en-CA", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    timeZone: "UTC",
+                  })}
+                </time>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt}</p>
+              <span className="text-link">
+                Read the guide <span aria-hidden="true">↗</span>
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <section className="custom-request">
+        <div>
+          <h2>Ready to talk about your requirements?</h2>
+          <p>
+            Share your workload, preferred models or equipment list. We’ll use
+            that to start your quote.
           </p>
-
-          <div className="space-y-6">
-            {posts.map((post) => (
-              <Link
-                key={post.href}
-                href={post.href}
-                className="block bg-[#fbf9f5] border border-[#dedbd4] rounded-2xl p-6 hover:border-[#a64037]/40 transition-all group"
-              >
-                <div className="flex items-center gap-3 text-xs text-[#676660] mb-3">
-                  <time dateTime={post.date}>
-                    {new Date(post.date).toLocaleDateString("en-CA", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                  <span>·</span>
-                  <span>{post.readTime}</span>
-                </div>
-                <h2 className="text-lg font-bold text-[#25282d] group-hover:text-[#86332c] transition-colors mb-2">
-                  {post.title}
-                </h2>
-                <p className="text-[#676660] text-sm leading-relaxed">
-                  {post.excerpt}
-                </p>
-                <div className="mt-4 text-[#a64037] text-xs font-semibold">
-                  Read Article →
-                </div>
-              </Link>
-            ))}
-          </div>
         </div>
+        <Link className="button" href="/contact?mode=help">
+          Help me choose ↗
+        </Link>
       </section>
-    </>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-17T02:27:05.883Z",
+  "checkedAt": "2026-09-18T16:55:05.076Z",
   "pages": [
     "/",
     "/servers",
@@ -16,7 +16,7 @@
     "/blog/dell-vs-hpe-servers",
     "/blog/it-hardware-procurement-guide"
   ],
-  "internalLinkTargets": 108,
+  "internalLinkTargets": 109,
   "images": 8,
   "failures": [],
   "external": [

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import catalog from "./data/catalog.json";
+import SourcingStart from "./components/SourcingStart";
 const faqs = [
   [
     "Can I request an item that is not listed?",
@@ -48,21 +49,21 @@ export default function Home() {
         <div>
           <p className="eyebrow">B2B TECHNOLOGY SOURCING · TORONTO, CANADA</p>
           <h1>
-            The right technology.
+            Technology that fits
             <br />
-            <em>The right fit.</em>
+            <em>your business.</em>
           </h1>
           <p className="intro">
-            Your Toronto-based B2B technology sourcing provider. Business-grade
-            hardware, sourced around your requirements—from a team upgrade to
-            your next infrastructure project.
+            From a single workstation to your team’s next upgrade. Tell us what
+            you need, and we’ll help source the equipment and prepare your
+            quote.
           </p>
           <div className="hero-actions">
-            <Link className="button" href="/contact?mode=custom">
-              I know what I need ↗
+            <Link className="button" href="#start-request">
+              Start your request ↗
             </Link>
-            <Link className="text-link" href="/contact?mode=help">
-              Help me choose ↗
+            <Link className="text-link" href="#technology">
+              Explore technology ↓
             </Link>
           </div>
           <p className="hero-note">
@@ -76,11 +77,11 @@ export default function Home() {
             width={1536}
             height={1024}
             priority
-            sizes="(max-width: 760px) 100vw, 55vw"
+            sizes="(max-width: 760px) 100vw, (max-width: 1240px) 50vw, 584px"
           />
           <figcaption>
             <span>YOUR REQUIREMENTS. OUR STARTING POINT.</span>
-            <span>01 / SOURCING</span>
+            <span>ILLUSTRATIVE EQUIPMENT</span>
           </figcaption>
         </figure>
       </section>
@@ -92,6 +93,7 @@ export default function Home() {
           <span>+ Based in Toronto</span>
         </div>
       </div>
+      <SourcingStart />
       <section className="shell technology-section" id="technology">
         <div className="section-heading">
           <div>
@@ -115,7 +117,7 @@ export default function Home() {
                 src={c.image}
                 width={600}
                 height={400}
-                sizes="(max-width:760px) 50vw, 25vw"
+                sizes="(max-width:540px) 100vw, (max-width:1000px) 50vw, 280px"
                 alt={`${c.title} category illustration`}
               />
               <h3>{c.title}</h3>

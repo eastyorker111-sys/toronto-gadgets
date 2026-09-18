@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import PageHeader from "../components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Services | IT Hardware Sourcing & Procurement | Toronto Gadgets",
@@ -39,20 +40,20 @@ const services = [
   },
   {
     title: "Bulk Procurement",
-    desc: "Volume pricing for fleet deployments, data center builds, and office rollouts. We work across supplier and distributor networks to source competitive rates.",
+    desc: "Quantity-based sourcing for team upgrades, infrastructure projects and office rollouts. Pricing and delivery arrangements are confirmed in your quote.",
     points: [
       "Quantity-based quotes for fleet projects",
       "Consolidated invoicing",
-      "Scheduled delivery windows",
+      "Delivery scheduling by arrangement",
     ],
   },
   {
     title: "Global Logistics",
-    desc: "We coordinate shipping across Canada, the United States, and GCC countries with support for the standard shipping documentation, tracking, and insurance.",
+    desc: "Tell us your destination in Canada, the United States or the GCC. We review available shipping options, timing and documentation requirements for your order.",
     points: [
       "Canada, USA, UAE, Saudi Arabia, Oman",
       "Cross-border shipping documentation support",
-      "Door-to-door tracking",
+      "Tracking and insurance options where available",
     ],
   },
   {
@@ -75,77 +76,86 @@ const services = [
   },
   {
     title: "Lifecycle Support",
-    desc: "From initial sourcing through deployment to refresh — we support the full hardware lifecycle for enterprise IT departments.",
+    desc: "Discuss equipment refreshes, upgrades and support requirements as part of your sourcing request. The available support and scope are confirmed before you proceed.",
     points: [
       "Deployment planning",
       "Refresh & upgrade scheduling",
-      "Asset disposal coordination",
+      "End-of-life requirements discussed on request",
     ],
   },
 ];
 
 export default function ServicesPage() {
   return (
-    <>
+    <div className="shell content-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <section className="pt-10 pb-16 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <nav className="text-xs text-[#676660] mb-6">
-            <Link href="/" className="hover:text-[#a64037] transition-colors">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-[#555550]">Services</span>
-          </nav>
-
-          <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-[#25282d] to-[#676660] bg-clip-text text-transparent mb-4">
-            Our Services
-          </h1>
-          <p className="text-[#676660] text-sm mb-10 max-w-3xl">
-            End-to-end enterprise hardware sourcing and procurement services for
-            businesses that need reliable technology supply chains.
-          </p>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {services.map((s) => (
-              <div
-                key={s.title}
-                className="bg-[#fbf9f5] border border-[#dedbd4] rounded-2xl p-5 hover:border-[#a64037]/40 transition-all"
-              >
-                <h2 className="text-base font-bold text-[#25282d] mb-2">
-                  {s.title}
-                </h2>
-                <p className="text-[#676660] text-xs leading-relaxed mb-3">
-                  {s.desc}
-                </p>
-                <div className="space-y-1">
-                  {s.points.map((pt) => (
-                    <div
-                      key={pt}
-                      className="flex items-start gap-2 text-xs text-[#676660]"
-                    >
-                      <span className="text-[#a64037] mt-0.5">✓</span>
-                      <span>{pt}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              href="/contact"
-              className="inline-block px-8 py-4 bg-gradient-to-r from-[#a64037] to-[#a64037] text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-[#a64037]/30 transition-all"
-            >
-              Request a Quote
-            </Link>
-          </div>
+      <PageHeader
+        label="Sourcing services"
+        eyebrow="FROM REQUIREMENTS TO A QUOTE"
+        title="Less searching. More clarity."
+        description="Bring your hardware requirements into one conversation. We help with sourcing, quote comparison and coordination around your project."
+      />
+      <div className="service-grid">
+        {services.map((service, index) => (
+          <article className="service-card" key={service.title}>
+            <span className="feature-number">0{index + 1}</span>
+            <h2>{service.title}</h2>
+            <p>{service.desc}</p>
+            <ul>
+              {service.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <section className="service-brief content-section">
+        <div>
+          <p className="eyebrow">A BETTER BRIEF, A BETTER START</p>
+          <h2>
+            What to include
+            <br />
+            in your request.
+          </h2>
+          <p>Share what you know. We can clarify the rest with you.</p>
         </div>
+        <ol>
+          {[
+            [
+              "Equipment & quantities",
+              "Model names, part numbers, product links or your own item list.",
+            ],
+            [
+              "Specifications & purpose",
+              "How it will be used, required compatibility, and whether alternatives are welcome.",
+            ],
+            [
+              "Destination & timing",
+              "Delivery city, country, preferred date and budget if you have one.",
+            ],
+          ].map(([title, text]) => (
+            <li key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </li>
+          ))}
+        </ol>
       </section>
-    </>
+      <section className="custom-request">
+        <div>
+          <h2>Your project doesn’t need to fit a catalogue.</h2>
+          <p>
+            Request multiple items or describe what you need help finding. Scope
+            and availability are confirmed in your quote.
+          </p>
+        </div>
+        <Link href="/contact?mode=custom" className="button">
+          Build your request ↗
+        </Link>
+      </section>
+    </div>
   );
 }

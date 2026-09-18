@@ -34,7 +34,8 @@ export default function QuoteForm({
   const [items, setItems] = useState<Item[]>([
     {
       ...emptyItem(1),
-      category: category?.slug ?? (help ? "other" : ""),
+      category:
+        category?.slug ?? (help || initialCategory === "other" ? "other" : ""),
       choice: help ? "unsure" : !custom && knownItem ? initialItem : "custom",
       model: knownItem ? "" : initialItem,
     },

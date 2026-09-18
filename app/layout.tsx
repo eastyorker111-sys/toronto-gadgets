@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
-import Script from "next/script";
+import Analytics from "./components/Analytics";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import "./globals.css";
@@ -153,19 +153,7 @@ export default function RootLayout({
         />
       </head>
       <body className={plex.className}>
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-VPG7C4F0RB"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VPG7C4F0RB');`}
-        </Script>
-
-        {/* Microsoft Clarity */}
-        <Script id="microsoft-clarity" strategy="afterInteractive">
-          {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","v6xsfx4qka");`}
-        </Script>
+        <Analytics />
 
         <a className="skip-link" href="#main-content">
           Skip to content
@@ -182,10 +170,9 @@ export default function RootLayout({
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          className="fixed bottom-6 right-6 z-50 group"
+          className="whatsapp-link"
         >
-          <span className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20" />
-          <span className="relative w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-all duration-300">
+          <span className="whatsapp-icon">
             <svg
               fill="currentColor"
               viewBox="0 0 24 24"

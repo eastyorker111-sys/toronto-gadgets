@@ -1,9 +1,12 @@
 "use client";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Brand from "./Brand";
 import catalog from "../data/catalog.json";
 export default function Navigation() {
+  const pathname = usePathname();
+  const menuButton = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const dropdown = useRef<HTMLDetailsElement>(null);
   const close = () => {
@@ -11,7 +14,15 @@ export default function Navigation() {
     if (dropdown.current) dropdown.current.open = false;
   };
   return (
-    <header className="site-header">
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          close();
+          menuButton.current?.focus();
+        }
+      }}
+    >
       <div className="shell nav-row">
         <Link href="/" aria-label="Toronto Gadgets home" onClick={close}>
           <Brand />
@@ -41,10 +52,18 @@ export default function Navigation() {
               </Link>
             </div>
           </details>
-          <Link href="/services" onClick={close}>
+          <Link
+            href="/services"
+            aria-current={pathname === "/services" ? "page" : undefined}
+            onClick={close}
+          >
             Sourcing services
           </Link>
-          <Link href="/about" onClick={close}>
+          <Link
+            href="/about"
+            aria-current={pathname === "/about" ? "page" : undefined}
+            onClick={close}
+          >
             About us
           </Link>
           <Link className="button" href="/contact" onClick={close}>
@@ -52,8 +71,9 @@ export default function Navigation() {
           </Link>
         </nav>
         <button
+          ref={menuButton}
           className="menu-toggle"
-          aria-controls="mobile-nav"
+          aria-controls={open ? "mobile-nav" : undefined}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
@@ -77,7 +97,12 @@ export default function Navigation() {
             ["/blog", "Insights"],
             ["/contact", "Request a quote"],
           ].map(([href, label]) => (
-            <Link key={href} href={href} onClick={close}>
+            <Link
+              key={href}
+              href={href}
+              aria-current={pathname === href ? "page" : undefined}
+              onClick={close}
+            >
               {label} ↗
             </Link>
           ))}

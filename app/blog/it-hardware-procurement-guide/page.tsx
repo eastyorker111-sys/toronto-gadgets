@@ -72,7 +72,7 @@ export default function ProcurementGuidePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      <article className="pt-10 pb-16 px-4 sm:px-6">
+      <article className="shell article-page">
         <div className="max-w-3xl mx-auto">
           <nav className="text-xs text-[#676660] mb-6">
             <Link href="/" className="hover:text-[#a64037] transition-colors">
