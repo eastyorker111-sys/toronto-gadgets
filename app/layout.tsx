@@ -48,7 +48,15 @@ export const metadata: Metadata = {
       "Toronto-based B2B technology sourcing. Business-grade hardware, custom requests and quote-based pricing.",
     images: ["https://torontogadgets.com/opengraph-image"],
   },
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=20260918", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+      { url: "/favicon-96.png?v=20260918", sizes: "96x96", type: "image/png" },
+      { url: "/favicon.svg?v=20260918", sizes: "any", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico?v=20260918",
+    apple: { url: "/apple-touch-icon.png?v=20260918", sizes: "180x180", type: "image/png" },
+  },
   verification: { google: "googleea6943a147d163fe" },
   category: "technology",
 };
