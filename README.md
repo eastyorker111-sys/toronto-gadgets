@@ -8,7 +8,7 @@ B2B technology sourcing and delivery website. All pricing is by quotation, inclu
 - Approved visual specification: `docs/brand-master.md`.
 - Latest setup audit: `D:/Toronto Gadgets/Audits/2026-10-05-Setup-Check/REPORT.md`.
 - Source: `D:/Toronto Gadgets/Website Preview`; final social assets: `D:/Toronto Gadgets/Brand Kit`.
-- Historical design/review notes retain earlier evidence; their superseded colours, paths and release status are not current instructions.
+- Superseded design/review notes have been removed from the working source. Recovery copies are in `D:/Toronto Gadgets/Archive/2026-10-05-Decision-Reconciliation`; their old colours, paths and release status are not current instructions.
 
 Use `npm run build` for the production build and type check. The link checker is `scripts/check-site.mjs`, with `SITE_URL` set to the intended local or live site. It does not submit a quote request.
 
