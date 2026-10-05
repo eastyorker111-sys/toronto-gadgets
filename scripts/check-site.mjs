@@ -95,7 +95,7 @@ const report = {
   failures,
   external: externalResults,
   contactLinks: [...external].filter((x) => /^(tel:|mailto:)/.test(x)),
-  formSubmission: "Not submitted; a real delivery test is still required.",
+  formSubmission: "This automated link check does not submit forms. See the dated manual form test record for delivery evidence.",
 };
 await writeFile(
   "site-check-results.json",

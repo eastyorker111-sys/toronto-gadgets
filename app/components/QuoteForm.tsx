@@ -90,6 +90,7 @@ export default function QuoteForm({
   return (
     <form
       className="quote-form"
+      data-clarity-mask="true"
       action="https://formspree.io/f/mdaeqapz"
       method="POST"
       onSubmit={submit}

@@ -1,5 +1,7 @@
 # Toronto Gadgets website design refinement
 
+**Historical design exploration and release notes.** The brick-red/ivory treatment and draft logo below were superseded by the approved champagne/TG serif master in `brand-master.md`. Current decisions and release status: `D:/Toronto Gadgets/00-DECISION-RECORD.md`. Do not reinstate rejected styles or treat old pending checks below as current.
+
 Status: REVIEWED local website preview; visual direction remains DRAFT for user review.
 
 ## Release update — 2026-09-18

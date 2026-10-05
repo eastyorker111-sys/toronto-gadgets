@@ -1,5 +1,7 @@
 # Toronto Gadgets website review
 
+**Historical pre-release review.** The location, release, dependency and form-test status below are superseded. Current source: `D:/Toronto Gadgets/Website Preview`; current decisions: `D:/Toronto Gadgets/00-DECISION-RECORD.md`; latest verification: `D:/Toronto Gadgets/Audits/2026-10-05-Setup-Check/REPORT.md`. Retained for the original content comparison only; do not follow its old next steps.
+
 Status: REVIEWED local preview; production publication and email delivery remain unverified.
 Save location: C:/Users/east_/Projects/toronto-gadgets
 Business website work; keep outside the read-only GBC sources mirror.
