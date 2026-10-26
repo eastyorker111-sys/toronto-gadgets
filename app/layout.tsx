@@ -75,7 +75,6 @@ const organizationJsonLd = {
   foundingDate: "2021",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "75 Thorncliffe Park Drive",
     addressLocality: "Toronto",
     addressRegion: "ON",
     postalCode: "M4H 1L4",
@@ -109,13 +108,11 @@ const localBusinessJsonLd = {
     "B2B enterprise technology sourcing partner providing servers, workstations, laptops, and network equipment.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "75 Thorncliffe Park Drive",
     addressLocality: "Toronto",
     addressRegion: "ON",
     postalCode: "M4H 1L4",
     addressCountry: "CA",
   },
-  geo: { "@type": "GeoCoordinates", latitude: 43.7066, longitude: -79.3407 },
   areaServed: [
     { "@type": "Country", name: "Canada" },
     { "@type": "Country", name: "United States" },

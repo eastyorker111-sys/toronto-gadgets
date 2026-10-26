@@ -64,11 +64,9 @@ export default async function ContactPage(
           </a>
           <p>Sourcing and delivery service. Please contact us online for a quote.</p>
           <p>
-            75 Thorncliffe Park Drive
+            Toronto, Ontario, Canada
             <br />
-            Toronto, Ontario M4H 1L4
-            <br />
-            Canada
+            M4H 1L4
           </p>
           <h3>Delivery requirements</h3>
           <p>

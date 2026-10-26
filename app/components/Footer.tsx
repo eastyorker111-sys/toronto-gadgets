@@ -40,9 +40,9 @@ export default function Footer() {
               torontogadgets1001@gmail.com
             </a>
             <p>
-              75 Thorncliffe Park Drive
+              Toronto, Ontario, Canada
               <br />
-              Toronto, Ontario M4H 1L4, Canada
+              M4H 1L4
             </p>
             <a
               href={contactLinks.linkedIn}
