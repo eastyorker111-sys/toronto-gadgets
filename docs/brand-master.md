@@ -1,8 +1,8 @@
 # Toronto Gadgets — user-confirmed brand master
 
-Visual authority: D:/Toronto Gadgets/Brand Kit/05-Source/APPROVED-MASTER.png, explicitly confirmed by the user on 18 September 2026. Pale cream and a sans-serif company name were rejected.
+Identity authority: D:/Toronto Gadgets/Brand Kit/05-Source/APPROVED-MASTER.png. The exact symbol and serif lettering remain unchanged. On 30 October 2026 the user approved the revised colour direction and subsequently requested live application. Deep teal now anchors the opening and footer; champagne backs the identity, photo and key controls; quieter warm-neutral surfaces support browsing.
 
-- Background: champagne #ECD8A8, sampled from the confirmed screenshot.
+- Brand colours: champagne #ECD8A8 and deep teal #293B3B. Supporting browsing surfaces: #EEE7D7 and #F5EFDF. These supporting neutrals are functional surfaces, not replacement logo colours.
 - Symbol: public/brand/tg-symbol.png, original Adobe artwork, with identical geometry and colouring across platforms.
 - Company name: public/brand/tg-wordmark.png, the actual serif lettering extracted from the approved Adobe master. Never replace with a guessed font.
 - Interface and descriptive copy only: IBM Plex Sans.

@@ -46,13 +46,12 @@ export default function Home() {
           }),
         }}
       />
+      <div className="hero-band">
       <section className="shell hero">
         <div>
-          <p className="eyebrow">B2B TECHNOLOGY SOURCING · TORONTO</p>
+          <p className="eyebrow">Toronto-based B2B technology sourcing</p>
           <h1>
-            Technology that
-            <br />
-            <em>fits your<br />business.</em>
+            Technology that fits your business.
           </h1>
           <p className="intro">
             Business-grade hardware, sourced around your requirements.
@@ -66,20 +65,21 @@ export default function Home() {
             </Link>
           </div>
           <p className="hero-note">
-            Your own items welcome. All pricing by quotation.
+            Your own items welcome. All pricing by quote.
           </p>
         </div>
         <figure className="hero-visual">
           <Image
             src="/brand/technology-studio.png"
             alt="Illustrative business laptop, workstation and server for Toronto Gadgets technology sourcing"
-            width={1585}
-            height={1552}
+            width={1552}
+            height={1520}
             priority
             sizes="(max-width: 760px) 100vw, (max-width: 1240px) 50vw, 584px"
           />
         </figure>
       </section>
+      </div>
       <div className="principles">
         <div className="shell">
           <span>Toronto-based</span>
@@ -88,6 +88,11 @@ export default function Home() {
           <span>Your own items welcome</span>
         </div>
       </div>
+      <nav className="shell sourcing-routes" aria-label="Start your sourcing request">
+        <Link href="#technology"><strong>Explore technology</strong><span>Browse examples by category.</span></Link>
+        <Link href="/contact?mode=custom"><strong>Bring your own list</strong><span>Send models, links and quantities.</span></Link>
+        <Link href="/contact?mode=help"><strong>Get help choosing</strong><span>Tell us what your business needs.</span></Link>
+      </nav>
       <section className="shell technology-section" id="technology">
         <div className="section-heading">
           <div>
