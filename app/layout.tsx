@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Toronto-based B2B technology sourcing. Business-grade hardware, custom requests and quote-based pricing.",
     images: [
       {
-        url: "https://torontogadgets.com/opengraph-image?v=20261030-teal-brand",
+        url: "https://torontogadgets.com/opengraph-image?v=20261030-approved-colours",
         width: 1200,
         height: 630,
         alt: "Toronto Gadgets — B2B technology sourcing in Toronto",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Toronto Gadgets | Enterprise Technology Sourcing",
     description:
       "Toronto-based B2B technology sourcing. Business-grade hardware, custom requests and quote-based pricing.",
-    images: ["https://torontogadgets.com/opengraph-image?v=20261030-teal-brand"],
+    images: ["https://torontogadgets.com/opengraph-image?v=20261030-approved-colours"],
   },
   icons: {
     icon: [{ url: "/favicon-96.png?v=20261030-teal-brand", sizes: "96x96", type: "image/png" }],

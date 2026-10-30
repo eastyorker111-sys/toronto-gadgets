@@ -2,9 +2,18 @@
   "name": "Toronto Gadgets",
   "descriptor": "B2B Technology Sourcing",
   "symbol": "/brand/tg-symbol.png",
-  "hero": "/brand/technology-studio.png",
+  "hero": "/brand/hero-adobe-teal.png",
   "wordmark": "/brand/tg-wordmark.png",
-  "font": "IBM Plex Sans for interface copy only; exact serif company-name artwork extracted from the approved Adobe master",
-  "colours": { "teal": "#3D6666", "ink": "#292E2E", "cream": "#ECD8A8", "champagne": "#ECD8A8", "dark": "#293B3B" },
-  "approved": "Exact symbol and serif wordmark from the user-confirmed master. Revised deep-teal/champagne colour roles approved 30 October 2026; user requested live application. Warm neutral browsing surfaces are specified in brand.css."
+  "font": "IBM Plex Sans for interface copy; exact original serif wordmark artwork",
+  "colours": {
+    "teal": "#3D6666",
+    "ink": "#292E2E",
+    "cream": "#ECD8A8",
+    "champagne": "#ECD8A8",
+    "dark": "#293B3B",
+    "paper": "#EDF0ED",
+    "process": "#E1E7E2",
+    "muted": "#465754"
+  },
+  "approved": "Logo and champagne backing unchanged. User approved the reviewed website colours on 30 October 2026. Website first; social updates held for the next review."
 }

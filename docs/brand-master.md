@@ -1,17 +1,20 @@
-# Toronto Gadgets — user-confirmed brand master
+# Toronto Gadgets — current colour review
+Updated 30 October 2026. User approved applying the reviewed website, then clarified: website first, show the live result before remaining social changes. Social publishing remains on hold.
 
-Identity authority: D:/Toronto Gadgets/Brand Kit/05-Source/APPROVED-MASTER.png. The exact symbol and serif lettering remain unchanged. On 30 October 2026 the user approved the revised colour direction and subsequently requested live application. Deep teal now anchors the opening and footer; champagne backs the identity, photo and key controls; quieter warm-neutral surfaces support browsing.
+Exact visual reference: D:/Toronto Gadgets/Preview/2026-10-30-Website-Concepts/03-Recommended.html and .jpg.
+Logo identity: Brand Kit/05-Source/APPROVED-MASTER.png, TG-Approved-Symbol.png, TG-Approved-Wordmark.png. These exact symbol/serif artworks remain unchanged, with champagne #ECD8A8 behind the logo. The four profile/logo exports are preserved byte-for-byte.
+- Deep teal background: #293B3B.
+- Soft-white headings and light browsing surface: #EDF0ED.
+- Muted text on light surfaces: #465754. Light text on teal: #CAD5CF.
+- Process section: #E1E7E2. Route panels: #344B4A.
+- Champagne #ECD8A8 is for the identity and selective controls, not every headline.
+- Interface/post text: IBM Plex Sans. Never replace the serif company-name artwork with typed text.
+- Hero/post equipment scene: exact saved Adobe asset assets/hero-adobe-teal.png, Firefly request b5a1bde4-1faf-447a-a7a1-c043962d97e8. Reused without regeneration; native layouts place the source image and type exact text.
+- Website hero: The right hardware. For your business.
+- B2B sourcing and delivery; own models/links/lists welcome; all pricing by quote. Illustrative equipment is not proof of stock or premises.
 
-- Brand colours: champagne #ECD8A8 and deep teal #293B3B. Supporting browsing surfaces: #EEE7D7 and #F5EFDF. These supporting neutrals are functional surfaces, not replacement logo colours.
-- Symbol: public/brand/tg-symbol.png, original Adobe artwork, with identical geometry and colouring across platforms.
-- Company name: public/brand/tg-wordmark.png, the actual serif lettering extracted from the approved Adobe master. Never replace with a guessed font.
-- Interface and descriptive copy only: IBM Plex Sans.
-- Functional text/accent colours: graphite #292E2E, muted teal #3D6666 and dark teal #293B3B. These support contrast; they are not claimed to be exact sampled reference colours.
-- Latest user correction: replace the grey backdrop and rejected floating cutouts with grounded champagne studio photography; remove the pale caption strip. public/brand/technology-studio.png shows the three devices in a pale champagne studio with natural contact shadows, edited in Adobe. Place on champagne. It is illustrative artwork, not evidence of inventory or premises.
-
-app/data/brand.json supplies the shared palette. Header, footer, favicons, sharing image and platform exports must follow these masters. Keep the complete equipment, logo and company name visible within each format.
-
-User authorized production deployment on 18 September 2026 after folder and platform-asset checks. Previous production commit for rollback: 9ab84844868183eefebf2673092656cf12312de5. Generating local files does not update social accounts.
-
-Preserve catalogue pages, custom-item quote forms, contact links, SEO integrations, hosting and billing. Business remains Toronto-based B2B sourcing and delivery; all pricing by quote.
+Local working website is in Website Preview. The production source ZIP still represents deployed commit 7c160a7 and has not been replaced by an unapproved preview.
+All 16 social PNGs are current review exports, not proof of live uploads. Covers/banner files are the same slot; LinkedIn company and optional personal covers are separate. Instagram has no general banner.
+Important text stays inside the artwork; final platform crop previews must be checked at upload time. Google chooses which image appears as cover.
+Keep only one working set. Preserve the exact reference and active source, not rejected draft galleries.
 

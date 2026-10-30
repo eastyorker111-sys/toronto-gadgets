@@ -48,58 +48,50 @@ export default function Home() {
       />
       <div className="hero-band">
       <section className="shell hero">
-        <div>
-          <p className="eyebrow">Toronto-based B2B technology sourcing</p>
+        <div className="hero-copy">
+          <p className="eyebrow">Toronto-based. Built around your requirements.</p>
           <h1>
-            Technology that fits your business.
+            The right hardware.<br />For your business.
           </h1>
           <p className="intro">
-            Business-grade hardware, sourced around your requirements.
+            From a single laptop to your next infrastructure project. Tell us what you need. We’ll help you source it.
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact?mode=custom">
-              I know what I need
+              Start your request ↗
             </Link>
-            <Link className="text-link" href="/contact?mode=help">
-              Help me choose
+            <Link className="text-link" href="#technology">
+              Explore technology
             </Link>
           </div>
           <p className="hero-note">
-            Your own items welcome. All pricing by quote.
+            Pricing by quotation. Your own models and item lists welcome.
           </p>
         </div>
         <figure className="hero-visual">
           <Image
-            src="/brand/technology-studio.png"
+            src="/brand/hero-adobe-teal.png"
             alt="Illustrative business laptop, workstation and server for Toronto Gadgets technology sourcing"
-            width={1552}
-            height={1520}
+            width={2304}
+            height={1792}
             priority
-            sizes="(max-width: 760px) 100vw, (max-width: 1240px) 50vw, 584px"
+            sizes="(max-width: 760px) 100vw, 70vw"
           />
         </figure>
       </section>
-      </div>
-      <div className="principles">
-        <div className="shell">
-          <span>Toronto-based</span>
-          <span>B2B sourcing</span>
-          <span>Quote-based pricing</span>
-          <span>Your own items welcome</span>
-        </div>
-      </div>
       <nav className="shell sourcing-routes" aria-label="Start your sourcing request">
-        <Link href="#technology"><strong>Explore technology</strong><span>Browse examples by category.</span></Link>
-        <Link href="/contact?mode=custom"><strong>Bring your own list</strong><span>Send models, links and quantities.</span></Link>
-        <Link href="/contact?mode=help"><strong>Get help choosing</strong><span>Tell us what your business needs.</span></Link>
+        <Link href="/contact?mode=custom"><div><strong>I know what I need</strong><span>Send models, links or an equipment list</span></div><b aria-hidden="true">↗</b></Link>
+        <Link href="/contact?mode=help"><div><strong>Help me build a setup</strong><span>Start with your work and requirements</span></div><b aria-hidden="true">↗</b></Link>
+        <Link href="#technology"><div><strong>Let me explore</strong><span>Browse technology we can source</span></div><b aria-hidden="true">↓</b></Link>
       </nav>
+      </div>
       <section className="shell technology-section" id="technology">
         <div className="section-heading">
           <div>
-            <h2>What are you sourcing?</h2>
+            <h2>What does your business need?</h2>
           </div>
           <p>
-            Explore examples or bring your own list.
+            Explore sourcing categories.<br />Exact models are just the starting point.
           </p>
         </div>
         <div className="category-grid">
@@ -123,7 +115,7 @@ export default function Home() {
             href="/contact?mode=custom"
             className="category-card custom-category"
           >
-            <h3>Have your own list?</h3>
+            <h3>Not on the list?</h3>
             <p>
               Send models, links or specifications.
             </p>
@@ -132,6 +124,7 @@ export default function Home() {
             </span>
           </Link>
         </div>
+        <p className="catalogue-disclaimer">Images illustrate sourcing categories, not live stock. Specifications, availability and pricing are confirmed in your quote.</p>
       </section>
       <section className="process-section">
         <div className="shell process-layout">
