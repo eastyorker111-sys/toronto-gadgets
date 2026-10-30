@@ -17,7 +17,7 @@ const articleJsonLd = {
   headline:
     "Dell PowerEdge vs HPE ProLiant: Which Enterprise Server Is Right for Your Business?",
   datePublished: "2026-02-10",
-  dateModified: "2026-09-16",
+  dateModified: "2026-10-30",
   author: {
     "@type": "Organization",
     name: "Toronto Gadgets",
@@ -28,7 +28,7 @@ const articleJsonLd = {
     name: "Toronto Gadgets",
     logo: {
       "@type": "ImageObject",
-      url: "https://torontogadgets.com/og-image.png",
+      url: "https://torontogadgets.com/brand/tg-symbol.png",
     },
   },
   mainEntityOfPage: "https://torontogadgets.com/blog/dell-vs-hpe-servers",
@@ -73,40 +73,39 @@ export default function DellVsHpePage() {
 
       <article className="shell article-page">
         <div className="max-w-3xl mx-auto">
-          <nav className="text-xs text-[#676660] mb-6">
-            <Link href="/" className="hover:text-[#a64037] transition-colors">
+          <nav className="text-xs text-[#465754] mb-6">
+            <Link href="/" className="hover:text-[#3d6666] transition-colors">
               Home
             </Link>
             <span className="mx-2">/</span>
             <Link
               href="/blog"
-              className="hover:text-[#a64037] transition-colors"
+              className="hover:text-[#3d6666] transition-colors"
             >
               Blog
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-[#555550]">Dell vs HPE Servers</span>
+            <span className="text-[#465754]">Dell vs HPE Servers</span>
           </nav>
 
-          <div className="text-xs text-[#676660] mb-4">
-            <time dateTime="2026-02-10">February 10, 2026</time> · 6 min read
+          <div className="text-xs text-[#465754] mb-4">
+            <time dateTime="2026-02-10">February 10, 2026</time> · Updated October 30, 2026
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black text-[#25282d] mb-6 leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#292e2e] mb-6 leading-tight">
             Dell PowerEdge vs HPE ProLiant: Which Enterprise Server Is Right for
             Your Business?
           </h1>
 
-          <div className="prose-custom space-y-5 text-[#676660] text-sm leading-relaxed">
+          <div className="prose-custom space-y-5 text-[#465754] text-sm leading-relaxed">
             <p>
-              When it comes to enterprise rack and tower servers, two names
-              dominate the market: Dell Technologies with their PowerEdge line
-              and Hewlett Packard Enterprise with ProLiant. Both offer reliable,
-              high-performance platforms — but they differ in management
-              philosophy, ecosystem integration, and pricing structure.
+              Dell PowerEdge and HPE ProLiant are server families you may
+              encounter when comparing enterprise hardware. This is a sourcing
+              checklist, not a benchmark test or a claim that one brand is best.
+              Compare the exact configurations against your workload and support needs.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               Performance & Architecture
             </h2>
             <p>
@@ -122,27 +121,24 @@ export default function DellVsHpePage() {
               Use the manufacturer specifications below to check the exact model
               and options.
             </p>
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               Management Tools
             </h2>
             <p>
-              This is where the two platforms diverge most significantly.
-              Dell&apos;s iDRAC (Integrated Dell Remote Access Controller)
-              includes base remote management and monitoring at no additional
-              cost, while remote-presence features such as virtual console and
-              virtual media require the paid iDRAC Enterprise license.
-              OpenManage Enterprise offers fleet-level management across
-              hundreds of servers.
+              Ask which management controller version and licences are
+              included with the quoted server. Identify the functions your team
+              needs, such as remote console access, monitoring and virtual media,
+              and have the supplier confirm the licence covering each function.
+              Check the manufacturer documentation for the exact generation.
             </p>
             <p>
-              HPE&apos;s iLO (Integrated Lights-Out) comes in Standard (free)
-              and Advanced (paid license) tiers. The Advanced tier adds features
-              like remote console, virtual media, and federation management. HPE
-              OneView provides the fleet management layer, with a more visual,
-              workflow-oriented approach than Dell&apos;s OpenManage.
+              If you already use a fleet-management system, ask your IT team
+              to check integration requirements before selecting hardware.
+              Do not assume that every management feature is included in the
+              base server price or that licences transfer with used equipment.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               Pricing & Availability
             </h2>
             <p>
@@ -151,7 +147,7 @@ export default function DellVsHpePage() {
               depend on the exact configuration and supplier availability;
               neither brand is always the lower-cost option.
             </p>
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               Which Should You Choose?
             </h2>
             <p>
@@ -161,7 +157,7 @@ export default function DellVsHpePage() {
               support coverage and the full delivered cost.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               Sources &amp; References
             </h2>
             <ul className="list-disc pl-5 space-y-2">
@@ -170,7 +166,7 @@ export default function DellVsHpePage() {
                   href="https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-r760-spec-sheet.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   Dell PowerEdge R760 Spec Sheet — Dell Technologies
                 </a>
@@ -180,7 +176,7 @@ export default function DellVsHpePage() {
                   href="https://www.hpe.com/us/en/collaterals/collateral.a50004307enw.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   HPE ProLiant DL380 Gen11 QuickSpecs — HPE
                 </a>
@@ -190,7 +186,7 @@ export default function DellVsHpePage() {
                   href="https://www.delltechnologies.com/asset/en-us/products/servers/industry-market/openmanage-portfolio-software-licensing-guide.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   Dell OpenManage &amp; iDRAC Licensing Guide — Dell
                   Technologies
@@ -201,7 +197,7 @@ export default function DellVsHpePage() {
                   href="https://www.hpe.com/us/en/hpe-integrated-lights-out-ilo.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   HPE Integrated Lights-Out (iLO) — Hewlett Packard Enterprise
                 </a>
@@ -209,17 +205,17 @@ export default function DellVsHpePage() {
             </ul>
 
             {/* CTA */}
-            <div className="mt-10 p-6 bg-[#fbf9f5] border border-[#a64037]/30 rounded-2xl text-center">
-              <p className="text-[#25282d] font-semibold mb-2">
+            <div className="mt-10 p-6 bg-[#e1e7e2] border border-[#3d6666]/30 rounded-2xl text-center">
+              <p className="text-[#292e2e] font-semibold mb-2">
                 Need help choosing?
               </p>
-              <p className="text-[#676660] text-xs mb-4">
-                We can provide competitive quotes for both Dell PowerEdge and
+              <p className="text-[#465754] text-xs mb-4">
+                We can provide quotes for both Dell PowerEdge and
                 HPE ProLiant servers — configured around the same requirements.
               </p>
               <Link
                 href="/contact"
-                className="inline-block px-6 py-3 bg-gradient-to-r from-[#a64037] to-[#a64037] text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-[#a64037]/30 transition-all"
+                className="inline-block px-6 py-3 bg-gradient-to-r from-[#3d6666] to-[#3d6666] text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-[#3d6666]/30 transition-all"
               >
                 Get a Quote for Both →
               </Link>

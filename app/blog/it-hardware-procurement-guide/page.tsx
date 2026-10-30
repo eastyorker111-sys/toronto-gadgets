@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title:
-    "Complete Guide to IT Hardware Procurement for Canadian Businesses | Toronto Gadgets",
+    "IT Hardware Procurement Guide for Canadian Businesses | Toronto Gadgets",
   description:
     "Step-by-step guide to enterprise IT hardware procurement in Canada — vendor selection, RFQ processes, customs, warranties, lifecycle management, and cost optimization.",
   alternates: {
@@ -15,9 +15,9 @@ const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline:
-    "The Complete Guide to IT Hardware Procurement for Canadian Businesses",
+    "A Practical Guide to IT Hardware Procurement for Canadian Businesses",
   datePublished: "2026-02-05",
-  dateModified: "2026-09-16",
+  dateModified: "2026-10-30",
   author: {
     "@type": "Organization",
     name: "Toronto Gadgets",
@@ -28,7 +28,7 @@ const articleJsonLd = {
     name: "Toronto Gadgets",
     logo: {
       "@type": "ImageObject",
-      url: "https://torontogadgets.com/og-image.png",
+      url: "https://torontogadgets.com/brand/tg-symbol.png",
     },
   },
   mainEntityOfPage:
@@ -74,50 +74,50 @@ export default function ProcurementGuidePage() {
 
       <article className="shell article-page">
         <div className="max-w-3xl mx-auto">
-          <nav className="text-xs text-[#676660] mb-6">
-            <Link href="/" className="hover:text-[#a64037] transition-colors">
+          <nav className="text-xs text-[#465754] mb-6">
+            <Link href="/" className="hover:text-[#3d6666] transition-colors">
               Home
             </Link>
             <span className="mx-2">/</span>
             <Link
               href="/blog"
-              className="hover:text-[#a64037] transition-colors"
+              className="hover:text-[#3d6666] transition-colors"
             >
               Blog
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-[#555550]">
+            <span className="text-[#465754]">
               IT Hardware Procurement Guide
             </span>
           </nav>
 
-          <div className="text-xs text-[#676660] mb-4">
-            <time dateTime="2026-02-05">February 5, 2026</time> · 8 min read
+          <div className="text-xs text-[#465754] mb-4">
+            <time dateTime="2026-02-05">February 5, 2026</time> · Updated October 30, 2026
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black text-[#25282d] mb-6 leading-tight">
-            The Complete Guide to IT Hardware Procurement for Canadian
+          <h1 className="text-2xl sm:text-3xl font-black text-[#292e2e] mb-6 leading-tight">
+            A Practical Guide to IT Hardware Procurement for Canadian
             Businesses
           </h1>
 
-          <div className="prose-custom space-y-5 text-[#676660] text-sm leading-relaxed">
+          <div className="prose-custom space-y-5 text-[#465754] text-sm leading-relaxed">
             <p>
               Procuring enterprise IT hardware is more than just buying
               equipment. It involves vendor evaluation, competitive quoting,
               compliance checks, logistics coordination, and lifecycle planning.
-              This guide walks through the entire process for Canadian
+              This guide outlines a starting checklist for Canadian
               businesses — whether you&apos;re refreshing a server room or
               deploying 500 laptops.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               1. Define Your Requirements
             </h2>
             <p>
               Start with a clear specification. Document exactly what you need:
               model numbers (or equivalent), configurations (CPU, RAM, storage,
               GPU), quantities, delivery timelines, and any compliance
-              requirements (e.g., ITAR, FIPS, accessibility standards).
+              requirements identified by your organization.
             </p>
             <p>
               For servers, specify rack density, power requirements, and cooling
@@ -126,7 +126,7 @@ export default function ProcurementGuidePage() {
               specification, the more accurate your quotes will be.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               2. Choose Your Sourcing Channel
             </h2>
             <p>
@@ -137,7 +137,7 @@ export default function ProcurementGuidePage() {
               networks and coordinates quote requests.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               3. Request for Quotation (RFQ)
             </h2>
             <p>
@@ -152,7 +152,7 @@ export default function ProcurementGuidePage() {
               Complex configurations may require further checks with suppliers.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               4. Evaluate Quotes
             </h2>
             <p>
@@ -163,7 +163,7 @@ export default function ProcurementGuidePage() {
               time or reduced warranty may cost you more in the long run.
             </p>
 
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               5. Canadian-Specific Considerations
             </h2>
             <p>
@@ -173,7 +173,7 @@ export default function ProcurementGuidePage() {
               procurement requirements with the relevant authorities or your
               advisers. The official resources below are a starting point.
             </p>
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               6. Warranties & Support
             </h2>
             <p>
@@ -182,7 +182,7 @@ export default function ProcurementGuidePage() {
               eligibility and any paid support options for the quoted model.
               Keep purchase records, serial numbers and service tags.
             </p>
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               7. Lifecycle Management
             </h2>
             <p>
@@ -191,7 +191,7 @@ export default function ProcurementGuidePage() {
               and disposal requirements before equipment is reused or retired,
               and use the relevant official guidance when reviewing obligations.
             </p>
-            <h2 className="text-lg font-bold text-[#25282d] mt-8 mb-3">
+            <h2 className="text-lg font-bold text-[#292e2e] mt-8 mb-3">
               Sources &amp; References
             </h2>
             <ul className="list-disc pl-5 space-y-2">
@@ -200,7 +200,7 @@ export default function ProcurementGuidePage() {
                   href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   GST/HST for businesses — Canada Revenue Agency
                 </a>
@@ -210,7 +210,7 @@ export default function ProcurementGuidePage() {
                   href="https://www.cbsa-asfc.gc.ca/import/menu-eng.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   Importing commercial goods (duties and taxes) — Canada Border
                   Services Agency
@@ -221,7 +221,7 @@ export default function ProcurementGuidePage() {
                   href="https://www.cbsa-asfc.gc.ca/services/cusma-aceum/overview-survol-eng.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   CUSMA overview — Canada Border Services Agency
                 </a>
@@ -231,7 +231,7 @@ export default function ProcurementGuidePage() {
                   href="https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   PIPEDA — Office of the Privacy Commissioner of Canada
                 </a>
@@ -241,14 +241,14 @@ export default function ProcurementGuidePage() {
                   href="https://www.canada.ca/en/public-services-procurement/services/acquisitions/selling-federal-government.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#a64037] hover:text-[#86332c] transition-colors"
+                  className="text-[#3d6666] hover:text-[#293b3b] transition-colors"
                 >
                   Selling to the federal government — Public Services and
                   Procurement Canada
                 </a>
               </li>
             </ul>
-            <p className="text-[#676660] text-xs mt-4">
+            <p className="text-[#465754] text-xs mt-4">
               These references are provided for general information only and are
               not legal, tax, customs, or privacy compliance advice.
               Requirements change and vary by situation — confirm current rules
@@ -256,18 +256,18 @@ export default function ProcurementGuidePage() {
             </p>
 
             {/* CTA */}
-            <div className="mt-10 p-6 bg-[#fbf9f5] border border-[#a64037]/30 rounded-2xl text-center">
-              <p className="text-[#25282d] font-semibold mb-2">
+            <div className="mt-10 p-6 bg-[#e1e7e2] border border-[#3d6666]/30 rounded-2xl text-center">
+              <p className="text-[#292e2e] font-semibold mb-2">
                 Ready to start procurement?
               </p>
-              <p className="text-[#676660] text-xs mb-4">
+              <p className="text-[#465754] text-xs mb-4">
                 Send us your hardware requirements and we&apos;ll provide
-                competitive quotes from reputable supplier and distributor
+                quotes from reputable supplier and distributor
                 networks after reviewing your requirements.
               </p>
               <Link
                 href="/contact"
-                className="inline-block px-6 py-3 bg-gradient-to-r from-[#a64037] to-[#a64037] text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-[#a64037]/30 transition-all"
+                className="inline-block px-6 py-3 bg-gradient-to-r from-[#3d6666] to-[#3d6666] text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-[#3d6666]/30 transition-all"
               >
                 Request a Quote →
               </Link>

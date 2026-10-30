@@ -2,11 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import PageHeader from "../components/PageHeader";
+import { guides } from "./guides";
 
 export const metadata: Metadata = {
-  title: "Blog | Enterprise IT Insights | Toronto Gadgets",
+  title: "Toronto IT Hardware Sourcing Guides | Toronto Gadgets",
   description:
-    "Expert insights on enterprise IT hardware: server comparisons, procurement guides, and technology trends for Canadian businesses.",
+    "Practical Toronto B2B technology sourcing guides: hardware quotes, business laptops, workstations, server comparisons and procurement checklists.",
   alternates: { canonical: "https://torontogadgets.com/blog" },
 };
 
@@ -30,12 +31,14 @@ const breadcrumbJsonLd = {
 };
 
 const posts = [
+  ...guides.map(g => ({ href: `/blog/${g.slug}`, title: g.title, excerpt: g.description, image: g.image, date: "2026-10-30", readTime: g.readTime })),
   {
     href: "/blog/dell-vs-hpe-servers",
     title:
       "Dell PowerEdge vs HPE ProLiant: Which Enterprise Server Is Right for Your Business?",
     excerpt:
       "A side-by-side comparison of Dell and HPE server lines covering performance, management tools, pricing, and use cases for Canadian enterprises.",
+    image: "/categories/servers.png",
     date: "2026-02-10",
     readTime: "6 min read",
   },
@@ -44,7 +47,8 @@ const posts = [
     title:
       "The Complete Guide to IT Hardware Procurement for Canadian Businesses",
     excerpt:
-      "Everything you need to know about sourcing enterprise technology — from vendor selection and RFQ processes to customs, warranties, and lifecycle management.",
+      "A practical starting checklist for equipment requirements, comparable quotes, delivery, support terms and lifecycle planning.",
+    image: "/categories/workstations.png",
     date: "2026-02-05",
     readTime: "8 min read",
   },
@@ -61,17 +65,13 @@ export default function BlogPage() {
         label="Insights"
         eyebrow="A LITTLE CLARITY BEFORE YOUR NEXT PURCHASE"
         title="Make a more informed request."
-        description="Explore our hardware comparison and procurement guide to help frame your next sourcing conversation."
+        description="Plan your next sourcing request with practical guides for equipment lists, team laptops, workstations and server quotes."
       />
       <div className="insight-grid">
-        {posts.map((post, index) => (
+        {posts.map((post) => (
           <Link href={post.href} key={post.href} className="insight-card">
             <Image
-              src={
-                index === 0
-                  ? "/categories/servers.png"
-                  : "/categories/workstations.png"
-              }
+              src={post.image}
               alt=""
               width={900}
               height={450}
