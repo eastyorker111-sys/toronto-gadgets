@@ -58,7 +58,7 @@ export default function Footer() {
               Google Maps profile ↗
             </a>
             <a
-              href="https://www.facebook.com/profile.php?id=61587119518549"
+              href="https://www.facebook.com/profile.php?id=61594279006933"
               target="_blank"
               rel="noopener noreferrer"
             >

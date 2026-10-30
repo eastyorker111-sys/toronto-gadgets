@@ -90,7 +90,7 @@ const organizationJsonLd = {
   sameAs: [
     contactLinks.googleMaps,
     contactLinks.linkedIn,
-    "https://www.facebook.com/profile.php?id=61587119518549",
+    "https://www.facebook.com/profile.php?id=61594279006933",
   ],
 };
 
