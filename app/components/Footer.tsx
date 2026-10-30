@@ -64,6 +64,9 @@ export default function Footer() {
             >
               Facebook ↗
             </a>
+            <a href={contactLinks.instagram} target="_blank" rel="noopener noreferrer">
+              Instagram ↗
+            </a>
           </div>
         </div>
         <div className="footer-bottom">
