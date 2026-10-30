@@ -5,7 +5,7 @@ const category = catalog.find((c) => c.slug === "laptops")!;
 export const metadata: Metadata = {
   title: "Business Laptops Sourcing in Toronto | Toronto Gadgets",
   description:
-    "The right devices for office, hybrid and mobile teams. Toronto-based B2B sourcing with quote-based pricing. Request a listed model, a custom configuration, or your own item.",
+    "Source business laptops for office, hybrid and mobile teams in Toronto. Request a quote for your models, specifications and quantities, or get help choosing.",
   alternates: { canonical: "https://torontogadgets.com/laptops" },
 };
 export default function Page() {

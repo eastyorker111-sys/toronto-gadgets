@@ -5,7 +5,7 @@ const category = catalog.find((c) => c.slug === "servers")!;
 export const metadata: Metadata = {
   title: "Enterprise Servers Sourcing in Toronto | Toronto Gadgets",
   description:
-    "Rack and tower servers for infrastructure projects. Toronto-based B2B sourcing with quote-based pricing. Request a listed model, a custom configuration, or your own item.",
+    "Source rack and tower servers for your business in Toronto. Request a quote for your configuration and quantity, or send your own model and requirements.",
   alternates: { canonical: "https://torontogadgets.com/servers" },
 };
 export default function Page() {

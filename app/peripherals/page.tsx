@@ -5,7 +5,7 @@ const category = catalog.find((c) => c.slug === "peripherals")!;
 export const metadata: Metadata = {
   title: "Peripherals Sourcing in Toronto | Toronto Gadgets",
   description:
-    "Monitors, docks, printers and meeting-room equipment to complete your setup. Toronto-based B2B sourcing with quote-based pricing. Request a listed model, a custom configuration, or your own item.",
+    "Source business monitors, docks, printers and meeting-room equipment in Toronto. Request a quote with your models, quantities and compatibility needs.",
   alternates: { canonical: "https://torontogadgets.com/peripherals" },
 };
 export default function Page() {

@@ -5,7 +5,7 @@ const category = catalog.find((c) => c.slug === "network")!;
 export const metadata: Metadata = {
   title: "Network Equipment Sourcing in Toronto | Toronto Gadgets",
   description:
-    "Switches, access points and security equipment for connected businesses. Toronto-based B2B sourcing with quote-based pricing. Request a listed model, a custom configuration, or your own item.",
+    "Source switches, access points and network security equipment in Toronto. Request a B2B quote with your models, quantities and connection requirements.",
   alternates: { canonical: "https://torontogadgets.com/network" },
 };
 export default function Page() {
