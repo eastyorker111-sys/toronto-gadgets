@@ -41,6 +41,8 @@ export default function QuoteForm({
     },
   ]);
   const nextId = useRef(2);
+  const requestId = useRef<string | null>(null);
+  const inFlight = useRef(false);
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
@@ -56,8 +58,11 @@ export default function QuoteForm({
     .join("\n\n");
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (status === "sending") return;
+    if (inFlight.current) return;
+    inFlight.current = true;
+    requestId.current ??= `TG-${crypto.randomUUID()}`;
     const data = new FormData(event.currentTarget);
+    data.set("request_id", requestId.current);
     data.set("items", itemSummary);
     setStatus("sending");
     try {
@@ -70,6 +75,8 @@ export default function QuoteForm({
       setStatus(response.ok && result.ok === true ? "success" : "error");
     } catch {
       setStatus("error");
+    } finally {
+      inFlight.current = false;
     }
   }
   if (status === "success")
@@ -327,6 +334,11 @@ export default function QuoteForm({
         <summary>Review your item list ({items.length})</summary>
         <pre>{itemSummary}</pre>
       </details>
+      <p className="field-help">
+        We use your details to handle this request through our form and email providers.
+        This does not subscribe you to marketing. Please do not include passwords or payment card details.
+        {" "}<a href="/privacy">Read our privacy information</a>.
+      </p>
       <p className="field-help">
         Submitting asks us to prepare a quote. It does not place an order. Final
         specifications, pricing, delivery and manufacturer warranty where
