@@ -1,6 +1,8 @@
 "use client";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import catalog from "../data/catalog.json";
+import { prepareQuote } from "../lib/quote-draft";
+import { measure } from "../lib/measurement";
 
 type Item = {
   id: number;
@@ -42,10 +44,11 @@ export default function QuoteForm({
   ]);
   const nextId = useRef(2);
   const requestId = useRef<string | null>(null);
-  const inFlight = useRef(false);
-  const [status, setStatus] = useState<
-    "idle" | "sending" | "success" | "error"
-  >("idle");
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  const [draft, setDraft] = useState<ReturnType<typeof prepareQuote> | null>(null);
+  const [copyMessage, setCopyMessage] = useState("");
+  const started = useRef(false);
   const update = (id: number, patch: Partial<Item>) =>
     setItems((current) =>
       current.map((item) => (item.id === id ? { ...item, ...patch } : item)),
@@ -56,68 +59,43 @@ export default function QuoteForm({
         `${i + 1}. Category: ${catalog.find((c) => c.slug === item.category)?.title ?? "Other / unsure"}\nItem: ${item.choice === "custom" ? item.model : item.choice === "unsure" ? "Please recommend options" : item.choice}\nQuantity: ${item.quantity}\nSpecifications / product link / use case: ${item.specs}`,
     )
     .join("\n\n");
-  async function submit(event: FormEvent<HTMLFormElement>) {
+  function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (inFlight.current) return;
-    inFlight.current = true;
     requestId.current ??= `TG-${crypto.randomUUID()}`;
     const data = new FormData(event.currentTarget);
-    data.set("request_id", requestId.current);
-    data.set("items", itemSummary);
-    setStatus("sending");
-    try {
-      const response = await fetch("https://formspree.io/f/mdaeqapz", {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-      const result = await response.json();
-      setStatus(response.ok && result.ok === true ? "success" : "error");
-    } catch {
-      setStatus("error");
-    } finally {
-      inFlight.current = false;
-    }
+    const fields = Object.fromEntries(Array.from(data.entries()).map(([key, value]) => [key, String(value)]));
+    setDraft(prepareQuote(requestId.current, itemSummary, fields));
+    setCopyMessage("");
+    measure("quote_request_prepared");
   }
-  if (status === "success")
-    return (
-      <div className="quote-success" role="status">
-        <p className="eyebrow">REQUEST RECEIVED</p>
-        <h2>Thanks for sharing your requirements.</h2>
-        <p>
-          Your quote request was submitted successfully. We’ll review it and
-          reply using the contact details you provided.
-        </p>
-        <p>This is a sourcing enquiry, not an order or a payment.</p>
-        <a className="button" href="/contact">
-          Start another request
-        </a>
-      </div>
-    );
+  async function copyDraft() {
+    if (!draft) return;
+    try { await navigator.clipboard.writeText(draft.text); setCopyMessage("Copied. Paste this full request into WhatsApp, then press Send."); }
+    catch { setCopyMessage("Copy was unavailable. Select the full request below and copy it manually."); }
+  }
   return (
+    <div>
+    {draft && <section className="quote-success quote-form" aria-label="Review your WhatsApp request">
+      <p className="eyebrow">REQUEST PREPARED — NOT SENT</p>
+      <h2>Review, then send in WhatsApp.</h2>
+      <p>We receive your request only after you press Send in WhatsApp. The number is shared across our businesses; keep “Toronto Gadgets” and the reference in your message.</p>
+      <label htmlFor="prepared-request">Your complete request</label>
+      <textarea id="prepared-request" rows={14} readOnly value={draft.text} onFocus={(event) => event.currentTarget.select()} />
+      {draft.needsPaste && <p>Your list is too long for a WhatsApp link. Copy the complete request, open WhatsApp, then paste it into the chat and press Send. The link includes only your reference.</p>}
+      <button type="button" className="secondary-button" onClick={copyDraft}>Copy complete request</button>
+      <p role="status">{copyMessage}</p>
+      <a className="button" href={draft.url} target="_blank" rel="noopener noreferrer" data-quote-handoff="true" onClick={() => measure("whatsapp_handoff")}>Open WhatsApp to send ↗</a>
+      <button type="button" className="secondary-button" onClick={() => setDraft(null)}>Edit request</button>
+      <p>This is an enquiry, not an order or payment. If WhatsApp is unavailable, copy the request into an email to <a href="mailto:torontogadgets1001@gmail.com">torontogadgets1001@gmail.com</a>.</p>
+    </section>}
     <form
       className="quote-form"
-      data-clarity-mask="true"
-      action="https://formspree.io/f/mdaeqapz"
-      method="POST"
+      hidden={!!draft}
       onSubmit={submit}
+      onFocus={() => { if (!started.current) { measure("quote_start"); started.current = true; } }}
     >
-      <input
-        type="hidden"
-        name="_subject"
-        value="Toronto Gadgets — B2B sourcing request"
-      />
-      <input type="hidden" name="items" value={itemSummary} />
-      <div className="form-trap" aria-hidden="true">
-        <label htmlFor="company-website">Leave this field empty</label>
-        <input
-          id="company-website"
-          name="_gotcha"
-          tabIndex={-1}
-          autoComplete="off"
-        />
-      </div>
-      <fieldset disabled={status === "sending"} className="quote-fields">
+      <noscript><p>Enable JavaScript to prepare a request, or contact <a href="https://wa.me/14372376895">Toronto Gadgets on WhatsApp</a> or email torontogadgets1001@gmail.com.</p></noscript>
+      <fieldset className="quote-fields">
         <legend>1. What do you need?</legend>
         <p className="field-help">
           Choose an example model, enter your own item, or ask us to suggest
@@ -251,7 +229,7 @@ export default function QuoteForm({
           </p>
         )}
       </fieldset>
-      <fieldset disabled={status === "sending"} className="quote-fields">
+      <fieldset className="quote-fields">
         <legend>2. Where should it go?</legend>
         <div className="field-row">
           <div>
@@ -284,7 +262,7 @@ export default function QuoteForm({
           placeholder="Budget and currency, new or refurbished preference, alternatives, warranty requirements, or additional items."
         />
       </fieldset>
-      <fieldset disabled={status === "sending"} className="quote-fields">
+      <fieldset className="quote-fields">
         <legend>3. How can we reach you?</legend>
         <div className="field-row">
           <div>
@@ -298,13 +276,12 @@ export default function QuoteForm({
             />
           </div>
           <div>
-            <label htmlFor="email">Email *</label>
+            <label htmlFor="email">Email (optional)</label>
             <input
               id="email"
               type="email"
               name="email"
               autoComplete="email"
-              required
               maxLength={250}
             />
           </div>
@@ -335,29 +312,19 @@ export default function QuoteForm({
         <pre>{itemSummary}</pre>
       </details>
       <p className="field-help">
-        We use your details to handle this request through our form and email providers.
+        Your draft stays on this page until you choose to open WhatsApp or copy it. WhatsApp receives the prepared text when you open the link; press Send there to deliver it to us.
         This does not subscribe you to marketing. Please do not include passwords or payment card details.
         {" "}<a href="/privacy">Read our privacy information</a>.
       </p>
       <p className="field-help">
-        Submitting asks us to prepare a quote. It does not place an order. Final
+        Sending your request in WhatsApp asks us to prepare a quote. It does not place an order. Final
         specifications, pricing, delivery and manufacturer warranty where
         applicable are confirmed before you proceed.
       </p>
-      {status === "error" && (
-        <p className="form-error" role="alert">
-          We couldn’t confirm submission. Your entries are still here. Please
-          try again, or email torontogadgets1001@gmail.com or call +1 (437)
-          237-6895.
-        </p>
-      )}
-      <button
-        type="submit"
-        className="button submit-quote"
-        disabled={status === "sending"}
-      >
-        {status === "sending" ? "Sending request…" : "Send quote request ↗"}
+      <button type="submit" className="button submit-quote" disabled={!ready}>
+        Review WhatsApp request ↗
       </button>
     </form>
+    </div>
   );
 }

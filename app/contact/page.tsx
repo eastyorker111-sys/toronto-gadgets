@@ -75,7 +75,8 @@ export default async function ContactPage(
           </p>
           <h3>What happens next?</h3>
           <ol>
-            <li>We review your requirements.</li>
+            <li>Review your draft and send it in WhatsApp.</li>
+            <li>We receive your message and review your requirements.</li>
             <li>We clarify specifications if needed.</li>
             <li>You receive a quote to review.</li>
           </ol>
