@@ -16,7 +16,7 @@ export function clearAnalyticsCookies() {
   }
 }
 export function setMeasurementConsent(accept: boolean) {
-  allowed = accept && !privacySignal();
+  allowed = accept && !privacySignal() && !window.location.pathname.startsWith('/tg-networking/account');
   disabled(!allowed);
   const w = window as TrackingWindow;
   if (!allowed) {

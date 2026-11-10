@@ -41,6 +41,7 @@ export default function Analytics() {
     return () => { window.removeEventListener("storage", sync); document.removeEventListener("click", clicks); };
   }, []);
   useEffect(() => {
+    if (ready) setMeasurementConsent(choice === "accepted");
     if (!ready || choice !== "accepted") { lastPage.current = ""; return; }
     if (lastPage.current !== pathname) { measure("page_view"); lastPage.current = pathname; }
   }, [pathname, choice, ready]);

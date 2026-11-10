@@ -63,13 +63,14 @@ export default { async fetch(request,env) {
       const row=await env.DB.prepare('SELECT profile,revision,status,network_status FROM supplier_accounts WHERE id=?').bind(body.id).first();
       if(!row||row.revision!==body.revision) return json({error:'Profile changed. Sync and review again.'},409);
       const p=JSON.parse(row.profile);
-      if(body.status==='Approved'&&(!body.evidenceChecked||body.evidenceChecked.length<10||!p.b2bConfirmed)) return json({error:'Record independently checked B2B evidence before approval.'},400);
+      if(body.status==='Approved'&&(typeof body.evidenceChecked!=='string'||body.evidenceChecked.length<10||!p.b2bConfirmed)) return json({error:'Record independently checked B2B evidence before approval.'},400);
       if(body.networkStatus==='Approved'&&(!p.networkOptIn||body.status!=='Approved')) return json({error:'Network approval requires supplier approval and network consent.'},400);
       const now=new Date().toISOString();
-      await env.DB.batch([
+      const reviewResult=await env.DB.batch([
         env.DB.prepare('UPDATE supplier_accounts SET status=?,network_status=?,review_note=?,reviewed_by=?,reviewed_at=?,evidence_checked=?,revision=revision+1,updated_at=? WHERE id=? AND revision=?').bind(body.status,body.networkStatus,body.note,body.reviewer.slice(0,100),now,String(body.evidenceChecked||'').slice(0,1500),now,body.id,body.revision),
         env.DB.prepare('INSERT INTO supplier_events VALUES (?,?,?,?,?)').bind(crypto.randomUUID(),body.id,'Owner review',now,JSON.stringify({status:body.status,networkStatus:body.networkStatus,reviewer:body.reviewer}))
       ]);
+      if(reviewResult[0].meta.changes!==1) return json({error:'Profile changed. Sync and review again.'},409);
       return json({ok:true});
     }
     return json({error:'Not found'},404);
