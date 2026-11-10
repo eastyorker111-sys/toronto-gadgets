@@ -1582,13 +1582,11 @@ button:disabled {
 .privacy-copy { max-width:850px; padding-bottom:80px; }
 .privacy-copy h2 { font-size:24px; margin:28px 0 12px; }
 .privacy-copy p { line-height:1.7; margin:12px 0; }
-.tg-gold{color:#90651f;font-weight:600}
-.site-footer .tg-gold{color:#ecd8a8}
 .network-nav{white-space:nowrap}
 .network-intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:60px;align-items:start;margin:30px 0 70px}
 .network-intro p,.networking-page p,.supplier-portal p{max-width:75ch;line-height:1.65}
 .network-intro h1{margin:15px 0}
-.network-note{background:#e1e7e2;padding:28px;border-left:4px solid #90651f;margin:24px 0}
+.network-note{background:#e1e7e2;padding:28px;border-left:4px solid #3d6666;margin:24px 0}
 .network-note h2{font-size:25px;margin:0 0 12px}
 .network-note p{margin:10px 0}
 .network-process ol{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding-left:24px;margin:30px 0 65px}
