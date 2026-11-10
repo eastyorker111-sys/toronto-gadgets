@@ -80,7 +80,7 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
   if(action==='update') {
     const profile=validateProfile(body.profile);
     const old=JSON.parse(account.profile);
-    const tradeData=(p:Record<string,any>)=>JSON.stringify(Object.fromEntries(Object.entries(p).filter(([k])=>!['networkOptIn','enquiryOptIn'].includes(k)).sort(([a],[b])=>a.localeCompare(b))));
+    const tradeData=(p:Record<string,any>)=>JSON.stringify(Object.fromEntries(Object.entries(p).filter(([k])=>!['networkOptIn','enquiryOptIn','reminderOptIn'].includes(k)).sort(([a],[b])=>a.localeCompare(b))));
     const changed=tradeData(old)!==tradeData(profile);
     const status=changed?'Pending review':account.status;
     const network=profile.networkOptIn?(changed||!old.networkOptIn?'Requested':account.network_status):(old.networkOptIn?'Withdrawn':account.network_status);

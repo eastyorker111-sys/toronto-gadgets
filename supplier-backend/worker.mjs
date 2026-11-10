@@ -41,10 +41,10 @@ export default { async fetch(request,env) {
       await env.DB.prepare('UPDATE supplier_market_requests SET synced=1 WHERE id=?').bind(body.id).run();return json({ok:true});
     }
     if(path==='/crm/reminders') {
-      const r=await env.DB.prepare("SELECT u.id,u.account_id,u.created_at,a.email FROM supplier_uploads u JOIN supplier_accounts a ON a.id=u.account_id WHERE u.created_at<=? AND u.status IN ('Approved','Pending review') AND u.reminder_state='Pending' AND a.status='Approved' ORDER BY u.created_at LIMIT 50").bind(new Date(Date.now()-30*86400000).toISOString()).all();return json({reminders:r.results});
+      const r=await env.DB.prepare("SELECT u.id,u.account_id,u.created_at,a.email FROM supplier_uploads u JOIN supplier_accounts a ON a.id=u.account_id WHERE u.created_at<=? AND u.status='Approved' AND u.share_with_members=1 AND u.reminder_state='Pending' AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 AND COALESCE(json_extract(a.profile,'$.reminderOptIn'),1)=1 ORDER BY u.created_at LIMIT 50").bind(new Date(Date.now()-30*86400000).toISOString()).all();return json({reminders:r.results});
     }
     if(path==='/crm/reminder-claim') {
-      const r=await env.DB.prepare("UPDATE supplier_uploads SET reminder_state='Sending' WHERE id=? AND reminder_state='Pending' AND status IN ('Approved','Pending review') AND created_at<=?").bind(body.id,new Date(Date.now()-30*86400000).toISOString()).run();return json({claimed:r.meta.changes===1});
+      const r=await env.DB.prepare("UPDATE supplier_uploads SET reminder_state='Sending' WHERE id=? AND reminder_state='Pending' AND status='Approved' AND share_with_members=1 AND created_at<=? AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1 AND COALESCE(json_extract(profile,'$.reminderOptIn'),1)=1)").bind(body.id,new Date(Date.now()-30*86400000).toISOString()).run();return json({claimed:r.meta.changes===1});
     }
     if(path==='/crm/reminder-result') {
       if(!['Sent','Needs manual review'].includes(body.state)) return json({error:'Invalid result'},400);

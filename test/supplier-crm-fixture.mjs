@@ -1,0 +1,17 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {randomUUID} from 'node:crypto';
+const backend='https://toronto-gadgets-supplier-portal.east-yorker111.workers.dev',origin='https://torontogadgets.com',keys=JSON.parse(fs.readFileSync('.env.portal-private.json'));
+async function db(statements){const r=await fetch(backend+'/query',{method:'POST',headers:{Authorization:'Bearer '+keys.apiKey,'Content-Type':'application/json'},body:JSON.stringify({statements})});assert.equal(r.status,200);return(await r.json()).results;}
+async function api(action,data,cookie=''){const r=await fetch(origin+'/api/suppliers',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({action,...data})});const d=await r.json();assert.equal(r.status,200,JSON.stringify(d));return {data:d,cookie:r.headers.get('set-cookie')?.split(';')[0]};}
+if(process.argv.includes('--cleanup')){
+ const f=JSON.parse(fs.readFileSync('.env.crm-test.json'));
+ for(const id of f.accounts) await db([{sql:'DELETE FROM supplier_market_requests WHERE account_id=? OR stock_id IN (SELECT s.id FROM supplier_stock s JOIN supplier_uploads u ON u.id=s.upload_id WHERE u.account_id=?)',params:[id,id]},{sql:'DELETE FROM supplier_stock WHERE upload_id IN (SELECT id FROM supplier_uploads WHERE account_id=?)',params:[id]},{sql:'DELETE FROM supplier_uploads WHERE account_id=?',params:[id]},{sql:'DELETE FROM supplier_sessions WHERE account_id=?',params:[id]},{sql:'DELETE FROM supplier_events WHERE account_id=?',params:[id]},{sql:'DELETE FROM supplier_accounts WHERE id=?',params:[id]}]);console.log('Removed only CRM fixture portal records. Google test rows/file need separate cleanup.');
+}else{
+ const suffix=randomUUID(),p={businessName:'TEST ONLY - integration verification',contactName:'Test fixture',location:'Toronto, Canada',evidence:'https://example.com',products:'TEST ONLY server',regions:'Canada',tradeTerms:'Test only; no sale',warranty:'Test only',businessType:'B2B reseller',supplyModel:'Stocked',categories:['Servers'],conditions:['New'],b2bConfirmed:true,privacyAccepted:true,enquiryOptIn:false,networkOptIn:true,reminderOptIn:false};
+ const a=await api('register',{email:`test-supplier-${suffix}@example.test`,password:'Temporary-test-account-2026',profile:p});const b=await api('register',{email:`test-buyer-${suffix}@example.test`,password:'Temporary-test-account-2026',profile:{...p,businessName:'TEST ONLY - buyer verification'}});
+ const ids=[a.data.account.id,b.data.account.id];fs.writeFileSync('.env.crm-test.json',JSON.stringify({accounts:ids}));
+ await db(ids.map(id=>({sql:"UPDATE supplier_accounts SET status='Approved',network_status='Approved' WHERE id=?",params:[id]})));
+ const upload=await api('upload',{csv:'sku,product,quantity,condition,city,country,unit_cost,currency\nTEST-ONLY,TEST ONLY server - not for sale,2,New,Toronto,Canada,1,CAD\n',shareWithMembers:true},a.cookie);const uid=upload.data.uploads[0].id;
+ await db([{sql:"UPDATE supplier_uploads SET status='Approved' WHERE id=?",params:[uid]}]);const stock=(await db([{sql:'SELECT id FROM supplier_stock WHERE upload_id=?',params:[uid]}]))[0].results[0].id;
+ const request=await api('request',{stockId:stock,quantity:1,notes:'TEST ONLY - verify CRM connection; no purchase or outreach'},b.cookie);
+ const f={accounts:ids,upload:uid,stock,request:request.data.requests[0].id};fs.writeFileSync('.env.crm-test.json',JSON.stringify(f));console.log(JSON.stringify(f));
+}
