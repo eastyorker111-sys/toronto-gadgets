@@ -25,7 +25,7 @@ export function parseInventory(csv) {
     if(sku==='EXAMPLE-001')throw new Error('Replace the example row with your own stock.');
     if(!/^\d{1,7}$/.test(qty)||!['New','Refurbished','Used'].includes(condition))throw new Error(`Row ${n}: quantity must be a whole number; condition must be New, Refurbished or Used.`);
     if((cost&&!/^\d{1,8}(\.\d{1,2})?$/.test(cost))||!['CAD','USD',''].includes(currency.toUpperCase())||(cost&&!currency))throw new Error(`Row ${n}: check unit cost and currency (CAD or USD).`);
-    if(/@|https?:|www\.|\b\d[\d ()+.-]{7,}\d\b/i.test(product))throw new Error(`Row ${n}: remove contact details or links from the product description.`);
+    if([product,city,country].some(v=>/@|https?:|www\.|\b\d[\d ()+.-]{7,}\d\b/i.test(v)))throw new Error(`Row ${n}: remove contact details or links from shared product and location fields.`);
     skus.add(sku.toLowerCase());
     return {sku,product,quantity:Number(qty),condition,city,country,unitCost:cost?Number(cost):null,currency:currency.toUpperCase()};
   });

@@ -1618,5 +1618,23 @@ button:disabled {
 .stock-table th,.stock-table td{text-align:left;vertical-align:top;padding:16px 12px;border-bottom:1px solid #a6b4af}
 .stock-table th{background:#e1e7e2}.stock-table .secondary-button{font-size:14px;padding:9px}
 .upload-history{padding-left:24px}.upload-history li{margin:12px 0}
+.member-hub{margin:32px 0;padding:30px;background:#edf0ed;border:1px solid #cad7cf;border-radius:12px}.hub-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.hub-heading h2{margin:8px 0 24px}.hub-choices{display:grid;grid-template-columns:1fr 1fr;gap:24px}.hub-choices section{padding:28px;background:white;border:1px solid #b8c7be;border-top:4px solid #9b814b;border-radius:8px}.hub-choices h3{font-size:27px;margin:0 0 12px}.hub-choices p{margin-bottom:22px}.hub-private{border-top:1px solid #cbd8cf;padding-top:22px;margin-top:30px;font-size:15px}.network-workflow{background:white;padding:25px;border:1px solid #cbd8cf;border-radius:8px}.network-workflow .quote-form{max-width:none}.network-workflow fieldset{border:1px solid #cbd8cf;padding:22px;margin:20px 0}.network-workflow legend{font-weight:600;padding:0 8px}.csv-steps h3{margin-top:28px}.csv-steps input{display:block;margin:15px 0}.member-hub button:disabled{opacity:.5;cursor:not-allowed}.member-hub .portal-tabs{flex-wrap:wrap}.member-hub .network-note{margin:20px 0}.network-workflow .stock-table{font-size:14px}.member-hub .stock-search{max-width:100%}@media(max-width:760px){.member-hub{padding:18px}.hub-choices{grid-template-columns:1fr}.network-workflow{padding:16px}.hub-heading{display:block}.member-hub .portal-tabs button{flex:1 1 45%;font-size:14px}.network-workflow .supplier-fields{grid-template-columns:1fr}}
 @media(max-width:1050px){.desktop-nav{gap:16px;font-size:14px}}
 @media(max-width:760px){.network-intro,.network-bottom,.network-process ol,.supplier-fields,.supplier-checks{grid-template-columns:1fr;gap:24px}.network-intro{margin-bottom:35px}.network-process ol{padding-left:24px}.network-note{padding:22px}.supplier-portal h1{font-size:38px}}
+.member-hub,.network-workflow{scroll-margin-top:125px}.membership-status{margin:12px 0 20px}
+
+/* Compact member sign-in: keep credentials and action together. */
+.supplier-portal:has(.portal-auth-login){padding-top:24px;padding-bottom:36px}
+.supplier-portal:has(.portal-auth-login)>h1{font-size:32px;margin:0 auto 14px;max-width:520px;line-height:1.2}
+.portal-auth-login{max-width:520px;margin:0 auto}
+.portal-auth-login>p{margin:0 0 12px;font-size:14px}
+.portal-auth-login .portal-tabs{gap:8px;margin:0 0 16px}
+.portal-auth-login .portal-tabs button{padding:10px 12px;font-size:14px;min-height:42px}
+.portal-auth-login .portal-profile{background:#fff;border:1px solid #cad7cf;border-radius:10px;padding:22px}
+.portal-auth-login .portal-profile>summary{font-size:23px;margin:0;list-style:none;pointer-events:none}
+.portal-auth-login .portal-profile>summary::-webkit-details-marker{display:none}
+.supplier-portal .portal-auth-login .quote-form{margin:16px 0 0}
+.portal-auth-login .quote-form label{margin:0 0 14px}
+.portal-auth-login .quote-form input{display:block;margin-top:6px}
+.portal-auth-login .quote-form>.button{width:100%;margin-top:2px}
+@media(max-width:600px){.supplier-portal:has(.portal-auth-login){padding-top:18px}.supplier-portal:has(.portal-auth-login)>h1{font-size:27px}.portal-auth-login .portal-profile{padding:18px}.portal-auth-login .portal-tabs{gap:6px}.portal-auth-login .portal-tabs button{padding:9px;font-size:13px}}

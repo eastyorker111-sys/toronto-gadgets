@@ -17,7 +17,7 @@ export function validateProfile(input) {
   if (!Array.isArray(input.categories) || !input.categories.length || input.categories.some(c => !categories.includes(c))) throw new Error('Select at least one product category.');
   if (!['Stocked', 'Sourced to order', 'Both'].includes(input.supplyModel)) throw new Error('Choose your supply model.');
   if (!Array.isArray(input.conditions) || !input.conditions.length || input.conditions.some(c => !['New','Refurbished','Used'].includes(c))) throw new Error('Select the conditions you supply.');
-  return {...p, businessType:input.businessType, categories:[...new Set(input.categories)], conditions:[...new Set(input.conditions)], supplyModel:input.supplyModel, b2bConfirmed:true, privacyAccepted:true, enquiryOptIn:input.enquiryOptIn === true, networkOptIn:input.networkOptIn === true, reminderOptIn:input.reminderOptIn !== false, policyVersion};
+  return {...p, businessType:input.businessType, categories:[...new Set(input.categories)], conditions:[...new Set(input.conditions)], supplyModel:input.supplyModel, b2bConfirmed:true, privacyAccepted:true, enquiryOptIn:input.enquiryOptIn === true, networkOptIn:input.networkOptIn === true, reminderOptIn:input.reminderOptIn !== false, networkAlertsOptIn:input.networkAlertsOptIn === true, policyVersion};
 }
 export function cleanEmail(value) {
   if (typeof value !== 'string' || value.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) throw new Error('Enter a valid business contact email.');
@@ -27,3 +27,4 @@ export function validatePassword(value) {
   if (typeof value !== 'string' || value.length < 12 || value.length > 128) throw new Error('Use a password between 12 and 128 characters.');
   return value;
 }
+

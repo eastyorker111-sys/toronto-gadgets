@@ -30,7 +30,7 @@ export async function rateLimit(identity:string,limit:number) {
 }
 export async function accountForSession(session:string|undefined) {
   if(!session||session.length>100) return null;
-  return (await query('SELECT a.* FROM supplier_accounts a JOIN supplier_sessions s ON s.account_id=a.id WHERE s.token_hash=? AND s.expires_at>?',[digest(session),Date.now()]))[0]||null;
+  return (await query("SELECT a.* FROM supplier_accounts a JOIN supplier_sessions s ON s.account_id=a.id WHERE s.token_hash=? AND s.expires_at>? AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1",[digest(session),Date.now()]))[0]||null;
 }
 export function publicAccount(a:Row) {return {id:a.id,email:a.email,profile:JSON.parse(a.profile),status:a.status,networkStatus:a.network_status,updatedAt:a.updated_at,reviewNote:a.review_note,crmSynced:a.synced_revision>=a.revision};}
 async function makeSession(id:string) {
@@ -55,7 +55,7 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
       {sql:'INSERT INTO supplier_accounts (id,email,password_hash,recovery_hash,profile,network_status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)',params:[id,email,passwordHash,digest(recoveryCode),JSON.stringify(profile),profile.networkOptIn?'Requested':'Not requested',now,now]},
       {sql:'INSERT INTO supplier_events VALUES (?,?,?,?,?)',params:[token(),id,'Application submitted',now,JSON.stringify({policyVersion:profile.policyVersion,enquiryOptIn:profile.enquiryOptIn,networkOptIn:profile.networkOptIn})]}
     ]);
-    return {session:await makeSession(id),recoveryCode,account:publicAccount((await query('SELECT * FROM supplier_accounts WHERE id=?',[id]))[0])};
+    return {clearSession:true,recoveryCode,applicationId:id,message:'Your application has been submitted to Toronto Gadgets. You cannot sign in until your business and networking membership are approved. We will email you when your account is activated. Save your recovery code privately.'};
   }
   if(action==='login'||action==='recover') {
     const email=cleanEmail(body.email),password=validatePassword(body.password);
@@ -64,6 +64,7 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
     if(action==='login') {
       const valid=await verifyPassword(password,a?.password_hash||`scrypt:missing:${'0'.repeat(128)}`);
       if(!a||!valid) throw new Error('Email or password is incorrect.');
+      if(a.status!=='Approved'||a.network_status!=='Approved'||!JSON.parse(a.profile).networkOptIn)throw new Error('Member sign-in is available only after Toronto Gadgets approves your application. Contact us if you need to update a pending application.');
       return {session:await makeSession(a.id),account:publicAccount(a)};
     }
     if(!a||typeof body.recoveryCode!=='string'||body.recoveryCode.length>100||digest(body.recoveryCode.trim())!==a.recovery_hash) throw new Error('Email or recovery code is incorrect.');
@@ -73,14 +74,15 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
       {sql:'DELETE FROM supplier_sessions WHERE account_id=?',params:[a.id]}
     ]);
     if(result[0].meta.changes!==1) throw new Error('Recovery code has already been used.');
-    return {session:await makeSession(a.id),recoveryCode:replacement,account:publicAccount(a)};
+    const approved=a.status==='Approved'&&a.network_status==='Approved'&&JSON.parse(a.profile).networkOptIn;
+    return approved?{session:await makeSession(a.id),recoveryCode:replacement,account:publicAccount(a)}:{clearSession:true,recoveryCode:replacement,message:'Password updated. Sign-in remains unavailable until your membership is approved.'};
   }
   const account=await accountForSession(session);
   if(!account) throw new Error('Please sign in again.');
   if(action==='update') {
     const profile=validateProfile(body.profile);
     const old=JSON.parse(account.profile);
-    const tradeData=(p:Record<string,any>)=>JSON.stringify(Object.fromEntries(Object.entries(p).filter(([k])=>!['networkOptIn','enquiryOptIn','reminderOptIn'].includes(k)).sort(([a],[b])=>a.localeCompare(b))));
+    const tradeData=(p:Record<string,any>)=>JSON.stringify(Object.fromEntries(Object.entries(p).filter(([k])=>!['networkOptIn','enquiryOptIn','reminderOptIn','networkAlertsOptIn'].includes(k)).sort(([a],[b])=>a.localeCompare(b))));
     const changed=tradeData(old)!==tradeData(profile);
     const status=changed?'Pending review':account.status;
     const network=profile.networkOptIn?(changed||!old.networkOptIn?'Requested':account.network_status):(old.networkOptIn?'Withdrawn':account.network_status);
@@ -94,5 +96,11 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
     const {marketAction}=await import('./supplier-market');
     return marketAction(action,body,account);
   }
+  if(action.startsWith('network-')) {
+    const {networkAction}=await import('./network-server');
+    return networkAction(action,body,account);
+  }
   throw new Error('Unknown action.');
 }
+
+

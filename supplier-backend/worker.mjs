@@ -27,6 +27,47 @@ export default { async fetch(request,env) {
       const requests=await env.DB.prepare('SELECT r.*,a.email AS buyer_email,s.product,s.sku,s.unit_cost,s.currency,u.account_id AS supplier_id FROM supplier_market_requests r JOIN supplier_accounts a ON a.id=r.account_id JOIN supplier_stock s ON s.id=r.stock_id JOIN supplier_uploads u ON u.id=s.upload_id WHERE r.synced=0 ORDER BY r.created_at LIMIT 100').all();
       return json({applications:rows.results.map(r=>({...r,profile:JSON.parse(r.profile)})),uploads:uploads.results,requests:requests.results});
     }
+    if(path==='/crm/activation-emails') {
+      const r=await env.DB.prepare("SELECT m.id,a.email FROM supplier_activation_mail m JOIN supplier_accounts a ON a.id=m.account_id WHERE m.state='Pending' AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 ORDER BY m.created_at LIMIT 50").all();return json({emails:r.results});
+    }
+    if(path==='/crm/activation-email-claim') {
+      const r=await env.DB.prepare("UPDATE supplier_activation_mail SET state='Sending' WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1)").bind(body.id).run();return json({claimed:r.meta.changes===1});
+    }
+    if(path==='/crm/activation-email-result') {
+      if(!['Sent','Needs manual review'].includes(body.state))return json({error:'Invalid result'},400);
+      await env.DB.prepare("UPDATE supplier_activation_mail SET state=? WHERE id=? AND state='Sending'").bind(body.state,body.id).run();return json({ok:true});
+    }
+    if(path==='/crm/network-emails') {
+      const r=await env.DB.prepare("SELECT j.id,a.email,n.post_id,n.kind,n.message FROM network_email_jobs j JOIN supplier_accounts a ON a.id=j.account_id JOIN network_notifications n ON n.id=j.notice_id WHERE j.state='Pending' AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 AND json_extract(a.profile,'$.networkAlertsOptIn')=1 ORDER BY j.created_at LIMIT 50").all();return json({emails:r.results});
+    }
+    if(path==='/crm/network-email-claim') {
+      const r=await env.DB.prepare("UPDATE network_email_jobs SET state='Sending' WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1 AND json_extract(profile,'$.networkAlertsOptIn')=1)").bind(body.id).run();return json({claimed:r.meta.changes===1});
+    }
+    if(path==='/crm/network-email-result') {
+      if(!['Sent','Needs manual review'].includes(body.state))return json({error:'Invalid result'},400);
+      await env.DB.prepare("UPDATE network_email_jobs SET state=? WHERE id=? AND state='Sending'").bind(body.state,body.id).run();return json({ok:true});
+    }
+    if(path==='/crm/network-export') {
+      const posts=await env.DB.prepare('SELECT p.*,a.email,a.profile FROM network_posts p JOIN supplier_accounts a ON a.id=p.account_id WHERE p.revision>p.synced_revision ORDER BY p.created_at LIMIT 100').all();
+      const items=posts.results.length?await env.DB.prepare('SELECT * FROM network_items WHERE post_id IN (SELECT value FROM json_each(?))').bind(JSON.stringify(posts.results.map(p=>p.id))).all():{results:[]};
+      const offers=await env.DB.prepare('SELECT o.*,a.email,i.item_ref,i.product,p.account_id AS requester_id FROM network_offers o JOIN supplier_accounts a ON a.id=o.account_id JOIN network_items i ON i.id=o.item_id JOIN network_posts p ON p.id=o.post_id WHERE o.revision>o.synced_revision ORDER BY o.created_at LIMIT 100').all();
+      return json({posts:posts.results.map(({profile,...p})=>({...p,business_name:JSON.parse(profile).businessName})),items:items.results,offers:offers.results});
+    }
+    if(path==='/crm/network-offer-review') {
+      if(!['Submitted','Under review','Shortlisted','Declined','Availability confirmed'].includes(body.status)||!Number.isInteger(body.revision)||typeof body.reviewer!=='string'||!body.reviewer.trim())return json({error:'Choose a valid offer stage and record the owner/reviewer.'},400);
+      const result=await env.DB.prepare('UPDATE network_offers SET status=?,revision=revision+1 WHERE id=? AND revision=?').bind(body.status,body.id,body.revision).run();
+      if(result.meta.changes!==1)return json({error:'Offer changed. Sync and review the current revision.'},409);
+      return json({ok:true});
+    }
+    if(path==='/crm/network-ack') {
+      if(!['post','offer'].includes(body.kind)||!Number.isInteger(body.revision)||typeof body.id!=='string')return json({error:'Invalid acknowledgement'},400);
+      if(body.kind==='post')await env.DB.prepare('UPDATE network_posts SET synced_revision=? WHERE id=? AND revision=?').bind(body.revision,body.id,body.revision).run();
+      else await env.DB.batch([
+        env.DB.prepare("INSERT OR IGNORE INTO network_notifications (id,account_id,post_id,kind,message,created_at) SELECT 'crm:'||o.id||':'||o.revision,p.account_id,p.id,'Response','A response for '||i.product||' is recorded with TG. Open My posts for quantities.',? FROM network_offers o JOIN network_posts p ON p.id=o.post_id JOIN network_items i ON i.id=o.item_id WHERE o.id=? AND o.revision=? AND o.synced_revision<o.revision").bind(new Date().toISOString(),body.id,body.revision),
+        env.DB.prepare('UPDATE network_offers SET synced_revision=? WHERE id=? AND revision=?').bind(body.revision,body.id,body.revision)
+      ]);
+      return json({ok:true});
+    }
     if(path==='/crm/ack') {
       if(!Array.isArray(body.items)||body.items.length>100) return json({error:'Invalid batch'},400);
       if(body.items.length) await env.DB.batch(body.items.map(x=>env.DB.prepare('UPDATE supplier_accounts SET synced_revision=? WHERE id=? AND revision=?').bind(x.revision,x.id,x.revision)));
@@ -60,18 +101,20 @@ export default { async fetch(request,env) {
       const status=['Pending review','Needs clarification','Approved','Declined','Suspended'];
       const network=['Not requested','Requested','Approved','Declined','Withdrawn'];
       if(!status.includes(body.status)||!network.includes(body.networkStatus)||typeof body.reviewer!=='string'||!body.reviewer.trim()||typeof body.note!=='string'||body.note.length>1000) return json({error:'Invalid review'},400);
-      const row=await env.DB.prepare('SELECT profile,revision,status,network_status FROM supplier_accounts WHERE id=?').bind(body.id).first();
+      const row=await env.DB.prepare('SELECT profile,revision,synced_revision,status,network_status FROM supplier_accounts WHERE id=?').bind(body.id).first();
       if(!row||row.revision!==body.revision) return json({error:'Profile changed. Sync and review again.'},409);
+      if(body.status==='Approved'&&row.synced_revision<row.revision)return json({error:'Capture this application in the CRM before approving and activating access.'},409);
       const p=JSON.parse(row.profile);
       if(body.status==='Approved'&&(typeof body.evidenceChecked!=='string'||body.evidenceChecked.length<10||!p.b2bConfirmed)) return json({error:'Record independently checked B2B evidence before approval.'},400);
       if(body.networkStatus==='Approved'&&(!p.networkOptIn||body.status!=='Approved')) return json({error:'Network approval requires supplier approval and network consent.'},400);
       const now=new Date().toISOString();
       const reviewResult=await env.DB.batch([
         env.DB.prepare('UPDATE supplier_accounts SET status=?,network_status=?,review_note=?,reviewed_by=?,reviewed_at=?,evidence_checked=?,revision=revision+1,updated_at=? WHERE id=? AND revision=?').bind(body.status,body.networkStatus,body.note,body.reviewer.slice(0,100),now,String(body.evidenceChecked||'').slice(0,1500),now,body.id,body.revision),
-        env.DB.prepare('INSERT INTO supplier_events VALUES (?,?,?,?,?)').bind(crypto.randomUUID(),body.id,'Owner review',now,JSON.stringify({status:body.status,networkStatus:body.networkStatus,reviewer:body.reviewer}))
+        env.DB.prepare('INSERT INTO supplier_events VALUES (?,?,?,?,?)').bind(crypto.randomUUID(),body.id,'Owner review',now,JSON.stringify({status:body.status,networkStatus:body.networkStatus,reviewer:body.reviewer})),
+        ...(body.status==='Approved'&&body.networkStatus==='Approved'&&(row.status!=='Approved'||row.network_status!=='Approved')?[env.DB.prepare("INSERT OR IGNORE INTO supplier_activation_mail (id,account_id,revision,created_at) SELECT ?,id,revision,? FROM supplier_accounts WHERE id=? AND revision=? AND status='Approved' AND network_status='Approved'").bind(body.id+':active:'+(body.revision+1),now,body.id,body.revision+1)]:[])
       ]);
       if(reviewResult[0].meta.changes!==1) return json({error:'Profile changed. Sync and review again.'},409);
-      return json({ok:true});
+      return json({ok:true,activated:body.status==='Approved'&&body.networkStatus==='Approved'});
     }
     return json({error:'Not found'},404);
   } catch {return json({error:'Supplier service unavailable'},503);} } };
