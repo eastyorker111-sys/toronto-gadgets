@@ -66,6 +66,7 @@ export default function Navigation() {
           >
             About us
           </Link>
+          <Link href="/tg-networking" className="network-nav" aria-current={pathname.startsWith('/tg-networking')?'page':undefined} onClick={close}><span className="tg-gold">TG</span> Networking</Link>
           <Link className="button" href="/contact" onClick={close}>
             Request a quote ↗
           </Link>
@@ -106,6 +107,7 @@ export default function Navigation() {
               {label} ↗
             </Link>
           ))}
+          <Link href="/tg-networking" className="network-nav" onClick={close}><span className="tg-gold">TG</span> Networking</Link>
         </nav>
       )}
     </header>

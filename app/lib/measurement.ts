@@ -44,6 +44,7 @@ export function setMeasurementConsent(accept: boolean) {
   }
 }
 export function measure(name: "page_view" | "quote_start" | "quote_request_prepared" | "whatsapp_handoff" | "contact_click", method?: "email" | "phone" | "whatsapp") {
+  if (window.location.pathname.startsWith('/tg-networking/account')) return;
   if (!allowed || !production() || privacySignal()) return;
   const w = window as TrackingWindow;
   const parameters: Record<string, unknown> = {

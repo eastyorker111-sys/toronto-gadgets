@@ -6,7 +6,12 @@ export const metadata: Metadata = {
 };
 export default function Privacy() {
   return <article className="shell quote-page privacy-copy">
-    <h1>Privacy information</h1><p>Updated November 3, 2026.</p>
+    <h1>Privacy information</h1><p>Updated November 10, 2026.</p>
+    <h2>TG Networking supplier accounts</h2>
+    <p>We collect your business contact details, trade activity, supply terms and participation choices to review your supplier application. Account credentials are stored as salted password hashes; a necessary, secure session cookie keeps you signed in for up to 12 hours. Keep your recovery code private. Contact email ownership is checked during business review; registration does not verify your identity or approve membership.</p>
+    <p>Cloudflare stores private account, inventory and enquiry records for the portal. Original inventory CSV files are filed in our private Google Drive, and application and enquiry records are transferred to our private CRM. Records awaiting transfer remain saved in the portal. These providers, along with Vercel, may process data outside Canada.</p>
+    <p>If you choose to share inventory, approved network members can view reviewed product descriptions, quantities, conditions and general locations. We do not show them your identity, contact details, supply costs or original files. Member requests go to Toronto Gadgets, which checks availability and handles quotations. Remove contact information and sensitive data from inventory descriptions. Shared listings expire 30 days after upload; files and business records are retained for review and recordkeeping.</p>
+    <p>Supplier enquiry contact and optional networking participation are separate preferences you can change in your account. Inventory maintenance reminders relate to the stock you submitted; they are not a general marketing subscription. Group invitations and any public promotion revealing your business need separate agreement. Contact us to close your account or request deletion; we may verify identity and retain records needed for existing transactions or legal obligations.</p>
     <h2>Your enquiry</h2>
     <p>Toronto Gadgets uses the name, company, email, optional phone number, delivery location and equipment requirements you submit to respond to your enquiry and prepare a quote. Please do not send passwords, payment card details or sensitive personal information.</p>
     <h2>Services that handle information</h2>

@@ -29,6 +29,7 @@ export default function Footer() {
             <h3>Toronto Gadgets</h3>
             <Link href="/about">About us</Link>
             <Link href="/services">Sourcing services</Link>
+            <Link href="/tg-networking"><span className="tg-gold">TG</span> Networking</Link>
             <Link href="/blog">Insights</Link>
             <Link href="/privacy">Privacy</Link>
             <Link href="/contact">Request a quote</Link>
