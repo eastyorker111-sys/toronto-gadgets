@@ -1583,8 +1583,9 @@ button:disabled {
 .privacy-copy h2 { font-size:24px; margin:28px 0 12px; }
 .privacy-copy p { line-height:1.7; margin:12px 0; }
 .network-nav{white-space:nowrap;font-size:1.15em}
-.network-nav-tg{color:#59524a}
-.network-nav-label{color:#000}
+.network-brand{display:inline-flex;align-items:center;gap:.35em;color:#000;vertical-align:middle}
+.network-brand img{display:block;width:1.6em;height:auto;flex:none;object-fit:contain}
+.network-nav .network-brand img{width:1.8em}
 .network-intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:60px;align-items:start;margin:30px 0 70px}
 .network-intro p,.networking-page p,.supplier-portal p{max-width:75ch;line-height:1.65}
 .network-intro h1{margin:15px 0}

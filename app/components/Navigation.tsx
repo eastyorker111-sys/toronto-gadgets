@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Brand from "./Brand";
+import NetworkBrand from "./NetworkBrand";
 import catalog from "../data/catalog.json";
 export default function Navigation() {
   const pathname = usePathname();
@@ -66,7 +67,7 @@ export default function Navigation() {
           >
             About us
           </Link>
-          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" aria-current={pathname.startsWith('/tg-networking')?'page':undefined} onClick={close}><span className="network-nav-tg">TG</span> <span className="network-nav-label">Networking</span></Link>
+          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" aria-current={pathname.startsWith('/tg-networking')?'page':undefined} onClick={close}><NetworkBrand /></Link>
           <Link className="button" href="/contact" onClick={close}>
             Request a quote ↗
           </Link>
@@ -107,7 +108,7 @@ export default function Navigation() {
               {label} ↗
             </Link>
           ))}
-          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" onClick={close}><span className="network-nav-tg">TG</span> <span className="network-nav-label">Networking</span></Link>
+          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" onClick={close}><NetworkBrand /></Link>
         </nav>
       )}
     </header>
