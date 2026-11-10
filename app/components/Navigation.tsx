@@ -66,7 +66,7 @@ export default function Navigation() {
           >
             About us
           </Link>
-          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" aria-current={pathname.startsWith('/tg-networking')?'page':undefined} onClick={close}>TG Networking</Link>
+          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" aria-current={pathname.startsWith('/tg-networking')?'page':undefined} onClick={close}><span className="network-nav-tg">TG</span> <span className="network-nav-label">Networking</span></Link>
           <Link className="button" href="/contact" onClick={close}>
             Request a quote ↗
           </Link>
@@ -107,7 +107,7 @@ export default function Navigation() {
               {label} ↗
             </Link>
           ))}
-          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" onClick={close}>TG Networking</Link>
+          <Link href="/tg-networking" className="network-nav" aria-label="TG Networking" onClick={close}><span className="network-nav-tg">TG</span> <span className="network-nav-label">Networking</span></Link>
         </nav>
       )}
     </header>
