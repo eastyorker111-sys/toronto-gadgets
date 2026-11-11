@@ -10,7 +10,8 @@ process.env.SUPPLIER_BACKEND_URL='https://local.invalid';process.env.SUPPLIER_BA
 const {parseInventory}=await import('../app/lib/supplier-csv.mjs');
 const worker=(await import('../supplier-backend/worker.mjs')).default;
 global.fetch=(url,init)=>{assert.ok(String(url).startsWith('https://local.invalid/'),'No external requests in this test');return worker.fetch(new Request(url,init),env)};
-const {networkAction,networkDashboard}=require('../app/lib/network-server.ts'),{marketAction,dashboard}=require('../app/lib/supplier-market.ts');
+const {networkAction,networkDashboard}=require('../app/lib/network-server.ts'),{marketAction:rawMarketAction,dashboard}=require('../app/lib/supplier-market.ts');
+const marketAction=(action,body,account)=>rawMarketAction(action,action==='upload'?{expectedUploadId:db.prepare('SELECT id FROM supplier_uploads WHERE account_id=? ORDER BY created_at DESC,id DESC LIMIT 1').get(account.id)?.id||'',...body}:body,account);
 const {csvText,templates,parseNetworkCSV,downloadTemplate}=await import('../app/lib/network-csv.mjs');
 const a={id:'buyer',email:'buyer@example.test',status:'Approved',network_status:'Approved',profile:JSON.stringify({networkOptIn:true,businessName:'Test buyer'})},b={...a,id:'supplier',email:'supplier@example.test'},c={...a,id:'outsider',status:'Pending review',email:'outsider@example.test'};
 for(const x of [a,b,c])db.prepare('INSERT INTO supplier_accounts (id,email,password_hash,recovery_hash,profile,status,network_status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?)').run(x.id,x.email,'unused','unused',x.profile,x.status,x.network_status,new Date().toISOString(),new Date().toISOString());
@@ -53,12 +54,21 @@ const activated=await perform('login',{email:'applicant@example.test',password:'
 assert.equal(db.prepare('SELECT token_hash FROM supplier_email_verifications WHERE account_id=?').get(application.applicationId).token_hash,'','Single-use token erased');
 await crm('activation-email-result',{id:mail[0].id,state:'Sent'});assert.equal((await crm('activation-emails')).emails.length,0);
 await perform('resend-activation',{email:'applicant@example.test',password:'Local-only-passphrase-2026'},undefined,'test');assert.equal((await crm('activation-emails')).emails.length,1,'Explicit resend works after the original revision was sent');
+const pendingResend=(await crm('activation-emails')).emails[0];
+await crm('activation-email-claim',{id:pendingResend.id});
+db.prepare('UPDATE supplier_activation_mail SET claimed_at=? WHERE id=?').run(new Date(Date.now()-31*60000).toISOString(),pendingResend.id);
+const health=await crm('mail-health');assert.equal(health.jobs.find(j=>j.id===pendingResend.id).state,'Needs manual review');assert.equal((await crm('activation-email-claim',{id:pendingResend.id})).claimed,false,'Uncertain delivery must not resend automatically');
 db.prepare("UPDATE supplier_accounts SET status='Suspended' WHERE id=?").run(application.applicationId);assert.equal(await accountForSession(activated.session),null,'Suspension revokes access');
 const exportData=await crm('network-export');assert.equal(exportData.offers[0].email,b.email,'CRM receives private supplier contact');assert.equal(exportData.items.length,1);
 const offered=exportData.offers[0];await crm('network-ack',{kind:'offer',id:offered.id,revision:1});assert.equal((await networkDashboard(a)).myPosts[0].offered,0,'Stale ack cannot publish newer offer');
 await crm('network-ack',{kind:'offer',id:offered.id,revision:offered.revision});await crm('network-ack',{kind:'offer',id:offered.id,revision:offered.revision});
 assert.equal((await networkDashboard(a)).myPosts[0].offered,40);assert.equal((await networkDashboard(a)).notifications.filter(n=>n.kind==='Response').length,1,'Ack retry does not duplicate notification');
 assert.equal((await networkDashboard(a)).myOffers.length,0,'Requester cannot see supplier offers/prices');
+assert.equal((await networkDashboard(a)).myPosts[0].confirmed,0,'Submitted offers are not confirmed availability');
+await crm('network-offer-review',{id:offered.id,revision:offered.revision,status:'Availability confirmed',reviewer:'Owner test'});
+await crm('network-ack',{kind:'offer',id:offered.id,revision:offered.revision+1});
+assert.equal((await networkDashboard(a)).myPosts[0].confirmed,40);assert.ok((await networkDashboard(a)).notifications.some(n=>n.message.includes('Availability confirmed')));
+
 await assert.rejects(()=>networkAction('network-offer',{rows:[{...offer,quantity:51}]},b),/quantity/);
 await assert.rejects(()=>networkAction('network-close',{id:visible.post_id},b),/does not belong/);
 await networkAction('network-close',{id:visible.post_id},a);await assert.rejects(()=>networkAction('network-offer',{rows:[offer]},b),/no longer open/);
@@ -76,6 +86,7 @@ for(let i=0;i<45;i++)db.prepare('INSERT INTO supplier_stock (id,upload_id,sku,pr
 const page1=await marketplace(a,{q:'Paging fixture'}),page2=await marketplace(a,{q:'Paging fixture',stockPage:'2'}),page3=await marketplace(a,{q:'Paging fixture',stockPage:'3'});
 assert.equal(page1.stockTotal,45);assert.equal(page1.listings.length,20);assert.equal(page2.listings.length,20);assert.equal(page3.listings.length,5);assert.equal(new Set([...page1.listings,...page2.listings,...page3.listings].map(r=>r.id)).size,45);
 db.prepare("DELETE FROM supplier_stock WHERE product='Paging fixture'").run();
+await assert.rejects(()=>marketAction('upload',{csv:inventory,shareWithMembers:true,expectedUploadId:'stale-version'},b),/another window/);
 assert.equal((await dashboard(b)).myStock[0].unit_cost,250);assert.equal((await dashboard(b)).myStock[0].id,(await dashboard(b)).listings[0].id,'Own private cost matches displayed listing');
 assert.equal((await dashboard(a)).myStock.length,0);
 for(const key of ['unit_cost','sku','account_id','email'])assert.equal((await dashboard(a)).listings[0][key],undefined);

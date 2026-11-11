@@ -1,7 +1,7 @@
 -- Additive migration. Preserve existing accounts, inventory, enquiries and Gmail CRM.
 CREATE TABLE IF NOT EXISTS supplier_activation_mail (
  id TEXT PRIMARY KEY,account_id TEXT NOT NULL REFERENCES supplier_accounts(id),revision INTEGER NOT NULL,
- state TEXT NOT NULL DEFAULT 'Pending',created_at TEXT NOT NULL,UNIQUE(account_id,revision)
+ state TEXT NOT NULL DEFAULT 'Pending',created_at TEXT NOT NULL,claimed_at TEXT,UNIQUE(account_id,revision)
 );
 CREATE TABLE IF NOT EXISTS network_posts (
  id TEXT PRIMARY KEY, account_id TEXT NOT NULL REFERENCES supplier_accounts(id),
@@ -31,7 +31,7 @@ CREATE INDEX IF NOT EXISTS network_posts_account ON network_posts(account_id,cre
 CREATE INDEX IF NOT EXISTS network_items_post ON network_items(post_id);
 CREATE INDEX IF NOT EXISTS network_offers_item ON network_offers(item_id);
 CREATE INDEX IF NOT EXISTS network_notices_account ON network_notifications(account_id,created_at);
-CREATE TABLE IF NOT EXISTS network_email_jobs (id TEXT PRIMARY KEY,notice_id TEXT NOT NULL UNIQUE REFERENCES network_notifications(id),account_id TEXT NOT NULL REFERENCES supplier_accounts(id),state TEXT NOT NULL DEFAULT 'Pending',created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS network_email_jobs (id TEXT PRIMARY KEY,notice_id TEXT NOT NULL UNIQUE REFERENCES network_notifications(id),account_id TEXT NOT NULL REFERENCES supplier_accounts(id),state TEXT NOT NULL DEFAULT 'Pending',created_at TEXT NOT NULL,claimed_at TEXT);
 CREATE TRIGGER IF NOT EXISTS network_notice_email AFTER INSERT ON network_notifications BEGIN
  INSERT INTO network_email_jobs (id,notice_id,account_id,created_at)
  SELECT NEW.id,NEW.id,NEW.account_id,NEW.created_at FROM supplier_accounts

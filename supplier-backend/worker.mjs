@@ -16,6 +16,18 @@ export default { async fetch(request,env) {
     if(request.method!=='POST') return json({error:'Method not allowed'},405);
     const raw=await request.text(); if(raw.length>1000000) return json({error:'Too large'},413);
     const body=JSON.parse(raw);
+    if(path==='/crm/mail-health') {
+      // A crashed sender is held for review, never silently resent: delivery may
+      // already have happened before the acknowledgement was lost.
+      const cutoff=new Date(Date.now()-30*60*1000).toISOString();
+      await env.DB.batch([
+        env.DB.prepare("UPDATE supplier_activation_mail SET state='Needs manual review' WHERE state='Sending' AND COALESCE(claimed_at,created_at)<?").bind(cutoff),
+        env.DB.prepare("UPDATE network_email_jobs SET state='Needs manual review' WHERE state='Sending' AND COALESCE(claimed_at,created_at)<?").bind(cutoff),
+        env.DB.prepare("UPDATE supplier_uploads SET reminder_state='Needs manual review' WHERE reminder_state='Sending' AND COALESCE(reminder_claimed_at,created_at)<?").bind(cutoff)
+      ]);
+      const jobs=await env.DB.prepare("SELECT 'Activation' AS kind,id,state,created_at,claimed_at FROM supplier_activation_mail WHERE state<>'Sent' UNION ALL SELECT 'Network update',id,state,created_at,claimed_at FROM network_email_jobs WHERE state<>'Sent' UNION ALL SELECT 'Inventory reminder',id,reminder_state,created_at,reminder_claimed_at FROM supplier_uploads WHERE reminder_state IN ('Sending','Needs manual review') ORDER BY created_at LIMIT 500").all();
+      return json({jobs:jobs.results});
+    }
     if(path==='/query') {
       if(!Array.isArray(body.statements)||body.statements.length>20) return json({error:'Invalid batch'},400);
       const results=await env.DB.batch(body.statements.map(s=>env.DB.prepare(s.sql).bind(...(s.params||[]))));
@@ -31,7 +43,7 @@ export default { async fetch(request,env) {
       const r=await env.DB.prepare("SELECT m.id,a.email FROM supplier_activation_mail m JOIN supplier_accounts a ON a.id=m.account_id WHERE m.state='Pending' AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 ORDER BY m.created_at LIMIT 50").all();return json({emails:r.results});
     }
     if(path==='/crm/activation-email-claim') {
-      const r=await env.DB.prepare("UPDATE supplier_activation_mail SET state='Sending' WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1)").bind(body.id).run();
+      const r=await env.DB.prepare("UPDATE supplier_activation_mail SET state='Sending',claimed_at=? WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1)").bind(new Date().toISOString(),body.id).run();
       if(r.meta.changes!==1)return json({claimed:false});
       const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('');
       const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))),b=>b.toString(16).padStart(2,'0')).join('');
@@ -46,7 +58,7 @@ export default { async fetch(request,env) {
       const r=await env.DB.prepare("SELECT j.id,a.email,n.post_id,n.kind,n.message FROM network_email_jobs j JOIN supplier_accounts a ON a.id=j.account_id JOIN network_notifications n ON n.id=j.notice_id WHERE j.state='Pending' AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 AND json_extract(a.profile,'$.networkAlertsOptIn')=1 ORDER BY j.created_at LIMIT 50").all();return json({emails:r.results});
     }
     if(path==='/crm/network-email-claim') {
-      const r=await env.DB.prepare("UPDATE network_email_jobs SET state='Sending' WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1 AND json_extract(profile,'$.networkAlertsOptIn')=1)").bind(body.id).run();return json({claimed:r.meta.changes===1});
+      const r=await env.DB.prepare("UPDATE network_email_jobs SET state='Sending',claimed_at=? WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1 AND json_extract(profile,'$.networkAlertsOptIn')=1)").bind(new Date().toISOString(),body.id).run();return json({claimed:r.meta.changes===1});
     }
     if(path==='/crm/network-email-result') {
       if(!['Sent','Needs manual review'].includes(body.state))return json({error:'Invalid result'},400);
@@ -68,7 +80,7 @@ export default { async fetch(request,env) {
       if(!['post','offer'].includes(body.kind)||!Number.isInteger(body.revision)||typeof body.id!=='string')return json({error:'Invalid acknowledgement'},400);
       if(body.kind==='post')await env.DB.prepare('UPDATE network_posts SET synced_revision=? WHERE id=? AND revision=?').bind(body.revision,body.id,body.revision).run();
       else await env.DB.batch([
-        env.DB.prepare("INSERT OR IGNORE INTO network_notifications (id,account_id,post_id,kind,message,created_at) SELECT 'crm:'||o.id||':'||o.revision,p.account_id,p.id,'Response','A response for '||i.product||' is recorded with TG. Open My posts for quantities.',? FROM network_offers o JOIN network_posts p ON p.id=o.post_id JOIN network_items i ON i.id=o.item_id WHERE o.id=? AND o.revision=? AND o.synced_revision<o.revision").bind(new Date().toISOString(),body.id,body.revision),
+        env.DB.prepare("INSERT OR IGNORE INTO network_notifications (id,account_id,post_id,kind,message,created_at) SELECT 'crm:'||o.id||':'||o.revision,p.account_id,p.id,'Response',CASE WHEN o.status='Submitted' THEN 'A response for '||i.product||' is recorded with TG. Open My posts for quantities.' ELSE 'TG review for '||i.product||': '||o.status||'. Open My posts for quantities.' END,? FROM network_offers o JOIN network_posts p ON p.id=o.post_id JOIN network_items i ON i.id=o.item_id WHERE o.id=? AND o.revision=? AND o.synced_revision<o.revision").bind(new Date().toISOString(),body.id,body.revision),
         env.DB.prepare('UPDATE network_offers SET synced_revision=? WHERE id=? AND revision=?').bind(body.revision,body.id,body.revision)
       ]);
       return json({ok:true});
@@ -90,7 +102,7 @@ export default { async fetch(request,env) {
       const r=await env.DB.prepare("SELECT u.id,u.account_id,u.created_at,a.email FROM supplier_uploads u JOIN supplier_accounts a ON a.id=u.account_id WHERE u.created_at<=? AND u.status='Approved' AND u.share_with_members=1 AND u.reminder_state='Pending' AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 AND COALESCE(json_extract(a.profile,'$.reminderOptIn'),1)=1 ORDER BY u.created_at LIMIT 50").bind(new Date(Date.now()-30*86400000).toISOString()).all();return json({reminders:r.results});
     }
     if(path==='/crm/reminder-claim') {
-      const r=await env.DB.prepare("UPDATE supplier_uploads SET reminder_state='Sending' WHERE id=? AND reminder_state='Pending' AND status='Approved' AND share_with_members=1 AND created_at<=? AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1 AND COALESCE(json_extract(profile,'$.reminderOptIn'),1)=1)").bind(body.id,new Date(Date.now()-30*86400000).toISOString()).run();return json({claimed:r.meta.changes===1});
+      const r=await env.DB.prepare("UPDATE supplier_uploads SET reminder_state='Sending',reminder_claimed_at=? WHERE id=? AND reminder_state='Pending' AND status='Approved' AND share_with_members=1 AND created_at<=? AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1 AND COALESCE(json_extract(profile,'$.reminderOptIn'),1)=1)").bind(new Date().toISOString(),body.id,new Date(Date.now()-30*86400000).toISOString()).run();return json({claimed:r.meta.changes===1});
     }
     if(path==='/crm/reminder-result') {
       if(!['Sent','Needs manual review'].includes(body.state)) return json({error:'Invalid result'},400);
