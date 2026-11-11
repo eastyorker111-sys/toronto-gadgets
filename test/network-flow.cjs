@@ -22,7 +22,7 @@ await assert.rejects(()=>networkAction('network-post',{rows:[row],submissionKey:
 const key=randomUUID();await networkAction('network-post',{rows:[row],submissionKey:key},a);await networkAction('network-post',{rows:[row],submissionKey:key},a);
 assert.equal(db.prepare('SELECT COUNT(*) n FROM network_posts').get().n,1,'Retry does not duplicate requirement');
 assert.equal((await networkDashboard(a)).networkItems[0].own,1,'Own requirements visible and labelled');assert.equal((await networkDashboard(c)).networkItems.length,0,'Unapproved cannot browse');
-const visible=(await networkDashboard(b)).networkItems[0];for(const privateKey of ['account_id','email','businessName','unit_cost'])assert.equal(visible[privateKey],undefined);
+const visible=(await networkDashboard(b)).networkItems[0];assert.deepEqual(Object.keys(visible).sort(),['id','post_id','item_ref','product','specifications','quantity','condition','city','country','needed_by','partial_allowed','title','created_at','own'].sort(),'Shared requirement uses an explicit safe field list');for(const privateKey of ['account_id','email','businessName','unit_cost'])assert.equal(visible[privateKey],undefined);
 assert.equal((await networkDashboard(b)).notifications.length,1);assert.equal((await networkDashboard(c)).notifications.length,0);
 await assert.rejects(()=>networkAction('network-edit',{id:visible.post_id,revision:1,rows:[row]},b),/changed or is closed/);
 await networkAction('network-edit',{id:visible.post_id,revision:1,rows:[{...row,specifications:'Updated exact specifications'}]},a);
@@ -65,6 +65,7 @@ const moqCsv=inventory.replace('unit_cost,currency','unit_cost,currency,minimum_
 assert.equal((await dashboard(b)).myStock[0].unit_cost,250);assert.equal((await dashboard(b)).myStock[0].id,(await dashboard(b)).listings[0].id,'Own private cost matches displayed listing');
 assert.equal((await dashboard(a)).myStock.length,0);
 for(const key of ['unit_cost','sku','account_id','email'])assert.equal((await dashboard(a)).listings[0][key],undefined);
+const viewerData=await dashboard(a);assert.equal(viewerData.uploads.length,0,'Another supplier original uploads are not returned');assert.equal(viewerData.myOffers.length,0,'Other supplier offers are not returned');assert.deepEqual(Object.keys(viewerData.listings[0]).sort(),['id','product','quantity','minimum_quantity','condition','city','country','updatedAt','own'].sort(),'Shared stock uses only approved public fields');const otherNotice=(await networkDashboard(b)).notifications[0];await networkAction('network-read',{id:otherNotice.id},a);assert.equal((await networkDashboard(b)).notifications[0].read_at,null,'Cannot mark another member notification read');
 const ownStockId=(await dashboard(b)).listings[0].id;await assert.rejects(()=>marketAction('request',{stockId:ownStockId,quantity:1,notes:''},b),/no longer available/);
 db.prepare("UPDATE supplier_uploads SET created_at=? WHERE status='Approved'").run(new Date(Date.now()-31*86400000).toISOString());assert.equal((await dashboard(a)).listings.length,0,'30-day visibility enforced');
 const bulkRows=Array.from({length:25},(_,n)=>({...row,item_ref:'BULK-'+n}));
