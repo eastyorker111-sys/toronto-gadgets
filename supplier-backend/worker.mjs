@@ -25,8 +25,9 @@ export default { async fetch(request,env) {
         env.DB.prepare("UPDATE network_email_jobs SET state='Needs manual review' WHERE state='Sending' AND COALESCE(claimed_at,created_at)<?").bind(cutoff),
         env.DB.prepare("UPDATE supplier_uploads SET reminder_state='Needs manual review' WHERE reminder_state='Sending' AND COALESCE(reminder_claimed_at,created_at)<?").bind(cutoff)
       ]);
-      const jobs=await env.DB.prepare("SELECT 'Activation' AS kind,id,state,created_at,claimed_at FROM supplier_activation_mail WHERE state<>'Sent' UNION ALL SELECT 'Network update',id,state,created_at,claimed_at FROM network_email_jobs WHERE state<>'Sent' UNION ALL SELECT 'Inventory reminder',id,reminder_state,created_at,reminder_claimed_at FROM supplier_uploads WHERE reminder_state IN ('Sending','Needs manual review') ORDER BY created_at LIMIT 500").all();
-      return json({jobs:jobs.results});
+      const jobs=await env.DB.prepare("SELECT 'Activation' AS kind,id,state,created_at,claimed_at FROM supplier_activation_mail WHERE state<>'Sent' UNION ALL SELECT 'Network update',id,state,created_at,claimed_at FROM network_email_jobs WHERE state<>'Sent' UNION ALL SELECT 'Inventory reminder',id,reminder_state,created_at,reminder_claimed_at FROM supplier_uploads WHERE reminder_state IN ('Sending','Needs manual review') ORDER BY created_at,id LIMIT 501").all();
+      // One extra row proves truncation; never let a partial list imply delivery.
+      return json({jobs:jobs.results.slice(0,500),complete:jobs.results.length<=500});
     }
     if(path==='/query') {
       if(!Array.isArray(body.statements)||body.statements.length>20) return json({error:'Invalid batch'},400);

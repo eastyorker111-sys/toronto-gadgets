@@ -98,6 +98,11 @@ await networkAction('network-post',{rows:bulkRows,submissionKey:randomUUID()},a)
 const bulk=(await networkDashboard(a)).myPosts.find(p=>p.item_ref==='BULK-0');
 await networkAction('network-edit',{id:bulk.id,revision:1,rows:bulkRows.map(r=>({...r,quantity:7}))},a);
 assert.equal((await networkDashboard(a)).myPosts.filter(p=>p.id===bulk.id&&p.quantity===7).length,25,'Bulk edit stays within backend statement limit');
+// A bounded health result must never let the CRM resolve omitted pending mail.
+for(let n=0;n<501;n++)db.prepare('INSERT INTO supplier_activation_mail (id,account_id,revision,created_at) VALUES (?,?,?,?)').run('health-overflow-'+n,a.id,100000+n,'2020-01-01T00:00:00.000Z');
+const overflow=await crm('mail-health');assert.equal(overflow.jobs.length,500);assert.equal(overflow.complete,false);
+db.prepare("DELETE FROM supplier_activation_mail WHERE id LIKE 'health-overflow-%'").run();
+assert.equal((await crm('mail-health')).complete,true,'A complete bounded response is explicit');
 console.log('PASS: strict CSVs, member gates, privacy, requirement retry, partial responses, CRM revision acknowledgements, notification deduplication, ownership, close-race guard, direct inventory and expiry. No external access.');
 if(process.argv.includes('--serve')){
  const http=require('node:http');
