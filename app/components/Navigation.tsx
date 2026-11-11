@@ -16,7 +16,7 @@ export default function Navigation() {
   };
   return (
     <header
-      className="site-header"
+      className={pathname.startsWith('/tg-networking/account')?'site-header portal-header':'site-header'}
       onKeyDown={(event) => {
         if (event.key === "Escape" && open) {
           close();
