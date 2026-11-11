@@ -52,6 +52,7 @@ await assert.rejects(()=>perform('login',{email:'applicant@example.test',passwor
 const activated=await perform('login',{email:'applicant@example.test',password:'Local-only-passphrase-2026',emailVerificationToken:claim.verificationToken},undefined,'test');assert.ok(activated.session);assert.ok(await accountForSession(activated.session));
 assert.equal(db.prepare('SELECT token_hash FROM supplier_email_verifications WHERE account_id=?').get(application.applicationId).token_hash,'','Single-use token erased');
 await crm('activation-email-result',{id:mail[0].id,state:'Sent'});assert.equal((await crm('activation-emails')).emails.length,0);
+await perform('resend-activation',{email:'applicant@example.test',password:'Local-only-passphrase-2026'},undefined,'test');assert.equal((await crm('activation-emails')).emails.length,1,'Explicit resend works after the original revision was sent');
 db.prepare("UPDATE supplier_accounts SET status='Suspended' WHERE id=?").run(application.applicationId);assert.equal(await accountForSession(activated.session),null,'Suspension revokes access');
 const exportData=await crm('network-export');assert.equal(exportData.offers[0].email,b.email,'CRM receives private supplier contact');assert.equal(exportData.items.length,1);
 const offered=exportData.offers[0];await crm('network-ack',{kind:'offer',id:offered.id,revision:1});assert.equal((await networkDashboard(a)).myPosts[0].offered,0,'Stale ack cannot publish newer offer');

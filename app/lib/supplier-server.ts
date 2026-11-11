@@ -68,7 +68,7 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
       if(a.status!=='Approved'||a.network_status!=='Approved'||!JSON.parse(a.profile).networkOptIn)throw new Error('Member sign-in is available only after Toronto Gadgets approves your application. Contact us if you need to update a pending application.');
       if(action==='resend-activation') {
         await rateLimit(`activation:${a.id}`,3);
-        await query("INSERT OR IGNORE INTO supplier_activation_mail (id,account_id,revision,created_at) SELECT ?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM supplier_activation_mail WHERE account_id=? AND state IN ('Pending','Sending'))",[`${a.id}:resend:${Math.floor(Date.now()/300000)}`,a.id,a.revision,now,a.id]);
+        await query("INSERT OR IGNORE INTO supplier_activation_mail (id,account_id,revision,created_at) SELECT ?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM supplier_activation_mail WHERE account_id=? AND state IN ('Pending','Sending'))",[`${a.id}:resend:${Math.floor(Date.now()/300000)}`,a.id,-Date.now(),now,a.id]);
         return {message:'An activation email is queued, or is already being processed. Check your inbox and junk folder after the next sync. Contact TG if it does not arrive.'};
       }
       // Password plus the single-use emailed token proves mailbox possession.
