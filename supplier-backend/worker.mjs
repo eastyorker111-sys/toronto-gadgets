@@ -31,7 +31,12 @@ export default { async fetch(request,env) {
       const r=await env.DB.prepare("SELECT m.id,a.email FROM supplier_activation_mail m JOIN supplier_accounts a ON a.id=m.account_id WHERE m.state='Pending' AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 ORDER BY m.created_at LIMIT 50").all();return json({emails:r.results});
     }
     if(path==='/crm/activation-email-claim') {
-      const r=await env.DB.prepare("UPDATE supplier_activation_mail SET state='Sending' WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1)").bind(body.id).run();return json({claimed:r.meta.changes===1});
+      const r=await env.DB.prepare("UPDATE supplier_activation_mail SET state='Sending' WHERE id=? AND state='Pending' AND account_id IN (SELECT id FROM supplier_accounts WHERE status='Approved' AND network_status='Approved' AND json_extract(profile,'$.networkOptIn')=1)").bind(body.id).run();
+      if(r.meta.changes!==1)return json({claimed:false});
+      const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('');
+      const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))),b=>b.toString(16).padStart(2,'0')).join('');
+      const verified=await env.DB.prepare("UPDATE supplier_email_verifications SET token_hash=?,expires_at=? WHERE account_id=(SELECT account_id FROM supplier_activation_mail WHERE id=?) AND verified_at=''").bind(hash,Date.now()+72*60*60*1000,body.id).run();
+      return json({claimed:true,...(verified.meta.changes===1?{verificationToken:token}:{})});
     }
     if(path==='/crm/activation-email-result') {
       if(!['Sent','Needs manual review'].includes(body.state))return json({error:'Invalid result'},400);

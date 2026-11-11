@@ -1,11 +1,12 @@
 import {NextRequest,NextResponse} from 'next/server';
 import {accountForSession,perform,publicAccount,sessionCookie} from '../../lib/supplier-server';
 import {dashboard} from '../../lib/supplier-market';
+import {marketplace} from '../../lib/marketplace';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const headers={'Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow'};
 export async function GET(request:NextRequest) {
-  try {const account=await accountForSession(request.cookies.get(sessionCookie)?.value);return NextResponse.json({account:account?publicAccount(account):null,...(account?await dashboard(account):{})},{headers});}
+  try {const account=await accountForSession(request.cookies.get(sessionCookie)?.value);if(request.nextUrl.searchParams.get('market')==='1'){if(!account)return NextResponse.json({error:'Sign in required.'},{status:401,headers});return NextResponse.json(await marketplace(account,Object.fromEntries(request.nextUrl.searchParams)),{headers});}return NextResponse.json({account:account?publicAccount(account):null,...(account?await dashboard(account):{})},{headers});}
   catch {return NextResponse.json({error:'Supplier accounts are temporarily unavailable.'},{status:503,headers});}
 }
 export async function POST(request:NextRequest) {

@@ -30,7 +30,7 @@ export async function rateLimit(identity:string,limit:number) {
 }
 export async function accountForSession(session:string|undefined) {
   if(!session||session.length>100) return null;
-  return (await query("SELECT a.* FROM supplier_accounts a JOIN supplier_sessions s ON s.account_id=a.id WHERE s.token_hash=? AND s.expires_at>? AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1",[digest(session),Date.now()]))[0]||null;
+  return (await query("SELECT a.* FROM supplier_accounts a JOIN supplier_sessions s ON s.account_id=a.id WHERE s.token_hash=? AND s.expires_at>? AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 AND NOT EXISTS (SELECT 1 FROM supplier_email_verifications v WHERE v.account_id=a.id AND v.verified_at='')",[digest(session),Date.now()]))[0]||null;
 }
 export function publicAccount(a:Row) {return {id:a.id,email:a.email,profile:JSON.parse(a.profile),status:a.status,networkStatus:a.network_status,updatedAt:a.updated_at,reviewNote:a.review_note,crmSynced:a.synced_revision>=a.revision};}
 async function makeSession(id:string) {
@@ -53,18 +53,33 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
     const id=`TG-S-${randomBytes(12).toString('hex')}`,recoveryCode=token(),passwordHash=await hashPassword(password);
     await database([
       {sql:'INSERT INTO supplier_accounts (id,email,password_hash,recovery_hash,profile,network_status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)',params:[id,email,passwordHash,digest(recoveryCode),JSON.stringify(profile),profile.networkOptIn?'Requested':'Not requested',now,now]},
+      {sql:'INSERT INTO supplier_email_verifications (account_id) VALUES (?)',params:[id]},
       {sql:'INSERT INTO supplier_events VALUES (?,?,?,?,?)',params:[token(),id,'Application submitted',now,JSON.stringify({policyVersion:profile.policyVersion,enquiryOptIn:profile.enquiryOptIn,networkOptIn:profile.networkOptIn})]}
     ]);
     return {clearSession:true,recoveryCode,applicationId:id,message:'Your application has been submitted to Toronto Gadgets. You cannot sign in until your business and networking membership are approved. We will email you when your account is activated. Save your recovery code privately.'};
   }
-  if(action==='login'||action==='recover') {
+  if(action==='login'||action==='recover'||action==='resend-activation') {
     const email=cleanEmail(body.email),password=validatePassword(body.password);
     await rateLimit(`login:${email}`,10);
     const a=(await query('SELECT * FROM supplier_accounts WHERE email=?',[email]))[0];
-    if(action==='login') {
+    if(action==='login'||action==='resend-activation') {
       const valid=await verifyPassword(password,a?.password_hash||`scrypt:missing:${'0'.repeat(128)}`);
       if(!a||!valid) throw new Error('Email or password is incorrect.');
       if(a.status!=='Approved'||a.network_status!=='Approved'||!JSON.parse(a.profile).networkOptIn)throw new Error('Member sign-in is available only after Toronto Gadgets approves your application. Contact us if you need to update a pending application.');
+      if(action==='resend-activation') {
+        await rateLimit(`activation:${a.id}`,3);
+        await query("INSERT OR IGNORE INTO supplier_activation_mail (id,account_id,revision,created_at) SELECT ?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM supplier_activation_mail WHERE account_id=? AND state IN ('Pending','Sending'))",[`${a.id}:resend:${Math.floor(Date.now()/300000)}`,a.id,a.revision,now,a.id]);
+        return {message:'An activation email is queued, or is already being processed. Check your inbox and junk folder after the next sync. Contact TG if it does not arrive.'};
+      }
+      // Password plus the single-use emailed token proves mailbox possession.
+      // GET/link scanners cannot verify an account or create a session.
+      const verification=(await query('SELECT verified_at FROM supplier_email_verifications WHERE account_id=?',[a.id]))[0];
+      if(verification&& !verification.verified_at) {
+        const supplied=typeof body.emailVerificationToken==='string'?body.emailVerificationToken:'';
+        if(!/^[a-f0-9]{64}$/.test(supplied))throw Error('Open your activation email link to verify your address, then sign in. Use Resend activation email if needed.');
+        const verified=await database([{sql:"UPDATE supplier_email_verifications SET verified_at=?,token_hash='',expires_at=0 WHERE account_id=? AND verified_at='' AND token_hash=? AND expires_at>?",params:[now,a.id,digest(supplied),Date.now()]}]);
+        if(verified[0].meta.changes!==1)throw Error('This activation link has expired or was replaced. Request another activation email.');
+      }
       return {session:await makeSession(a.id),account:publicAccount(a)};
     }
     if(!a||typeof body.recoveryCode!=='string'||body.recoveryCode.length>100||digest(body.recoveryCode.trim())!==a.recovery_hash) throw new Error('Email or recovery code is incorrect.');
@@ -74,7 +89,8 @@ export async function perform(action:string,body:Row,session:string|undefined,ip
       {sql:'DELETE FROM supplier_sessions WHERE account_id=?',params:[a.id]}
     ]);
     if(result[0].meta.changes!==1) throw new Error('Recovery code has already been used.');
-    const approved=a.status==='Approved'&&a.network_status==='Approved'&&JSON.parse(a.profile).networkOptIn;
+    const unverified=(await query("SELECT account_id FROM supplier_email_verifications WHERE account_id=? AND verified_at=''",[a.id])).length>0;
+    const approved=a.status==='Approved'&&a.network_status==='Approved'&&JSON.parse(a.profile).networkOptIn&&!unverified;
     return approved?{session:await makeSession(a.id),recoveryCode:replacement,account:publicAccount(a)}:{clearSession:true,recoveryCode:replacement,message:'Password updated. Sign-in remains unavailable until your membership is approved.'};
   }
   const account=await accountForSession(session);
