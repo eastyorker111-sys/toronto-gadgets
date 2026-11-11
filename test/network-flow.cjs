@@ -65,6 +65,11 @@ assert.equal((await dashboard(a)).myStock.length,0);
 for(const key of ['unit_cost','sku','account_id','email'])assert.equal((await dashboard(a)).listings[0][key],undefined);
 const ownStockId=(await dashboard(b)).listings[0].id;await assert.rejects(()=>marketAction('request',{stockId:ownStockId,quantity:1,notes:''},b),/no longer available/);
 db.prepare("UPDATE supplier_uploads SET created_at=? WHERE status='Approved'").run(new Date(Date.now()-31*86400000).toISOString());assert.equal((await dashboard(a)).listings.length,0,'30-day visibility enforced');
+const bulkRows=Array.from({length:25},(_,n)=>({...row,item_ref:'BULK-'+n}));
+await networkAction('network-post',{rows:bulkRows,submissionKey:randomUUID()},a);
+const bulk=(await networkDashboard(a)).myPosts.find(p=>p.item_ref==='BULK-0');
+await networkAction('network-edit',{id:bulk.id,revision:1,rows:bulkRows.map(r=>({...r,quantity:7}))},a);
+assert.equal((await networkDashboard(a)).myPosts.filter(p=>p.id===bulk.id&&p.quantity===7).length,25,'Bulk edit stays within backend statement limit');
 console.log('PASS: strict CSVs, member gates, privacy, requirement retry, partial responses, CRM revision acknowledgements, notification deduplication, ownership, close-race guard, direct inventory and expiry. No external access.');
 if(process.argv.includes('--serve')){
  const http=require('node:http');
