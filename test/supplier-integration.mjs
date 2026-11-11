@@ -8,7 +8,7 @@ const ids=[];const suffix=randomUUID();
 async function db(statements){const r=await fetch(backend+'/query',{method:'POST',headers:{Authorization:'Bearer '+keys.apiKey,'Content-Type':'application/json'},body:JSON.stringify({statements})});assert.equal(r.status,200);return (await r.json()).results;}
 async function call(action,data={},cookie='',requestOrigin=origin){const r=await fetch(origin+'/api/suppliers',{method:'POST',headers:{Origin:requestOrigin,'Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({action,...data})});return {status:r.status,data:await r.json(),cookie:r.headers.get('set-cookie')?.split(';')[0]};}
 async function get(cookie=''){const r=await fetch(origin+'/api/suppliers',{headers:{Cookie:cookie}});return r.json();}
-const profile={businessName:'TEST ONLY Trade '+suffix,contactName:'Test contact',location:'Toronto, Canada',evidence:'https://example.com',products:'Servers',regions:'Canada',tradeTerms:'Trade quotes',warranty:'By quotation',businessType:'B2B reseller',supplyModel:'Stocked',categories:['Servers'],conditions:['New'],b2bConfirmed:true,privacyAccepted:true,enquiryOptIn:true,networkOptIn:true};
+const profile={businessName:'TEST ONLY Trade '+suffix,contactName:'Test contact',position:'Owner',phone:'+1 416 555 0100',location:'Toronto, Canada',evidence:'https://example.com',products:'Servers',regions:'Canada',tradeTerms:'Trade quotes',warranty:'By quotation',businessType:'B2B reseller',supplyModel:'Stocked',categories:['Servers'],conditions:['New'],b2bConfirmed:true,privacyAccepted:true,enquiryOptIn:true,networkOptIn:true};
 try{
  assert.equal((await fetch(backend+'/query',{method:'POST',body:'{}'})).status,401);
  assert.equal((await call('register',{},'','https://evil.example')).status,403);
