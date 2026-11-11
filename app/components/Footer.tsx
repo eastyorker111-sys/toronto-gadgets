@@ -43,29 +43,7 @@ export default function Footer() {
             </a>
             <p>
               Toronto, Ontario, Canada
-              <br />
-              M4H 1L4
             </p>
-            <a
-              href={contactLinks.linkedIn}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn ↗
-            </a>
-            <a href={contactLinks.whatsApp} target="_blank" rel="noopener noreferrer">
-              WhatsApp ↗
-            </a>
-            <a href={contactLinks.googleMaps} target="_blank" rel="noopener noreferrer">
-              Google Maps profile ↗
-            </a>
-            <a
-              href="https://www.facebook.com/profile.php?id=61594279006933"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Facebook ↗
-            </a>
             <a href={contactLinks.instagram} target="_blank" rel="noopener noreferrer">
               Instagram ↗
             </a>
