@@ -23,9 +23,16 @@ assert.equal(db.prepare('SELECT COUNT(*) n FROM network_posts').get().n,1,'Retry
 assert.equal((await networkDashboard(a)).networkItems.length,0,'Own posts are separate');assert.equal((await networkDashboard(c)).networkItems.length,0,'Unapproved cannot browse');
 const visible=(await networkDashboard(b)).networkItems[0];for(const privateKey of ['account_id','email','businessName','unit_cost'])assert.equal(visible[privateKey],undefined);
 assert.equal((await networkDashboard(b)).notifications.length,1);assert.equal((await networkDashboard(c)).notifications.length,0);
+await assert.rejects(()=>networkAction('network-edit',{id:visible.post_id,revision:1,rows:[row]},b),/changed or is closed/);
+await networkAction('network-edit',{id:visible.post_id,revision:1,rows:[{...row,specifications:'Updated exact specifications'}]},a);
+assert.equal((await networkDashboard(b)).networkItems[0].specifications,'Updated exact specifications');
+assert.equal((await networkDashboard(a)).myPosts[0].revision,2);
+await assert.rejects(()=>networkAction('network-edit',{id:visible.post_id,revision:1,rows:[row]},a),/changed/);
 const offer={requirement_id:visible.post_id,item_ref:visible.item_ref,quantity:40,unit_price:320,currency:'CAD',condition:'Refurbished',lead_days:7,product_details:'Exact laptop model',terms:'Shipping and tax quoted separately'};
 await assert.rejects(()=>networkAction('network-offer',{rows:[offer]},a),/no longer open/);
 await networkAction('network-offer',{rows:[offer]},b);await networkAction('network-offer',{rows:[offer]},b);
+await assert.rejects(()=>networkAction('network-edit',{id:visible.post_id,revision:2,rows:[row]},a),/Responses have arrived/);
+assert.equal((await networkDashboard(b)).networkItems[0].specifications,'Updated exact specifications');
 assert.equal(db.prepare('SELECT COUNT(*) n FROM network_offers').get().n,1,'Retry updates existing offer');assert.equal((await networkDashboard(a)).myPosts[0].offered,0,'No requester claim before CRM capture');
 const crm=async(route,body={})=>{const r=await worker.fetch(new Request('https://local.invalid/crm/'+route,{method:'POST',headers:{Authorization:'Bearer '+env.CRM_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)}),env);assert.equal(r.status,200);return r.json()};
 const {perform,accountForSession}=require('../app/lib/supplier-server.ts');
@@ -52,6 +59,11 @@ assert.throws(()=>db.prepare('UPDATE network_offers SET quantity=2 WHERE id=?').
 const inventory='sku,product,quantity,condition,city,country,unit_cost,currency\nPRIVATE-SKU,Laptop,25,Refurbished,Toronto,Canada,250,CAD\n';
 await marketAction('upload',{csv:inventory,shareWithMembers:true},b);assert.equal((await dashboard(a)).listings.length,1,'Approved member inventory posts without second review');
 await marketAction('upload',{csv:inventory.replace(',25,',',12,'),shareWithMembers:true},b);assert.equal((await dashboard(a)).listings.length,1,'Replacement hides previous inventory');assert.equal((await dashboard(a)).listings[0].quantity,12);
+assert.equal((await dashboard(b)).listings[0].own,1,'Own stock visible and labelled');
+assert.equal((await dashboard(b)).myStock[0].unit_cost,250);
+assert.equal((await dashboard(a)).myStock.length,0);
+for(const key of ['unit_cost','sku','account_id','email'])assert.equal((await dashboard(a)).listings[0][key],undefined);
+const ownStockId=(await dashboard(b)).listings[0].id;await assert.rejects(()=>marketAction('request',{stockId:ownStockId,quantity:1,notes:''},b),/no longer available/);
 db.prepare("UPDATE supplier_uploads SET created_at=? WHERE status='Approved'").run(new Date(Date.now()-31*86400000).toISOString());assert.equal((await dashboard(a)).listings.length,0,'30-day visibility enforced');
 console.log('PASS: strict CSVs, member gates, privacy, requirement retry, partial responses, CRM revision acknowledgements, notification deduplication, ownership, close-race guard, direct inventory and expiry. No external access.');
 if(process.argv.includes('--serve')){

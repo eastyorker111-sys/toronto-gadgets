@@ -10,7 +10,7 @@ export async function networkDashboard(a:Account){
  const today=new Date().toISOString().slice(0,10);
  const data=await database([
  {sql:"SELECT i.*,p.title,p.created_at FROM network_items i JOIN network_posts p ON p.id=i.post_id JOIN supplier_accounts a ON a.id=p.account_id WHERE p.status='Open' AND i.needed_by>=? AND p.account_id<>? AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 ORDER BY p.created_at DESC LIMIT 500",params:[today,a.id]},
- {sql:"SELECT p.id,p.title,p.status,p.created_at,i.id AS item_id,i.item_ref,i.product,i.quantity,i.needed_by,COALESCE((SELECT SUM(o.quantity) FROM network_offers o JOIN supplier_accounts s ON s.id=o.account_id WHERE o.item_id=i.id AND o.status<>'Declined' AND o.synced_revision>=o.revision AND s.status='Approved' AND s.network_status='Approved' AND json_extract(s.profile,'$.networkOptIn')=1),0) AS offered FROM network_posts p JOIN network_items i ON i.post_id=p.id WHERE p.account_id=? ORDER BY p.created_at DESC LIMIT 500",params:[a.id]},
+ {sql:"SELECT p.id,p.title,p.status,p.created_at,i.id AS item_id,i.item_ref,i.product,i.quantity,i.needed_by,i.specifications,i.condition,i.city,i.country,i.partial_allowed,p.revision,COALESCE((SELECT SUM(o.quantity) FROM network_offers o JOIN supplier_accounts s ON s.id=o.account_id WHERE o.item_id=i.id AND o.status<>'Declined' AND o.synced_revision>=o.revision AND s.status='Approved' AND s.network_status='Approved' AND json_extract(s.profile,'$.networkOptIn')=1),0) AS offered FROM network_posts p JOIN network_items i ON i.post_id=p.id WHERE p.account_id=? ORDER BY p.created_at DESC LIMIT 500",params:[a.id]},
  {sql:'SELECT o.*,i.product,i.item_ref FROM network_offers o JOIN network_items i ON i.id=o.item_id WHERE o.account_id=? ORDER BY o.created_at DESC LIMIT 500',params:[a.id]},
  {sql:'SELECT id,post_id,kind,message,created_at,read_at FROM network_notifications WHERE account_id=? ORDER BY created_at DESC LIMIT 100',params:[a.id]}
  ]);return {hubEnabled:true,networkItems:data[0].results,myPosts:data[1].results,myOffers:data[2].results,notifications:data[3].results};
@@ -20,6 +20,20 @@ export async function networkAction(action:string,b:Account,a:Account){
  const now=new Date().toISOString();
  if(action==='network-read'){await database([{sql:'UPDATE network_notifications SET read_at=? WHERE id=? AND account_id=?',params:[now,String(b.id),a.id]}]);return {message:'Update marked as read.'};}
  if(action==='network-close'){const r=await database([{sql:"UPDATE network_posts SET status='Closed',revision=revision+1 WHERE id=? AND account_id=? AND status='Open'",params:[String(b.id),a.id]}]);if(!r[0].meta.changes)throw Error('This open post does not belong to your account.');return {message:'Requirement closed. No more offers can be submitted.'};}
+ if(action==='network-edit'){
+ const rows=validateRows('requirements',b.rows);
+ const post=(await database([{sql:'SELECT id,revision,status FROM network_posts WHERE id=? AND account_id=?',params:[String(b.id),a.id]}]))[0].results[0];
+ if(!post||post.status!=='Open'||post.revision!==b.revision)throw Error('This requirement changed or is closed. Refresh before editing.');
+ const existing=(await database([{sql:'SELECT item_ref FROM network_items WHERE post_id=?',params:[post.id]}]))[0].results;
+ if(rows.length!==existing.length||rows.some(r=>!existing.some(i=>i.item_ref===r.item_ref)))throw Error('Keep the existing item references when editing. Create a new requirement for additional items.');
+ const guard="EXISTS (SELECT 1 FROM network_posts p WHERE p.id=network_items.post_id AND p.account_id=? AND p.revision=? AND p.status='Open') AND NOT EXISTS (SELECT 1 FROM network_offers o WHERE o.post_id=network_items.post_id)";
+ const result=await database([
+ ...rows.map(r=>({sql:'UPDATE network_items SET product=?,specifications=?,quantity=?,condition=?,city=?,country=?,needed_by=?,partial_allowed=? WHERE post_id=? AND item_ref=? AND '+guard,params:[r.product,r.specifications,r.quantity,r.condition,r.city,r.country,r.needed_by,r.partial_allowed,post.id,r.item_ref,a.id,b.revision]})),
+ {sql:"UPDATE network_posts SET title=?,revision=revision+1 WHERE id=? AND account_id=? AND revision=? AND status='Open' AND NOT EXISTS (SELECT 1 FROM network_offers WHERE post_id=network_posts.id)",params:[rows[0].product+(rows.length>1?` and ${rows.length-1} more items`:''),post.id,a.id,b.revision]}
+ ]);
+ if(result[result.length-1].meta.changes!==1)throw Error('Responses have arrived or this requirement changed. Close it and post a replacement instead.');
+ return {message:'Requirement updated. The next sync updates the TG CRM.'};
+ }
  if(action==='network-post'){
  const rows=validateRows('requirements',b.rows);if(typeof b.submissionKey!=='string'||!/^[a-f0-9-]{36}$/.test(b.submissionKey))throw Error('Refresh the form before submitting.');
  const prior=(await database([{sql:'SELECT id FROM network_posts WHERE account_id=? AND submission_key=?',params:[a.id,b.submissionKey]}]))[0].results[0];if(prior)return {message:`Requirement ${prior.id} was already saved.`};
