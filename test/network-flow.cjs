@@ -20,7 +20,7 @@ for(const change of [{quantity:'1.5'},{quantity:-1},{needed_by:'2026-02-30'},{pr
 await assert.rejects(()=>networkAction('network-post',{rows:[row],submissionKey:randomUUID()},c),/Approved/);
 const key=randomUUID();await networkAction('network-post',{rows:[row],submissionKey:key},a);await networkAction('network-post',{rows:[row],submissionKey:key},a);
 assert.equal(db.prepare('SELECT COUNT(*) n FROM network_posts').get().n,1,'Retry does not duplicate requirement');
-assert.equal((await networkDashboard(a)).networkItems.length,0,'Own posts are separate');assert.equal((await networkDashboard(c)).networkItems.length,0,'Unapproved cannot browse');
+assert.equal((await networkDashboard(a)).networkItems[0].own,1,'Own requirements visible and labelled');assert.equal((await networkDashboard(c)).networkItems.length,0,'Unapproved cannot browse');
 const visible=(await networkDashboard(b)).networkItems[0];for(const privateKey of ['account_id','email','businessName','unit_cost'])assert.equal(visible[privateKey],undefined);
 assert.equal((await networkDashboard(b)).notifications.length,1);assert.equal((await networkDashboard(c)).notifications.length,0);
 await assert.rejects(()=>networkAction('network-edit',{id:visible.post_id,revision:1,rows:[row]},b),/changed or is closed/);
@@ -60,7 +60,7 @@ const inventory='sku,product,quantity,condition,city,country,unit_cost,currency\
 await marketAction('upload',{csv:inventory,shareWithMembers:true},b);assert.equal((await dashboard(a)).listings.length,1,'Approved member inventory posts without second review');
 await marketAction('upload',{csv:inventory.replace(',25,',',12,'),shareWithMembers:true},b);assert.equal((await dashboard(a)).listings.length,1,'Replacement hides previous inventory');assert.equal((await dashboard(a)).listings[0].quantity,12);
 assert.equal((await dashboard(b)).listings[0].own,1,'Own stock visible and labelled');
-assert.equal((await dashboard(b)).myStock[0].unit_cost,250);
+assert.equal((await dashboard(b)).myStock[0].unit_cost,250);assert.equal((await dashboard(b)).myStock[0].id,(await dashboard(b)).listings[0].id,'Own private cost matches displayed listing');
 assert.equal((await dashboard(a)).myStock.length,0);
 for(const key of ['unit_cost','sku','account_id','email'])assert.equal((await dashboard(a)).listings[0][key],undefined);
 const ownStockId=(await dashboard(b)).listings[0].id;await assert.rejects(()=>marketAction('request',{stockId:ownStockId,quantity:1,notes:''},b),/no longer available/);

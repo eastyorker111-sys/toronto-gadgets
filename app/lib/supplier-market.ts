@@ -8,7 +8,7 @@ export async function dashboard(account:Record<string,any>) {
   const member=account.status==='Approved'&&account.network_status==='Approved'&&JSON.parse(account.profile).networkOptIn;
   const listings=member?(await database([{sql:"SELECT s.id,s.product,s.quantity,s.condition,s.city,s.country,u.created_at AS updatedAt,(a.id=?) AS own FROM supplier_stock s JOIN supplier_uploads u ON u.id=s.upload_id JOIN supplier_accounts a ON a.id=u.account_id WHERE u.status='Approved' AND u.share_with_members=1 AND u.created_at>? AND a.status='Approved' AND a.network_status='Approved' AND json_extract(a.profile,'$.networkOptIn')=1 AND s.quantity>0 ORDER BY u.created_at DESC LIMIT 500",params:[account.id,fresh()]}]))[0].results:[];
   const requests=(await database([{sql:'SELECT id,stock_id,quantity,created_at FROM supplier_market_requests WHERE account_id=? ORDER BY created_at DESC LIMIT 20',params:[account.id]}]))[0].results;
-  const myStock=(await database([{sql:"SELECT s.sku,s.product,s.quantity,s.condition,s.city,s.country,s.unit_cost,s.currency FROM supplier_stock s JOIN supplier_uploads u ON u.id=s.upload_id WHERE u.account_id=? AND u.status IN ('Approved','Pending review') ORDER BY s.sku",params:[account.id]}]))[0].results;
+  const myStock=(await database([{sql:"SELECT s.id,s.sku,s.product,s.quantity,s.condition,s.city,s.country,s.unit_cost,s.currency FROM supplier_stock s JOIN supplier_uploads u ON u.id=s.upload_id WHERE u.account_id=? AND u.status IN ('Approved','Pending review') ORDER BY s.sku",params:[account.id]}]))[0].results;
   return {uploads,listings,requests,member,myStock,...await networkDashboard(account)};
 }
 export async function marketAction(action:string,body:Record<string,any>,account:Record<string,any>) {
