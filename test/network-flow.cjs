@@ -7,6 +7,7 @@ const prepared=(sql,args=[])=>({bind(...values){return prepared(sql,values)},asy
 const env={API_KEY:'local-api-test',CRM_KEY:'local-crm-test',DB:{prepare:prepared,async batch(stmts){db.exec('BEGIN');try{const result=stmts.map(s=>s.execute());db.exec('COMMIT');return result;}catch(e){db.exec('ROLLBACK');throw e;}}}};
 process.env.SUPPLIER_BACKEND_URL='https://local.invalid';process.env.SUPPLIER_BACKEND_KEY=env.API_KEY;process.env.NETWORK_HUB_ENABLED='true';
 (async()=>{
+const {parseInventory}=await import('../app/lib/supplier-csv.mjs');
 const worker=(await import('../supplier-backend/worker.mjs')).default;
 global.fetch=(url,init)=>{assert.ok(String(url).startsWith('https://local.invalid/'),'No external requests in this test');return worker.fetch(new Request(url,init),env)};
 const {networkAction,networkDashboard}=require('../app/lib/network-server.ts'),{marketAction,dashboard}=require('../app/lib/supplier-market.ts');
@@ -60,6 +61,7 @@ const inventory='sku,product,quantity,condition,city,country,unit_cost,currency\
 await marketAction('upload',{csv:inventory,shareWithMembers:true},b);assert.equal((await dashboard(a)).listings.length,1,'Approved member inventory posts without second review');
 await marketAction('upload',{csv:inventory.replace(',25,',',12,'),shareWithMembers:true},b);assert.equal((await dashboard(a)).listings.length,1,'Replacement hides previous inventory');assert.equal((await dashboard(a)).listings[0].quantity,12);
 assert.equal((await dashboard(b)).listings[0].own,1,'Own stock visible and labelled');
+const moqCsv=inventory.replace('unit_cost,currency','unit_cost,currency,minimum_quantity').trim()+',5\n';assert.equal(parseInventory(moqCsv)[0].minimumQuantity,5);assert.throws(()=>parseInventory(moqCsv.replace(',5\n',',0\n')),/minimum quantity/);db.prepare('UPDATE supplier_stock SET minimum_quantity=5 WHERE upload_id IN (SELECT id FROM supplier_uploads WHERE status=?)').run('Approved');const priced=(await dashboard(a)).listings[0];assert.equal(priced.minimum_quantity,5);await assert.rejects(()=>marketAction('request',{stockId:priced.id,quantity:4,notes:'Below minimum'},a),/no longer available/);await marketAction('request',{stockId:priced.id,quantity:5,notes:'At minimum'},a);
 assert.equal((await dashboard(b)).myStock[0].unit_cost,250);assert.equal((await dashboard(b)).myStock[0].id,(await dashboard(b)).listings[0].id,'Own private cost matches displayed listing');
 assert.equal((await dashboard(a)).myStock.length,0);
 for(const key of ['unit_cost','sku','account_id','email'])assert.equal((await dashboard(a)).listings[0][key],undefined);

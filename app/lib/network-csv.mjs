@@ -1,5 +1,5 @@
 export const templates={
- inventory:['sku','product','quantity','condition','city','country','unit_cost','currency'],
+ inventory:['sku','product','quantity','condition','city','country','unit_cost','currency','minimum_quantity'],
  requirements:['item_ref','product','specifications','quantity','condition','city','country','needed_by','partial_allowed'],
  offers:['requirement_id','item_ref','quantity','unit_price','currency','condition','lead_days','product_details','terms']
 };
